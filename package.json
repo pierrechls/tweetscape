@@ -12,7 +12,7 @@
   "author": "Pierre Charles <pierre.chls@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "three": "^0.82.1",
+    "aframe": "^0.3.2",
     "vue": "^2.0.0",
     "vue-router": "^2.0.0",
     "vuex": "^2.0.0",

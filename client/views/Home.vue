@@ -1,48 +1,71 @@
 <template>
   <div class="page">
     <counter></counter>
-    <p>
-      To get started, edit files in <code>./client</code> and save.
-    </p>
+    <a-scene>
+      <a-sphere :position="spherePositionAttr" :radius="sphere.radius" :color="sphere.color"></a-sphere>
+      <a-plane :rotation="planeRotationAttr" :width="plane.dimensions.width" :height="plane.dimensions.height" :color="plane.color"></a-plane>
+      <a-entity :position="cameraPositionAttr">
+        <a-camera></a-camera>
+      </a-entity>
+    </a-scene>
   </div>
 </template>
 
 <script>
-import Counter from '../components/Counter'
-import * as THREE from 'three'
 
-export default {
-  components: {
-    Counter
-  },
-  mounted: () => {
-    console.log('coucou')
-    var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+  import Counter from '../components/Counter'
+  import 'aframe'
 
-var renderer = new THREE.WebGLRenderer();
-renderer.setSize( window.innerWidth, window.innerHeight );
-document.body.appendChild( renderer.domElement );
-
-var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-var cube = new THREE.Mesh( geometry, material );
-scene.add( cube )
-
-var light = new THREE.AmbientLight( 0xffffff ); // soft white light
-scene.add( light );
-
-camera.position.z = 5;
-
-
-
-function render() {
-	requestAnimationFrame( render );
-	renderer.render( scene, camera );
-    cube.rotation.x += 0.05;
-    cube.rotation.y += 0.05;
-}
-render();
+  export default {
+    components: {
+      Counter
+    },
+    data: () => {
+      return {
+        sphere: {
+          position: {
+            x: 1,
+            y: 1,
+            z: -1
+          },
+          radius: 1.25,
+          color: '#EF2D5E'
+        },
+        plane: {
+          dimensions: {
+            width: 10,
+            height: 4
+          },
+          rotation: {
+            x: -90,
+            y: 0,
+            z: 0
+          },
+          color: '#7BC8A4'
+        },
+        camera: {
+          position: {
+            x: 0,
+            y: 1.8,
+            z: 10
+          }
+        }
+      }
+    },
+    computed: {
+      spherePositionAttr () {
+        const pos = this.sphere.position;
+        return `${pos.x} ${pos.y} ${pos.z}`;
+      },
+      cameraPositionAttr () {
+        const pos = this.camera.position;
+        return `${pos.x} ${pos.y} ${pos.z}`;
+      },
+      planeRotationAttr () {
+        const rotation = this.plane.rotation;
+        return `${rotation.x} ${rotation.y} ${rotation.z}`;
+      }
+    }
   }
-}
+
 </script>
