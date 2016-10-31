@@ -8,16 +8,6 @@ const pkg = require('../package')
 const _ = require('./utils')
 const config = require('./config')
 
-if (config.electron) {
-  // remove dist folder in electron mode
-  exec('rm -rf app/assets/')
-} else {
-  // remove dist folder in web app mode
-  exec('rm -rf dist/')
-  // use source-map in web app mode
-  base.devtool = 'source-map'
-}
-
 // a white list to add dependencies to vendor chunk
 base.entry.vendor = config.vendor
 // use hash filename to support long-term caching

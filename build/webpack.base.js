@@ -17,8 +17,10 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.vue', '.css', '.json'],
     alias: {
-      root: path.join(__dirname, '../client'),
-      components: path.join(__dirname, '../client/components')
+      'root': path.join(__dirname, '../client'),
+      'components': path.join(__dirname, '../client/components'),
+      'views': path.join(__dirname, '../client/views'),
+      'store': path.join(__dirname, '../client/store')
     }
   },
   module: {

@@ -13,10 +13,11 @@
 
 <script>
 
-  import Counter from '../components/Counter'
+  import Counter from 'components/Counter'
   import 'aframe'
 
   export default {
+    name: 'Home',
     components: {
       Counter
     },

@@ -1,7 +1,7 @@
 {
   "name": "i-am-in-love-with-webvr",
   "version": "0.1.0",
-  "description": "My Superb Vue Project",
+  "description": "A superb WebVR project",
   "main": "client/index.js",
   "scripts": {
     "test": "echo lol",
