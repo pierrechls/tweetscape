@@ -1,4 +1,4 @@
-# test
+# i-am-in-love-with-webvr
 
 To start:
 
@@ -9,11 +9,9 @@ $ npm install
 To develop:
 
 ```bash
-$ npm run dev```
+$ npm run dev
 
-To build for production:
-
-```bash
+# To build for production:
 $ npm run build
 ```
 
@@ -22,4 +20,3 @@ To lint you code:
 ```bash
 $ npm run lint
 ```
-
