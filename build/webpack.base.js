@@ -20,7 +20,8 @@ module.exports = {
       'root': path.join(__dirname, '../client'),
       'components': path.join(__dirname, '../client/components'),
       'views': path.join(__dirname, '../client/views'),
-      'store': path.join(__dirname, '../client/store')
+      'store': path.join(__dirname, '../client/store'),
+      'utils': path.join(__dirname, '../client/utils')
     }
   },
   module: {
