@@ -1,6 +1,6 @@
 <template>
   <div id="renderer">
-    <a-scene>
+    <a-scene gridhelper="size: 30;">
       <a-sphere :position="spherePositionAttr" :radius="sphere.radius" :color="sphere.color"></a-sphere>
       <a-plane :rotation="planeRotationAttr" :width="plane.dimensions.width" :height="plane.dimensions.height" :color="plane.color"></a-plane>
       <a-entity :position="cameraPositionAttr">

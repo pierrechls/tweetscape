@@ -10,6 +10,7 @@ sync(store, router)
 
 // import aframe
 import 'aframe'
+import 'aframe-gridhelper-component'
 
 const app = new Vue({
   router,

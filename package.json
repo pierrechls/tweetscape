@@ -13,6 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "aframe": "^0.3.2",
+    "aframe-gridhelper-component": "^0.1.1",
     "vue": "^2.0.0",
     "vue-router": "^2.0.0",
     "vuex": "^2.0.0",
