@@ -1,5 +1,5 @@
 <template>
-  <a-entity :position="attributify(position)">
+  <a-entity :position="attributify(position)" :rotation="attributify(rotation)">
     <a-camera></a-camera>
   </a-entity>
 </template>
@@ -10,7 +10,8 @@
   export default {
     name: 'Camera',
     props: {
-      position: Object
+      position: Object,
+      rotation: Object
     },
     methods: {
       attributify

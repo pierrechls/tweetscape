@@ -3,7 +3,7 @@
     <a-scene gridhelper="size: 3000;">
       <a-sphere :position="spherePositionAttr" :radius="sphere.radius" :color="sphere.color"></a-sphere>
       <a-plane :rotation="planeRotationAttr" :width="plane.dimensions.width" :height="plane.dimensions.height" :color="plane.color"></a-plane>
-      <camera :position="camera.position"></camera>
+      <camera :position="camera.position" :rotation="camera.rotation"></camera>
     </a-scene>
   </div>
 </template>
@@ -23,9 +23,14 @@
       return {
         camera: {
           position: {
-            x: 0,
-            y: 1.8,
+            x: 20,
+            y: 30,
             z: 10
+          },
+          rotation: {
+            x: 0,
+            y: 0,
+            z: 0
           }
         },
         paths: [],
