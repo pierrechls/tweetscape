@@ -34,7 +34,11 @@
           }
         },
         paths: [],
-        lastPath: new Vector3D(0,0,0),
+        lastPath: {
+          x: 0,
+          y: 0,
+          z: 0
+        },
         sphere: {
           position: {
             x: 1,
