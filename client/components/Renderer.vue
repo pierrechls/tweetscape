@@ -77,33 +77,29 @@
       }
     },
     methods: {
-      drawPath: () => {
+      drawPath: function () {
         for(let i = 0; i < SimulationParams.path_amount_per_cycle; ++i) {
-          this.paths.push({x: i, y: 2*i, z: i+5})
+          let x = 20*Math.sin(2*i*3.1415926535/180)
+          let y = 30*Math.sin(3*i*3.1415926535/180)
+          let z = -i
+          this.paths.push({x: x, y: y, z: z})
         } 
-
         /*
         For i in MAX_POINTS, draw points following math formulas
          */
       },
-      initLastPath: () => {
+      initLastPath: function () {
+        this.lastPath = this.paths[0]
         // TODO : get paths[0] and paths[1], get coeff_dir, set as base camera rot
-        this.lastPath = Vector3D.slope(this.paths[0], this.paths[1])
       },
-      startSimulation: () => {
-        // TweenMax.to(this.camera.position, 5, {bezier:[{x:1, y:1, z: -25}, {x:0, y:2, z:-15}, {x:-1, y:1, z:-25}, {x:0, y:0, z:-15}, {x:1, y:1, z:-25}], ease: Linear.easeNone, repeat: -1});
+      startSimulation: function () {
+        TweenMax.to(this.camera.position, 20, { bezier: this.paths, ease: Linear.easeNone, repeat: 0 });
       }
     },
     mounted () {
-      setTimeout(function(){
-        this.drawPath()
-        this.initLastPath()
-        this.startSimulation()
-      }.bind(this), 
-      500)
-
-
-      TweenMax.to(this.camera.position, 5, {bezier:[{x:1, y:1, z: -25}, {x:0, y:2, z:-15}, {x:-1, y:1, z:-25}, {x:0, y:0, z:-15}, {x:1, y:1, z:-25}], ease: Linear.easeNone, repeat: -1});
+      this.drawPath()
+      this.initLastPath()
+      this.startSimulation()
     },
     watch: {
       camera: function (camera) {
