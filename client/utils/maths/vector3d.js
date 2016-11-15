@@ -17,8 +17,16 @@ class Vector3D {
     return `${this.x} ${this.y} ${this.z}`
   }
 
+  toObject() {
+    return { x: this.x, y: this.y, z: this.z }
+  }
+
   static slope(p1, p2) {
     return new Vector3D(p2.x - p1.x, p2.y - p1.y, p2.z - p1.z)
+  }
+
+  static fromObject(obj) {
+    return new Vector3D(obj.x, obj.y, obj.z)
   }
 }
 
