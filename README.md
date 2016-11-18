@@ -1,4 +1,4 @@
-# i-am-in-love-with-webvr
+# tweet-vr
 
 To start:
 

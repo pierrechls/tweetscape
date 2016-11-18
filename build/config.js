@@ -3,7 +3,7 @@ const pkg = require('../package')
 
 module.exports = {
   port: 4000,
-  title: 'i-am-in-love-with-webvr',
+  title: 'tweet-vr',
   vendor: Object.keys(pkg.dependencies),
   babel: {
     babelrc: false,

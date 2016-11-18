@@ -79,7 +79,7 @@
           let y = 30*Math.sin(3*i*3.1415926535/180)
           let z = -i
           this.paths.push({x: x, y: y, z: z})
-        } 
+        }
         /*
         For i in MAX_POINTS, draw points following math formulas
          */
