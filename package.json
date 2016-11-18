@@ -20,6 +20,7 @@
     "aframe": "^0.3.2",
     "aframe-gridhelper-component": "^0.1.1",
     "gsap": "^1.19.0",
+    "twit": "^2.2.5",
     "vue": "^2.0.0",
     "vue-router": "^2.0.0",
     "vuex": "^2.0.0",
