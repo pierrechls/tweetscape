@@ -10,7 +10,6 @@
 
 <script>
   import Camera from './Camera.vue'
-  import TweenMax from 'gsap'
   import SimulationParams from '../params.js'
   import Vector3D from 'utils/maths/vector3d.js'
 
