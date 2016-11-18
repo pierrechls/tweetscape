@@ -3,6 +3,7 @@ const pkg = require('../package')
 
 module.exports = {
   port: 4000,
+  apiPort: 3000,
   title: 'tweet-vr',
   vendor: Object.keys(pkg.dependencies),
   babel: {
