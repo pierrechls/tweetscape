@@ -3,14 +3,14 @@
     <a-scene gridhelper="size: 3000;">
       <a-sphere :position="spherePositionAttr" :radius="sphere.radius" :color="sphere.color"></a-sphere>
       <a-plane :rotation="planeRotationAttr" :width="plane.dimensions.width" :height="plane.dimensions.height" :color="plane.color"></a-plane>
-      <camera :position="camera.position" :rotation="camera.rotation"></camera>
+      <camera :position="camera.position"></camera>
     </a-scene>
   </div>
 </template>
 
 <script>
   import Camera from './Camera.vue'
-  import 'gsap/src/uncompressed/TweenMax'
+  import TweenMax from 'gsap'
   import SimulationParams from '../params.js'
   import Vector3D from 'utils/maths/vector3d.js'
 
@@ -67,10 +67,6 @@
         const pos = this.sphere.position;
         return `${pos.x} ${pos.y} ${pos.z}`;
       },
-      cameraPositionAttr () {
-        const pos = this.camera.position;
-        return `${pos.x} ${pos.y} ${pos.z}`;
-      },
       planeRotationAttr () {
         const rotation = this.plane.rotation;
         return `${rotation.x} ${rotation.y} ${rotation.z}`;
@@ -100,11 +96,6 @@
       this.drawPath()
       this.initLastPath()
       this.startSimulation()
-    },
-    watch: {
-      camera: function (camera) {
-        console.log(camera)
-      }
     }
   }
 
