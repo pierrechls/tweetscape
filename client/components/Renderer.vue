@@ -88,8 +88,8 @@
         this.pathParams.amplitude.x = this.pathParams.amplitude.x || Random.getRandomInt(10, 30)
         this.pathParams.amplitude.y = this.pathParams.amplitude.y || Random.getRandomInt(10, 30)
 
-        this.pathParams.frequency.x = this.pathParams.frequency.x || Random.getRandomInt(1, 4)
-        this.pathParams.frequency.y = this.pathParams.frequency.y || Random.getRandomInt(1, 4)
+        this.pathParams.frequency.x = this.pathParams.frequency.x || Random.getRandomInt(1, 2) + Math.random()*2
+        this.pathParams.frequency.y = this.pathParams.frequency.y || Random.getRandomInt(1, 2) + Math.random()*2
 
         const amplX = this.pathParams.amplitude.x
         const amplY = this.pathParams.amplitude.y
