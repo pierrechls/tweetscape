@@ -8,7 +8,7 @@ import store from './store'
 import { sync } from 'vuex-router-sync'
 sync(store, router)
 
-// import aframe
+import 'gsap'
 import 'aframe'
 import 'aframe-gridhelper-component'
 

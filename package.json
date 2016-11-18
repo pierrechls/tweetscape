@@ -11,6 +11,11 @@
   },
   "author": "Pierre Charles <pierre.chls@gmail.com>",
   "license": "MIT",
+  "standard": {
+    "globals": [
+      "TweenMax"
+    ]
+  },
   "dependencies": {
     "aframe": "^0.3.2",
     "aframe-gridhelper-component": "^0.1.1",
