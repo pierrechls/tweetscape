@@ -105,7 +105,7 @@
         }
 
         this.paths = tempPaths
-        this.pathParams.offset += 150 
+        this.pathParams.offset += SimulationParams.path_amount_per_cycle 
         /*
         For i in MAX_POINTS, draw points following math formulas
          */
