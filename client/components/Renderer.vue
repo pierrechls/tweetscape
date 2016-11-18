@@ -12,6 +12,7 @@
   import Camera from './Camera.vue'
   import SimulationParams from '../params.js'
   import Vector3D from 'utils/maths/vector3d.js'
+  import Random from 'utils/maths/random.js'
 
   export default {
     name: 'Renderer',
@@ -33,6 +34,17 @@
           }
         },
         paths: [],
+        pathParams: {
+          amplitude: {
+            x: 0,
+            y: 0
+          },
+          frequency: {
+            x: 0,
+            y: 0
+          },
+          offset: 0
+        },
         lastPath: {
           x: 0,
           y: 0,
@@ -73,12 +85,27 @@
     },
     methods: {
       drawPath: function () {
-        for(let i = 0; i < SimulationParams.path_amount_per_cycle; ++i) {
-          let x = 20*Math.sin(2*i*3.1415926535/180)
-          let y = 30*Math.sin(3*i*3.1415926535/180)
+        this.pathParams.amplitude.x = this.pathParams.amplitude.x || Random.getRandomInt(10, 30)
+        this.pathParams.amplitude.y = this.pathParams.amplitude.y || Random.getRandomInt(10, 30)
+
+        this.pathParams.frequency.x = this.pathParams.frequency.x || Random.getRandomInt(1, 4)
+        this.pathParams.frequency.y = this.pathParams.frequency.y || Random.getRandomInt(1, 4)
+
+        const amplX = this.pathParams.amplitude.x
+        const amplY = this.pathParams.amplitude.y
+        const freqX = this.pathParams.frequency.x
+        const freqY = this.pathParams.frequency.y
+
+        let tempPaths = []
+        for(let i = this.pathParams.offset; i < SimulationParams.path_amount_per_cycle + this.pathParams.offset ; ++i) {
+          let x = amplX*Math.sin(freqX*i*3.1415926535/180)
+          let y = amplY*Math.sin(freqY*i*3.1415926535/180)
           let z = -i
-          this.paths.push({x: x, y: y, z: z})
-        } 
+          tempPaths.push({x: x, y: y, z: z})
+        }
+
+        this.paths = tempPaths
+        this.pathParams.offset += 150 
         /*
         For i in MAX_POINTS, draw points following math formulas
          */
