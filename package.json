@@ -1,5 +1,5 @@
 {
-  "name": "i-am-in-love-with-webvr",
+  "name": "tweet-vr",
   "version": "0.1.0",
   "description": "A superb WebVR project",
   "main": "client/index.js",
