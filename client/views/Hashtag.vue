@@ -2,7 +2,7 @@
   <div class="twitter">
     <h1>Inster your fucking hashtag</h1>
     <input type="text" name="hashtag" v-model="userHashtag"/>
-    <button @click="start">Let's start!</button>
+    <button @click="start" :disabled="isHashtag">Let's start!</button>
   </div>
 </template>
 
@@ -15,6 +15,12 @@
         userHashtag: ''
       }
     },
+    computed: {
+      isHashtag: function() {
+        const regex = /^\w{1,100}$/
+        return !regex.test(this.userHashtag)
+      }
+    },
     methods: {
       start: function () {
         this.$store.dispatch('setHashtag', this.userHashtag)
@@ -25,9 +31,6 @@
           console.log('error: ', response)
         })
       }
-    },
-    computed: {
-
     }
   }
 
