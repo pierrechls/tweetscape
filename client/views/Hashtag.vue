@@ -27,6 +27,7 @@
 
         this.$http.get(`search/${this.userHashtag}`).then((response) => {
           console.log('success: ', response.data)
+          this.$router.push({ path: '/' })
         }, (response) => {
           console.log('error: ', response)
         })
