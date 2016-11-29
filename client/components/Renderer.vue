@@ -1,9 +1,9 @@
 <template>
   <div id="renderer">
     <a-scene gridhelper="size: 3000;">
-      <a-sphere :position="spherePositionAttr" :radius="sphere.radius" :color="sphere.color"></a-sphere>
-      <a-plane :rotation="planeRotationAttr" :width="plane.dimensions.width" :height="plane.dimensions.height" :color="plane.color"></a-plane>
       <assets></assets>
+      <!-- <a-sphere :position="spherePositionAttr" :radius="sphere.radius" :color="sphere.color"></a-sphere>
+      <a-plane :rotation="planeRotationAttr" :width="plane.dimensions.width" :height="plane.dimensions.height" :color="plane.color"></a-plane> -->
       <camera :position="camera.position"></camera>
     </a-scene>
   </div>
