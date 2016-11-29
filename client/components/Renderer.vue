@@ -105,7 +105,7 @@
         }
 
         this.paths = tempPaths
-        this.pathParams.offset += 150 
+        this.pathParams.offset += 150
         /*
         For i in MAX_POINTS, draw points following math formulas
          */
