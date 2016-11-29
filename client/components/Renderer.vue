@@ -4,6 +4,9 @@
       <assets></assets>
       <!-- <a-sphere :position="spherePositionAttr" :radius="sphere.radius" :color="sphere.color"></a-sphere>
       <a-plane :rotation="planeRotationAttr" :width="plane.dimensions.width" :height="plane.dimensions.height" :color="plane.color"></a-plane> -->
+      <!-- tweets -->
+      <tweet v-for="tweet in tweets" :position="{x: 2, y: 3, z:3}" :id="tweet.id"></tweet>
+      <!-- /tweets -->
       <camera :position="camera.position"></camera>
     </a-scene>
   </div>
@@ -12,6 +15,8 @@
 <script>
   import Camera from './Camera.vue'
   import Assets from './Assets.vue'
+  import Tweet from './Tweet.vue'
+
   import SimulationParams from '../params.js'
   import Vector3D from 'utils/maths/vector3d.js'
   import Random from 'utils/maths/random.js'
@@ -20,6 +25,7 @@
     name: 'Renderer',
     components: {
       'camera': Camera
+      'tweet': Tweet
     },
     data: () => {
       return {
