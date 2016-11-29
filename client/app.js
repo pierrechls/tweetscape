@@ -6,7 +6,7 @@ import store from './store'
 // add vue-resource to Vue
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
-Vue.http.options.root = 'http://localhost:3000/'
+Vue.http.options.root = 'http://localhost:3000'
 
 // sync store with router
 import { sync } from 'vuex-router-sync'
