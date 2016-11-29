@@ -24,7 +24,8 @@
   export default {
     name: 'Renderer',
     components: {
-      'camera': Camera
+      'camera': Camera,
+      'assets': Assets,
       'tweet': Tweet
     },
     data: () => {
