@@ -10,6 +10,14 @@ app.get('/banana', function (req, res) {
   })
 })
 
+var stream = Twitter.stream('statuses/filter', { track: '#ALaCantineYaToujours' })
+
+app.get('/stream', function (req, res) {
+  stream.on('tweet', function (tweet) {
+    console.log(tweet)
+  })
+})
+
 app.get('/', function (req, res) {
   res.send('Hello World!')
 })
