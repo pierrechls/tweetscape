@@ -12,6 +12,17 @@ const state = {
 const mutations = {
   INCREMENT(state) {
     state.count++
+  },
+  ADD_TWEET(state, obj) {
+    state.tweets.push({
+      id: (Math.random()*1000000000).toString(),
+      author: {
+        image_url: 'http://unsplash.it/233/233',
+        name: 'Tonton René'
+      },
+      date: '27-11-2016', // ou un timestamp, osef
+      content: "J'aime bcp les frites"
+    })
   }
 }
 
@@ -20,6 +31,9 @@ const actions = {
     setTimeout(() => {
       commit('INCREMENT')
     }, 200)
+  },
+  addTweet({commit}, obj) {
+    commit('ADD_TWEET', obj)
   }
 }
 
