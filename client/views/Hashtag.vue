@@ -2,7 +2,7 @@
   <div class="twitter">
     <h1>Inster your fucking hashtag</h1>
     <input type="text" name="hashtag" v-model="userHashtag"/>
-    <button @click="$store.dispatch('setHashtag', userHashtag)">Let's start!</button>
+    <button @click="start">Let's start!</button>
   </div>
 </template>
 
@@ -13,6 +13,17 @@
     data () {
       return {
         userHashtag: ''
+      }
+    },
+    methods: {
+      start: function () {
+        this.$store.dispatch('setHashtag', this.userHashtag)
+
+        this.$http.get('http://localhost:3000/banana').then((response) => {
+          console.log('success: ', response.data)
+        }, (response) => {
+          console.log('error: ', response)
+        })
       }
     },
     computed: {
