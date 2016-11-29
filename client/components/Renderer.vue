@@ -3,6 +3,7 @@
     <a-scene gridhelper="size: 3000;">
       <a-sphere :position="spherePositionAttr" :radius="sphere.radius" :color="sphere.color"></a-sphere>
       <a-plane :rotation="planeRotationAttr" :width="plane.dimensions.width" :height="plane.dimensions.height" :color="plane.color"></a-plane>
+      <assets></assets>
       <camera :position="camera.position"></camera>
     </a-scene>
   </div>
@@ -10,6 +11,7 @@
 
 <script>
   import Camera from './Camera.vue'
+  import Assets from './Assets.vue'
   import SimulationParams from '../params.js'
   import Vector3D from 'utils/maths/vector3d.js'
   import Random from 'utils/maths/random.js'
