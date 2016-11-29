@@ -11,8 +11,9 @@ app.use(function (req, res, next) {
     next()
 })
 
-app.get('/banana', function (req, res) {
-  Twitter.get('search/tweets', { q: 'banana since:2011-07-11', count: 100 }, function(err, data, response) {
+app.get('/search/:hashtag', function (req, res) {
+  var hashtag = req.params.hashtag
+  Twitter.get('search/tweets', { q: hashtag, count: 100 }, function(err, data, response) {
     console.log(data)
     res.send(data)
   })

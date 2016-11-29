@@ -19,7 +19,7 @@
       start: function () {
         this.$store.dispatch('setHashtag', this.userHashtag)
 
-        this.$http.get('banana').then((response) => {
+        this.$http.get(`search/${this.userHashtag}`).then((response) => {
           console.log('success: ', response.data)
         }, (response) => {
           console.log('error: ', response)
