@@ -14,16 +14,8 @@ const mutations = {
   INCREMENT(state) {
     state.count++
   },
-  ADD_TWEET(state, obj) {
-    state.tweets.push({
-      id: (Math.random()*1000000000).toString(),
-      author: {
-        image_url: 'http://unsplash.it/233/233',
-        name: 'Tonton René'
-      },
-      date: '27-11-2016', // ou un timestamp, osef
-      content: "J'aime bcp les frites"
-    })
+  ADD_TWEET(state, tweet) {
+    state.tweets.push(tweet)
   },
   SET_HASHTAG(state, hashtag) {
     state.hashtag = hashtag
