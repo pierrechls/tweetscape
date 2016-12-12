@@ -28,7 +28,7 @@
           .then((response) => {
             console.log('success: ', response.data)
             this.$store.dispatch('setHashtag', this.userHashtag)
-            this.$router.push({ path: '/' })
+            this.$router.push({ path: '/timeline' })
           }, (response) => {
             console.log('error: ', response)
           })
