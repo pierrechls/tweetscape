@@ -45,13 +45,19 @@ module.exports = {
         query: {
           name: 'static/media/[name].[hash:8].[ext]'
         }
+      },
+      {
+        test: /\.scss$/,
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
       }
     ]
   },
   babel: config.babel,
   postcss: config.postcss,
   vue: {
-    loaders: {},
+    loaders: {
+      scss: 'style!css!sass'
+    },
     postcss: config.postcss
   },
   plugins: [
