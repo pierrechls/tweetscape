@@ -43,7 +43,7 @@
 
 </script>
 
-<style>
+<style lang="scss">
 
   .twitter {
 

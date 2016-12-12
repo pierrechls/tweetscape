@@ -45,7 +45,18 @@ module.exports = {
         query: {
           name: 'static/media/[name].[hash:8].[ext]'
         }
-      }
+      },
+      rules: [
+        {
+          test: /\.vue$/,
+          loader: 'vue',
+          options: {
+            loaders: {
+              scss: 'style!css!sass'
+            }
+          }
+        }
+      ]
     ]
   },
   babel: config.babel,
