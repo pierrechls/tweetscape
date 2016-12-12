@@ -1,5 +1,5 @@
 <template>
-  <a-plane :material="'shader: flat; src=#' + id"
+  <a-plane :material="'shader: flat; src: #' + id"
            :geometry="'width:' + tweetParams.width + ';height:' + tweetParams.height + ';'"
            :position="attributify(position)"
   >
