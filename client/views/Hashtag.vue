@@ -24,6 +24,7 @@
     },
     methods: {
       start: function () {
+        // TODO (Victor) : Vérifier s'il y a un minimum de 20 tweets pour le hashtag donné
         this.$http.get(`search/${this.userHashtag}`)
           .then((response) => {
             console.log('success: ', response.data)
