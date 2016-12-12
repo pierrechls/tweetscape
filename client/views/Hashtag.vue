@@ -16,6 +16,7 @@
       }
     },
     computed: {
+      // TODO (Victor) : Refactor pour la sémantique (cette fonction c'est isNotHashtag actuellement)
       isHashtag: function() {
         const regex = /^\w{1,100}$/
         return !regex.test(this.userHashtag)
