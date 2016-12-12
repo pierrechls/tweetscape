@@ -1,8 +1,10 @@
 <template>
   <div class="twitter">
-    <h1>Insert your fucking hashtag</h1>
-    <input type="text" name="hashtag" v-model="userHashtag"/>
-    <button @click="start" :disabled="!isHashtag">Let's start!</button>
+    <h1 class="title">Insert your fucking hashtag</h1>
+    <div class="select-your-hashtag">
+      <p><span class="hashtag-icon">#</span><input type="text" name="hashtag" v-model="userHashtag"/></p>
+      <button @click="start" :disabled="!isHashtag">Let's start!</button>
+    </div>
   </div>
 </template>
 
@@ -42,5 +44,22 @@
 </script>
 
 <style>
+
+  .twitter {
+
+  }
+
+  .title {
+    text-align: center;
+  }
+
+  .select-your-hashtag {
+    text-align: center;
+    vertical-align:
+  }
+
+  .hashtag-icon {
+    margin-right: 1rem;
+  }
 
 </style>
