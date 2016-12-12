@@ -16,6 +16,7 @@
       }
     },
     computed: {
+      // TODO (Victor) : Refactor pour la sémantique (cette fonction c'est isNotHashtag actuellement)
       isHashtag: function() {
         const regex = /^\w{1,100}$/
         return !regex.test(this.userHashtag)
@@ -23,14 +24,15 @@
     },
     methods: {
       start: function () {
-        this.$store.dispatch('setHashtag', this.userHashtag)
-
-        this.$http.get(`search/${this.userHashtag}`).then((response) => {
-          console.log('success: ', response.data)
-          this.$router.push({ path: '/' })
-        }, (response) => {
-          console.log('error: ', response)
-        })
+        // TODO (Victor) : Vérifier s'il y a un minimum de 20 tweets pour le hashtag donné
+        this.$http.get(`search/${this.userHashtag}`)
+          .then((response) => {
+            console.log('success: ', response.data)
+            this.$store.dispatch('setHashtag', this.userHashtag)
+            this.$router.push({ path: '/' })
+          }, (response) => {
+            console.log('error: ', response)
+          })
       }
     }
   }
