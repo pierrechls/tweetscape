@@ -20,3 +20,9 @@ To lint you code:
 ```bash
 $ npm run lint
 ```
+
+## Serve the apiPort
+
+```bash
+$ node api/server.js
+```

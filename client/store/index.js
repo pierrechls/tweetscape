@@ -6,7 +6,8 @@ Vue.use(Vuex)
 const state = {
   count: 0,
   tweets: [
-  ]
+  ],
+  hashtag: null
 }
 
 const mutations = {
@@ -23,6 +24,9 @@ const mutations = {
       date: '27-11-2016', // ou un timestamp, osef
       content: "J'aime bcp les frites"
     })
+  },
+  SET_HASHTAG(state, hashtag) {
+    state.hashtag = hashtag
   }
 }
 
@@ -34,6 +38,9 @@ const actions = {
   },
   addTweet({commit}, obj) {
     commit('ADD_TWEET', obj)
+  },
+  setHashtag({commit}, hashtag) {
+    commit('SET_HASHTAG', hashtag)
   }
 }
 
