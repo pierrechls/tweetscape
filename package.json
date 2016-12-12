@@ -7,7 +7,8 @@
     "test": "echo lol",
     "build": "webpack --config build/webpack.prod.js",
     "dev": "node build/server.js",
-    "lint": "eslint client/* --ext .js --ext .vue"
+    "lint": "eslint client/* --ext .js --ext .vue",
+    "server": "node api/server.js"
   },
   "author": "Pierre Charles <pierre.chls@gmail.com>",
   "license": "MIT",
