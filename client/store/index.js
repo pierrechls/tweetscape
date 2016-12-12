@@ -28,8 +28,8 @@ const actions = {
       commit('INCREMENT')
     }, 200)
   },
-  addTweet({commit}, obj) {
-    commit('ADD_TWEET', obj)
+  addTweet({commit}, tweet) {
+    commit('ADD_TWEET', tweet)
   },
   setHashtag({commit}, hashtag) {
     commit('SET_HASHTAG', hashtag)
