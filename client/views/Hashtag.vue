@@ -1,6 +1,6 @@
 <template>
   <div class="twitter">
-    <h1>Inster your fucking hashtag</h1>
+    <h1>Insert your fucking hashtag</h1>
     <input type="text" name="hashtag" v-model="userHashtag"/>
     <button @click="start" :disabled="!isHashtag">Let's start!</button>
   </div>
