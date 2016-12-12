@@ -2,7 +2,7 @@
   <div class="twitter">
     <h1>Inster your fucking hashtag</h1>
     <input type="text" name="hashtag" v-model="userHashtag"/>
-    <button @click="start" :disabled="isHashtag">Let's start!</button>
+    <button @click="start" :disabled="!isHashtag">Let's start!</button>
   </div>
 </template>
 
@@ -16,10 +16,9 @@
       }
     },
     computed: {
-      // TODO (Victor) : Refactor pour la sémantique (cette fonction c'est isNotHashtag actuellement)
       isHashtag: function() {
         const regex = /^\w{1,100}$/
-        return !regex.test(this.userHashtag)
+        return regex.test(this.userHashtag)
       }
     },
     methods: {
