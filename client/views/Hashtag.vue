@@ -43,23 +43,22 @@
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
   .twitter {
 
-  }
+    .title {
+      text-align: center;
+    }
 
-  .title {
-    text-align: center;
-  }
+    .select-your-hashtag {
+      text-align: center;
+      vertical-align: middle;
 
-  .select-your-hashtag {
-    text-align: center;
-    vertical-align:
-  }
-
-  .hashtag-icon {
-    margin-right: 1rem;
+      .hashtag-icon {
+        margin-right: 1rem;
+      }
+    }
   }
 
 </style>

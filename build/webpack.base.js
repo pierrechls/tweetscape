@@ -46,23 +46,18 @@ module.exports = {
           name: 'static/media/[name].[hash:8].[ext]'
         }
       },
-      rules: [
-        {
-          test: /\.vue$/,
-          loader: 'vue',
-          options: {
-            loaders: {
-              scss: 'style!css!sass'
-            }
-          }
-        }
-      ]
+      {
+        test: /\.scss$/,
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
+      }
     ]
   },
   babel: config.babel,
   postcss: config.postcss,
   vue: {
-    loaders: {},
+    loaders: {
+      scss: 'style!css!sass'
+    },
     postcss: config.postcss
   },
   plugins: [
