@@ -3,8 +3,6 @@
     <button @click="$store.dispatch('addTweet', {})">ADD TWEET</button>
     <a-scene gridhelper="size: 3000;">
       <assets></assets>
-      <!-- <a-sphere :position="spherePositionAttr" :radius="sphere.radius" :color="sphere.color"></a-sphere>
-      <a-plane :rotation="planeRotationAttr" :width="plane.dimensions.width" :height="plane.dimensions.height" :color="plane.color"></a-plane> -->
       <!-- tweets -->
       <tweet v-for="tweet in tweets" :position="{x: 2, y: 3, z:3}" :id="tweet.id"></tweet>
       <!-- /tweets -->
@@ -59,41 +57,12 @@
           x: 0,
           y: 0,
           z: 0
-        },
-        sphere: {
-          position: {
-            x: 1,
-            y: 1,
-            z: -1
-          },
-          radius: 1.25,
-          color: '#EF2D5E'
-        },
-        plane: {
-          dimensions: {
-            width: 10,
-            height: 4
-          },
-          rotation: {
-            x: -90,
-            y: 0,
-            z: 0
-          },
-          color: '#7BC8A4'
         }
       }
     },
     computed: {
       tweets() {
         return this.$store.state.tweets
-      },
-      spherePositionAttr () {
-        const pos = this.sphere.position;
-        return `${pos.x} ${pos.y} ${pos.z}`;
-      },
-      planeRotationAttr () {
-        const rotation = this.plane.rotation;
-        return `${rotation.x} ${rotation.y} ${rotation.z}`;
       }
     },
     methods: {
