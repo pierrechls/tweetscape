@@ -3,7 +3,8 @@
 </template>
 
 <script>
-  import { CanvasTextWrapper } from 'canvas-text-wrapper' 
+
+  import { CanvasTextWrapper } from 'canvas-text-wrapper'
 
   export default {
     name: "TweetCanvas",
@@ -44,7 +45,7 @@
       drawUserName: function() {
         this.ctx.font = "20px Lato"
         this.ctx.fillStyle = "#000"
-        
+
         // left = img.width + img.leftMargin + img.rightMargin
         // top = img.height/2 + img.topMargin
         this.ctx.fillText(this.tweet.author.name, 70 + 20 + 10, 70/2 + 20)
@@ -63,12 +64,12 @@
           lineHeight: 1.2,
           paddingX: 20,
           marginY: 110
-        }); 
+        });
       }
     }
   }
 
-  /* 
+  /*
 let status = {
   id: "808298650141081600",
   author: {
@@ -107,7 +108,7 @@ var drawImage = function(image_url) {
 var drawUserName = function() {
   ctx.font = "20px Lato"
   ctx.fillStyle = "#000"
-  
+
   // left = img.width + img.leftMargin + img.rightMargin
   // top = img.height/2 + img.topMargin
   ctx.fillText(status.author.name, 70 + 20 + 10, 70/2 + 20)
@@ -128,7 +129,7 @@ var drawContent = function() {
     lineHeight: 1.2,
     paddingX: 20,
     marginY: 110
-  }); 
+  });
 }
 */
 </script>

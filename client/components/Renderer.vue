@@ -87,7 +87,7 @@
         }
 
         this.paths = tempPaths
-        this.pathParams.offset += SimulationParams.path_amount_per_cycle 
+        this.pathParams.offset += SimulationParams.path_amount_per_cycle
         /*
         For i in MAX_POINTS, draw points following math formulas
          */
@@ -101,11 +101,36 @@
       },
       buildSplineAndRun: function() {
         this.drawPath()
-        this.startSimulation()
+        //this.startSimulation()
       }
     },
     mounted () {
       this.buildSplineAndRun()
+
+      AFRAME.registerComponent('texture-update', {
+        schema: {
+          id: {
+            type: 'string'
+          }
+        },
+        dependencies: ['material'],
+        init: function () {
+          if (this.el.hasLoaded) {
+            this.textureUpdate()
+            return
+          }
+          this.el.addEventListener('loaded', this.textureUpdate.bind(this))
+        },
+        textureUpdate: function () {
+          // this.data contains all texture-update attributes
+          this.el.components.material.el.object3D.children[0].material.needsUpdate = true
+          this.el.setAttribute('material', 'src', this.data.id);
+        },
+        update: function () {
+          this.textureUpdate()
+        }
+      })
+
     }
   }
 
