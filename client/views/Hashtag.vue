@@ -48,7 +48,7 @@
 
 
               this.$store.dispatch('setHashtag', this.userHashtag)
-              this.$router.push({ path: '/' })
+              this.$router.push({ path: '/timeline' })
             } else {
               console.log('Sorry but your hashtag seems to be not very famous')
             }
