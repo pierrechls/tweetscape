@@ -4,7 +4,7 @@
     <a-scene gridhelper="size: 3000;">
       <assets></assets>
       <!-- tweets -->
-      <tweet v-for="tweet in tweets" :position="{x: 2, y: 3, z:3}" :id="tweet.id"></tweet>
+      <tweet v-for="tweet in tweets" :position="{x: 2, y: 3, z:3}" :tweet="tweet"></tweet>
       <!-- /tweets -->
       <camera :position="camera.position"></camera>
     </a-scene>
@@ -12,6 +12,7 @@
 </template>
 
 <script>
+
   import Camera from './Camera.vue'
   import Assets from './Assets.vue'
   import Tweet from './Tweet.vue'
@@ -87,7 +88,7 @@
         }
 
         this.paths = tempPaths
-        this.pathParams.offset += SimulationParams.path_amount_per_cycle 
+        this.pathParams.offset += SimulationParams.path_amount_per_cycle
         /*
         For i in MAX_POINTS, draw points following math formulas
          */
@@ -101,7 +102,7 @@
       },
       buildSplineAndRun: function() {
         this.drawPath()
-        this.startSimulation()
+        //this.startSimulation()
       }
     },
     mounted () {
