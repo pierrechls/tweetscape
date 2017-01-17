@@ -13,7 +13,7 @@ app.use(function (req, res, next) {
 
 app.get('/search/:hashtag', function (req, res) {
   var hashtag = req.params.hashtag
-  Twitter.get('search/tweets', { q: hashtag, count: 2 }, function(err, data, response) {
+  Twitter.get('search/tweets', { q: hashtag, count: 100 }, function(err, data, response) {
     console.log(data)
     res.send(data)
   })
