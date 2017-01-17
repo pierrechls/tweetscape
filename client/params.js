@@ -1,7 +1,7 @@
 const PATH_AMOUNT_PER_CYCLE = 150
 const TWEETS = {
-  width: 4,
-  height: 3
+  width: 512,
+  height: 512
 }
 
 class SimulationParams {
