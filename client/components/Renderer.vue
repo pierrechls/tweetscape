@@ -1,6 +1,5 @@
 <template>
   <div id="renderer">
-    <button @click="$store.dispatch('addTweet', {})">ADD TWEET</button>
     <a-scene gridhelper="size: 3000;">
       <assets></assets>
       <!-- tweets -->

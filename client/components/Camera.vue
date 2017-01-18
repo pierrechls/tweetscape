@@ -5,8 +5,9 @@
 </template>
 
 <script>
+
   import { attributify } from 'utils/aframe-utils.js'
-  
+
   export default {
     name: 'Camera',
     props: {
@@ -16,6 +17,5 @@
       attributify
     }
   }
-
 
 </script>
