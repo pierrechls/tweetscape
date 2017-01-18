@@ -5,12 +5,7 @@
 <script>
 
   export default {
-    name: 'Assets',
-    computed: {
-      tweets() {
-        return this.$store.state.tweets
-      }
-    }
+    name: 'Assets'
   }
 
 </script>
