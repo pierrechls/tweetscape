@@ -1,28 +1,34 @@
 # tweet-vr
 
-To start:
+## How to use it
+
+### Install dependencies
 
 ```bash
 $ npm install
 ```
 
-To develop:
+### Serve the client port
 
 ```bash
 $ npm run dev
+```
 
-# To build for production:
+
+### Serve the API port
+
+```bash
+$ npm run server
+```
+
+### Build for production:
+
+```bash
 $ npm run build
 ```
 
-To lint you code:
+### Lint your code:
 
 ```bash
 $ npm run lint
-```
-
-## Serve the apiPort
-
-```bash
-$ node api/server.js
 ```
