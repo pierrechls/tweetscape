@@ -21,14 +21,18 @@ $ npm run dev
 $ npm run server
 ```
 
-### Build for production:
+### Build for production
 
 ```bash
 $ npm run build
 ```
 
-### Lint your code:
+### Lint your code
 
 ```bash
 $ npm run lint
 ```
+
+## Prior installation
+
+You have to download [Node.js](https://nodejs.org/en/download/)
