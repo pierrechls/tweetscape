@@ -4,16 +4,11 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
-  count: 0,
-  tweets: [
-  ],
+  tweets: [],
   hashtag: null
 }
 
 const mutations = {
-  INCREMENT(state) {
-    state.count++
-  },
   ADD_TWEET(state, tweet) {
     state.tweets.push(tweet)
   },
@@ -23,11 +18,6 @@ const mutations = {
 }
 
 const actions = {
-  incrementAsync({commit}) {
-    setTimeout(() => {
-      commit('INCREMENT')
-    }, 200)
-  },
   addTweet({commit}, tweet) {
     commit('ADD_TWEET', tweet)
   },
