@@ -19,6 +19,7 @@
   import SimulationParams from '../params.js'
   import Vector3D from 'utils/maths/vector3d.js'
   import Random from 'utils/maths/random.js'
+  import PathCalculator from 'utils/PathCalculator.js'
 
   export default {
     name: 'Renderer',
@@ -67,23 +68,12 @@
     },
     methods: {
       drawPath: function () {
-        this.pathParams.amplitude.x = this.pathParams.amplitude.x || Random.getRandomInt(10, 30)
-        this.pathParams.amplitude.y = this.pathParams.amplitude.y || Random.getRandomInt(10, 30)
-
-        this.pathParams.frequency.x = this.pathParams.frequency.x || Random.getRandomInt(1, 2) + Math.random()*2
-        this.pathParams.frequency.y = this.pathParams.frequency.y || Random.getRandomInt(1, 2) + Math.random()*2
-
-        const amplX = this.pathParams.amplitude.x
-        const amplY = this.pathParams.amplitude.y
-        const freqX = this.pathParams.frequency.x
-        const freqY = this.pathParams.frequency.y
+        let pathCalculator = new PathCalculator()
 
         let tempPaths = []
-        for(let i = this.pathParams.offset; i < SimulationParams.path_amount_per_cycle + this.pathParams.offset ; ++i) {
-          let x = amplX*Math.sin(freqX*i*3.1415926535/180)
-          let y = amplY*Math.sin(freqY*i*3.1415926535/180)
-          let z = -i
-          tempPaths.push({x: x, y: y, z: z})
+        for(let i = this.pathParams.offset; i < SimulationParams.path_amount_per_cycle + this.pathParams.offset; ++i) {
+
+          tempPaths.push(PathCalculator.at(i))
         }
 
         this.paths = tempPaths
@@ -105,6 +95,9 @@
       }
     },
     mounted () {
+      PathCalculator.setAmplitude(Random.getRandomInt(10, 30), Random.getRandomInt(10, 30))
+      PathCalculator.setFrequency(Random.getRandomInt(1, 2) + Math.random()*2, Random.getRandomInt(1, 2) + Math.random()*2)
+ 
       this.buildSplineAndRun()
     }
   }
