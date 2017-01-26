@@ -12,6 +12,9 @@ const mutations = {
   ADD_TWEET(state, tweet) {
     state.tweets.push(tweet)
   },
+  REMOVE_FIRST_TWEET(state) {
+    state.tweets.shift()
+  },
   SET_HASHTAG(state, hashtag) {
     state.hashtag = hashtag
   }
@@ -20,6 +23,9 @@ const mutations = {
 const actions = {
   addTweet({commit}, tweet) {
     commit('ADD_TWEET', tweet)
+  },
+  removeFirstTweet({commit}) {
+    commit('REMOVE_FIRST_TWEET')
   },
   setHashtag({commit}, hashtag) {
     commit('SET_HASHTAG', hashtag)
