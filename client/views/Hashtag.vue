@@ -5,10 +5,13 @@
       <p><span class="hashtag-icon">#</span><input type="text" name="hashtag" v-model="userHashtag"/></p>
       <button @click="start" :disabled="!isHashtag">Let's start!</button>
     </div>
+    <preloader v-if="isLoading"></preloader>
   </div>
 </template>
 
 <script>
+
+  import Preloader from 'components/Preloader'
 
   export default {
     name: 'Hashtag',
@@ -17,10 +20,16 @@
         userHashtag: ''
       }
     },
+    components: {
+      Preloader
+    },
     computed: {
       isHashtag: function() {
         const regex = /^\w{1,100}$/
         return regex.test(this.userHashtag)
+      },
+      isLoading: function () {
+        return this.$store.state.isLoading
       }
     },
     methods: {
