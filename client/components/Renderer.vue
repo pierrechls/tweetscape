@@ -32,9 +32,9 @@
       return {
         camera: {
           position: {
-            x: 20,
-            y: 30,
-            z: 10
+            x: 0,
+            y: 0,
+            z: 0
           },
           rotation: {
             x: 0,
