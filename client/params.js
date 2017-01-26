@@ -1,4 +1,5 @@
 const PATH_AMOUNT_PER_CYCLE = 150
+const SPEED = 1.0/10
 const TWEET_SIZE = {
   width: 512,
   height: 512
@@ -13,6 +14,8 @@ class SimulationParams {
     return TWEET_SIZE
   }
 
+  static get duration() {
+  	return 1.0/SPEED;
   }
 
 }

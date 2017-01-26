@@ -79,7 +79,7 @@
         // TODO : get paths[0] and paths[1], get coeff_dir, set as base camera rot
       },
       startSimulation: function () {
-        TweenMax.to(this.camera.position, 20, { bezier: this.paths, ease: Linear.easeNone, repeat: 0, onComplete: this.buildSplineAndRun });
+        TweenMax.to(this.camera.position, SimulationParams.duration, { bezier: this.paths, ease: Linear.easeNone, repeat: 0, onComplete: this.buildSplineAndRun });
       },
       buildSplineAndRun: function() {
         this.drawPath()
