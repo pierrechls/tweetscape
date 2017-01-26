@@ -3,7 +3,7 @@
     <a-scene gridhelper="size: 3000; colorGrid: green">
       <assets></assets>
       <!-- tweets -->
-      <tweet v-for="tweet in tweets" :position="{x: 2, y: 3, z:3}" :tweet="tweet"></tweet>
+      <tweet v-for="tweet in displayedTweets" :position="tweet.position" :tweet="tweet"></tweet>
       <!-- /tweets -->
       <camera :position="camera.position"></camera>
     </a-scene>
@@ -30,6 +30,7 @@
     },
     data: () => {
       return {
+        displayedTweets: [],
         camera: {
           position: {
             x: 0,
@@ -84,6 +85,13 @@
       buildSplineAndRun: function() {
         this.drawPath()
         //this.startSimulation()
+      },
+      cycleTweets: function() {
+        let tweet = this.tweets[0]
+        console.log(PathCalculator.at(-this.camera.position.z, 30))
+        tweet.position = PathCalculator.at(-this.camera.position.z, 30)
+        this.$store.dispatch('removeFirstTweet')
+        this.displayedTweets.push(tweet)
       }
     },
     mounted () {
@@ -91,6 +99,11 @@
       PathCalculator.setFrequency(Random.getRandomInt(1, 2) + Math.random()*2, Random.getRandomInt(1, 2) + Math.random()*2)
  
       this.buildSplineAndRun()
+
+      setInterval(
+        this.cycleTweets
+        ,1000
+      )
     }
   }
 
