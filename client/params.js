@@ -1,5 +1,5 @@
 const PATH_AMOUNT_PER_CYCLE = 150
-const TWEETS = {
+const TWEET_SIZE = {
   width: 512,
   height: 512
 }
@@ -9,8 +9,10 @@ class SimulationParams {
     return PATH_AMOUNT_PER_CYCLE
   }
 
-  static get tweets() {
-    return TWEETS
+  static get tweetSize() {
+    return TWEET_SIZE
+  }
+
   }
 
 }
