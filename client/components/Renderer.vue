@@ -1,6 +1,6 @@
 <template>
   <div id="renderer">
-    <a-scene gridhelper="size: 3000;">
+    <a-scene gridhelper="size: 3000; colorGrid: green">
       <assets></assets>
       <!-- tweets -->
       <tweet v-for="tweet in tweets" :position="{x: 2, y: 3, z:3}" :tweet="tweet"></tweet>
