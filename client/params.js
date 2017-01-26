@@ -1,4 +1,4 @@
-const PATH_AMOUNT_PER_CYCLE = 150
+const PATH_AMOUNT_PER_CYCLE = 100
 const SPEED = 1.0/10
 const TWEET_SIZE = {
   width: 512,
