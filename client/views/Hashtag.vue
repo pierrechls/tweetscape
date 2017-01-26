@@ -1,11 +1,13 @@
 <template>
-  <div class="twitter">
-    <h1 class="title">Insert your fucking hashtag</h1>
-    <div class="select-your-hashtag">
-      <p><span class="hashtag-icon">#</span><input type="text" name="hashtag" v-model="userHashtag"/></p>
-      <button @click="start" :disabled="!isHashtag">Let's start!</button>
+  <div class="home">
+    <div class="content">
+      <h1 class="title">Insert your fucking hashtag</h1>
+      <div class="select-your-hashtag">
+        <p><span class="hashtag-icon">#</span><input type="text" name="hashtag" v-model="userHashtag"/></p>
+        <button @click="startLoader" :disabled="!isHashtag">Let's start!</button>
+      </div>
     </div>
-    <preloader v-if="isLoading"></preloader>
+    <preloader :display="isLoading"></preloader>
   </div>
 </template>
 
@@ -17,7 +19,8 @@
     name: 'Hashtag',
     data () {
       return {
-        userHashtag: ''
+        userHashtag: '',
+        isLoading: false
       }
     },
     components: {
@@ -27,15 +30,13 @@
       isHashtag: function() {
         const regex = /^\w{1,100}$/
         return regex.test(this.userHashtag)
-      },
-      isLoading: function () {
-        return this.$store.state.isLoading
       }
     },
     methods: {
       start: function () {
-        this.$store.dispatch('isLoading')
-        this.$http.get(`search/${this.userHashtag}`)
+        let hashtag = this.userHashtag
+        this.userHashtag = ''
+        this.$http.get(`search/${hashtag}`)
           .then((response) => {
             if(response.data.statuses.length > 20) {
               console.log('success: ', response.data)
@@ -55,10 +56,8 @@
 
                 this.$store.dispatch('addTweet', tweet)
               })
-
-              this.$store.dispatch('isNotLoading')
-              this.$store.dispatch('setHashtag', this.userHashtag)
-              this.$router.push({ path: '/timeline' })
+              this.$store.dispatch('setHashtag', hashtag)
+              this.goToTimeline()
             } else {
               console.log('Sorry but your hashtag seems to be not very famous')
             }
@@ -66,6 +65,22 @@
             console.log('error: ', response)
             this.$store.dispatch('isNotLoading')
           })
+      },
+      startLoader: function () {
+        TweenMax.fromTo('.home .content', 0.5, { opacity: 1 }, { opacity: 0, onComplete: () => {
+          this.isLoading = true
+          TweenMax.fromTo('.preloader', 1.5, { opacity: 0 }, { opacity: 1, onComplete: () => {
+            this.start()
+          }})
+      }})
+      },
+      goToTimeline: function () {
+        TweenMax.fromTo('.preloader', 1.5, { opacity: 1 }, { opacity: 0, onComplete: () => {
+          setTimeout( () => {
+            this.isLoading = false
+            this.$router.push({ path: '/timeline' })
+          }, 1 * 1000)
+        }}).delay(1)
       }
     }
   }
@@ -74,18 +89,21 @@
 
 <style lang="scss" scoped>
 
-  .twitter {
+  .home {
 
-    .title {
-      text-align: center;
-    }
+    .content {
 
-    .select-your-hashtag {
-      text-align: center;
-      vertical-align: middle;
+      .title {
+        text-align: center;
+      }
 
-      .hashtag-icon {
-        margin-right: 1rem;
+      .select-your-hashtag {
+        text-align: center;
+        vertical-align: middle;
+
+        .hashtag-icon {
+          margin-right: 1rem;
+        }
       }
     }
   }
