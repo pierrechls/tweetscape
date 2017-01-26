@@ -84,7 +84,7 @@
       },
       buildSplineAndRun: function() {
         this.drawPath()
-        //this.startSimulation()
+        this.startSimulation()
       },
       cycleTweets: function() {
         let tweet = this.tweets[0]
