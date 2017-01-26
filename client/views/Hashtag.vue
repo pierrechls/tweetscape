@@ -25,6 +25,7 @@
     },
     methods: {
       start: function () {
+        this.$store.dispatch('isLoading')
         this.$http.get(`search/${this.userHashtag}`)
           .then((response) => {
             if(response.data.statuses.length > 20) {
@@ -46,7 +47,7 @@
                 this.$store.dispatch('addTweet', tweet)
               })
 
-
+              this.$store.dispatch('isNotLoading')
               this.$store.dispatch('setHashtag', this.userHashtag)
               this.$router.push({ path: '/timeline' })
             } else {
@@ -54,6 +55,7 @@
             }
           }, (response) => {
             console.log('error: ', response)
+            this.$store.dispatch('isNotLoading')
           })
       }
     }
