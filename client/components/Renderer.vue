@@ -44,14 +44,6 @@
         },
         paths: [],
         pathParams: {
-          amplitude: {
-            x: 0,
-            y: 0
-          },
-          frequency: {
-            x: 0,
-            y: 0
-          },
           offset: 0
         },
         lastPath: {
