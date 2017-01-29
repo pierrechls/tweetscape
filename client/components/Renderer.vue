@@ -71,9 +71,6 @@
 
         this.paths = tempPaths
         this.pathParams.offset += SimulationParams.pathAmountPerCycle
-        /*
-        For i in MAX_POINTS, draw points following math formulas
-         */
       },
       initLastPath: function () {
         this.lastPath = this.paths[0]
@@ -100,10 +97,7 @@
 
       this.buildSplineAndRun()
 
-      setInterval(
-        this.cycleTweets
-        ,1000
-      )
+      setInterval(this.cycleTweets, 1000)
     }
   }
 
