@@ -3,7 +3,7 @@ const TWEET_SEPARATOR = 10
 const TWEET_SIZE = { width: 512, height: 512 }
 
 // PATH PARAMS
-const SPEED = 20
+const SPEED = 50
 const PATH_AMOUNT_PER_CYCLE = 100
 const PATH_AMPLITUDE = {
   x: { min: 1, max: 3 },
