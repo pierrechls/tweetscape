@@ -45,7 +45,8 @@
         },
         paths: [],
         pathParams: {
-          offset: 0
+          offset: 0,
+          separator: SimulationParams.pathAmountPerCycle/2
         },
         lastPath: {
           x: 0,
@@ -64,13 +65,12 @@
         let pathCalculator = new PathCalculator()
 
         let tempPaths = []
-        for(let i = this.pathParams.offset; i < SimulationParams.path_amount_per_cycle + this.pathParams.offset; ++i) {
-
+        for(let i = this.pathParams.offset; i < SimulationParams.pathAmountPerCycle + this.pathParams.offset; ++i) {
           tempPaths.push(PathCalculator.at(i))
         }
 
         this.paths = tempPaths
-        this.pathParams.offset += SimulationParams.path_amount_per_cycle
+        this.pathParams.offset += SimulationParams.pathAmountPerCycle
         /*
         For i in MAX_POINTS, draw points following math formulas
          */
@@ -80,7 +80,7 @@
         // TODO : get paths[0] and paths[1], get coeff_dir, set as base camera rot
       },
       startSimulation: function () {
-        TweenMax.to(this.camera.position, SimulationParams.duration, { bezier: this.paths, ease: Linear.easeNone, repeat: 0, onComplete: this.buildSplineAndRun });
+        TweenMax.to(this.camera.position, SimulationParams.speed, { bezier: this.paths, ease: Linear.easeNone, repeat: 0, onComplete: this.buildSplineAndRun })
       },
       buildSplineAndRun: function() {
         this.drawPath()
@@ -91,13 +91,14 @@
         console.log(PathCalculator.at(-this.camera.position.z, 30))
         tweet.position = PathCalculator.at(-this.camera.position.z, 30)
         this.$store.dispatch('removeFirstTweet')
+        this.pathParams.separator += SimulationParams.tweetSeparator
         this.displayedTweets.push(tweet)
       }
     },
     mounted () {
-      PathCalculator.setAmplitude(Random.getRandomInt(10, 30), Random.getRandomInt(10, 30))
-      PathCalculator.setFrequency(Random.getRandomInt(1, 2) + Math.random()*2, Random.getRandomInt(1, 2) + Math.random()*2)
- 
+      PathCalculator.setAmplitude(Random.getRandomInt(SimulationParams.pathAmplitude.x.min, SimulationParams.pathAmplitude.x.max), Random.getRandomInt(SimulationParams.pathAmplitude.y.min, SimulationParams.pathAmplitude.y.max))
+      PathCalculator.setFrequency(Random.getRandomInt(SimulationParams.pathFrequency.x.min, SimulationParams.pathFrequency.x.max) + Math.random()*2, Random.getRandomInt(SimulationParams.pathFrequency.y.min, SimulationParams.pathFrequency.y.max) + Math.random()*2)
+
       this.buildSplineAndRun()
 
       setInterval(
