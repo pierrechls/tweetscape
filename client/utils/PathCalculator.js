@@ -21,10 +21,10 @@ class PathCalculator {
     instance.frequency.y = y
   }
 
-  static at(offset, ahead = 0) {
+  static at(offset) {
     let x = instance.amplitude.x*Math.sin(instance.frequency.x*offset*3.1415926535/180)
     let y = instance.amplitude.y*Math.sin(instance.frequency.y*offset*3.1415926535/180)
-    let z = -offset - ahead
+    let z = -offset
 
     return {x: x, y: y, z: z}
   }
