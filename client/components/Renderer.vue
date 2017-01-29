@@ -88,8 +88,7 @@
       },
       cycleTweets: function() {
         let tweet = this.tweets[0]
-        console.log(PathCalculator.at(-this.camera.position.z, 30))
-        tweet.position = PathCalculator.at(-this.camera.position.z, 30)
+        tweet.position = PathCalculator.at(this.pathParams.separator)
         this.$store.dispatch('removeFirstTweet')
         this.pathParams.separator += SimulationParams.tweetSeparator
         this.displayedTweets.push(tweet)
