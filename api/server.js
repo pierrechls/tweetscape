@@ -1,4 +1,5 @@
-var config  = require ('../build/config')
+var config  = require('../build/config')
+var settings = require('../settings/default')
 var Twitter = require('./twitter')
 var express = require('express')
 var app = express()
@@ -13,7 +14,7 @@ app.use(function (req, res, next) {
 
 app.get('/search/:hashtag', function (req, res) {
   var hashtag = req.params.hashtag
-  Twitter.get('search/tweets', { q: '#' + hashtag, count: 100 }, function(err, data, response) {
+  Twitter.get('search/tweets', { q: '#' + hashtag, count: settings.app.tweet.numberPerReques }, function(err, data, response) {
     console.log(data)
     res.send(data)
   })
@@ -31,6 +32,6 @@ app.get('/', function (req, res) {
   res.send('Hello World!')
 })
 
-app.listen(config.apiPort, function () {
-  console.log(`Listening at http://localhost:${config.apiPort}`)
+app.listen(config.API.port, function () {
+  console.log(`Listening at ${config.API.url}:${config.API.port}`)
 })

@@ -1,10 +1,17 @@
 'use strict'
 const pkg = require('../package')
+const settings = require('../settings/default')
 
 module.exports = {
-  port: 4000,
-  apiPort: 3000,
   title: 'tweet-vr',
+  client: {
+    url: settings.client.url,
+    port: settings.client.port
+  },
+  API : {
+    url: settings.API.url,
+    port: settings.API.port
+  },
   vendor: Object.keys(pkg.dependencies),
   babel: {
     babelrc: false,
