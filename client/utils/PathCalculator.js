@@ -1,6 +1,7 @@
 let instance = null
 
 class PathCalculator {
+
   constructor() {
     if(!instance){
       instance = this
@@ -30,7 +31,7 @@ class PathCalculator {
   }
 
   static after(offset) {
-    let x = instance.amplitude.x*Math.sin(instance.frequency.x*offset*3.1415926535/180) + (Math.random() < 0.5 ? 1 : -1)
+    let x = instance.amplitude.x*Math.sin(instance.frequency.x*offset*3.1415926535/180) + (Math.random() < 0.5 ? 3 : -3)
     let y = instance.amplitude.y*Math.sin(instance.frequency.y*offset*3.1415926535/180) + 2
     let z = -offset
 
