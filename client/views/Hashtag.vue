@@ -76,10 +76,8 @@
       },
       goToTimeline: function () {
         TweenMax.fromTo('.preloader', 1.5, { opacity: 1 }, { opacity: 0, onComplete: () => {
-          setTimeout( () => {
-            this.isLoading = false
-            this.$router.push({ path: '/timeline' })
-          }, 1 * 1000)
+          this.isLoading = false
+          this.$router.push({ path: '/timeline' })
         }}).delay(1)
       }
     }
