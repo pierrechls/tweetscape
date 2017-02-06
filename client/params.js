@@ -1,6 +1,11 @@
 // TWEET PARAMS
 const TWEET_SEPARATOR = 10
-const TWEET_SIZE = { width: 512, height: 512 }
+const TWEET_SIZE = {
+  width: 5,
+  height: 5,
+  canvasWidth: 512,
+  canvasHeight: 512
+}
 
 // PATH PARAMS
 const SPEED = 50
