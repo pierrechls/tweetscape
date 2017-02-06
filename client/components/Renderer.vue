@@ -1,6 +1,6 @@
 <template>
-  <div id="renderer">
-    <a-scene gridhelper="size: 3000; colorGrid: green">
+  <div id="renderer" :class="isLoaded ? 'show' : 'hide' ">
+    <a-scene gridhelper="size: 3000;">
       <assets></assets>
       <!-- tweets -->
       <tweet v-for="tweet in displayedTweets" :position="tweet.position" :tweet="tweet"></tweet>
@@ -31,6 +31,7 @@
     data: () => {
       return {
         displayedTweets: [],
+        isLoaded: false,
         camera: {
           position: {
             x: 0,
@@ -95,14 +96,36 @@
       PathCalculator.setAmplitude(Random.getRandomInt(SimulationParams.pathAmplitude.x.min, SimulationParams.pathAmplitude.x.max), Random.getRandomInt(SimulationParams.pathAmplitude.y.min, SimulationParams.pathAmplitude.y.max))
       PathCalculator.setFrequency(Random.getRandomInt(SimulationParams.pathFrequency.x.min, SimulationParams.pathFrequency.x.max) + Math.random()*2, Random.getRandomInt(SimulationParams.pathFrequency.y.min, SimulationParams.pathFrequency.y.max) + Math.random()*2)
 
-      this.buildSplineAndRun()
-
       setInterval(this.cycleTweets, 1000)
+
+      const scene = this.$el.querySelector('a-scene')
+      if (scene.hasLoaded) {
+        this.isLoaded = true
+        this.buildSplineAndRun()
+      } else {
+        scene.addEventListener('loaded', () => {
+          this.isLoaded = true
+          this.buildSplineAndRun()
+        })
+      }
     }
   }
 
 </script>
 
-<style>
+<style lang="scss" scoped>
+
+  #renderer {
+    transition: opacity .5s;
+
+    &.show {
+      opacity: 1;
+    }
+
+    &.hide {
+      opacity: 0;
+    }
+
+  }
 
 </style>

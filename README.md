@@ -2,6 +2,11 @@
 
 ## How to use it
 
+### Connect your Twitter API
+
+- Duplicate the `.env.example` file and rename it to `.env`
+- Remplate default values by your Twitter API consumer key and access token
+
 ### Install dependencies
 
 ```bash
