@@ -8,7 +8,6 @@ const config = require('./config')
 
 const app = express()
 
-const port = config.port
 webpackConfig.entry.client = [
   `webpack-hot-middleware/client`,
   webpackConfig.entry.client
@@ -38,6 +37,6 @@ app.get('*', (req, res) => {
   })
 })
 
-app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}`)
+app.listen(config.client.port, () => {
+  console.log(`Listening at ${config.client.url}:${config.client.port}`)
 })
