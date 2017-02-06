@@ -26,7 +26,7 @@
     },
     computed: {
       tweetParams () {
-        return SimulationParams.tweets
+        return SimulationParams.tweetSize
       }
     },
     mounted() {
