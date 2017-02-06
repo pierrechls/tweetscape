@@ -1,5 +1,5 @@
 <template>
-  <div id="renderer">
+  <div id="renderer" :class="isLoaded ? 'show' : 'hide' ">
     <a-scene gridhelper="size: 3000;">
       <assets></assets>
       <!-- tweets -->
@@ -29,6 +29,7 @@
     },
     data: () => {
       return {
+        isLoaded: false,
         camera: {
           position: {
             x: 20,
@@ -101,16 +102,40 @@
       },
       buildSplineAndRun: function() {
         this.drawPath()
-        //this.startSimulation()
+        this.startSimulation()
       }
     },
     mounted () {
-      this.buildSplineAndRun()
+
+      const scene = this.$el.querySelector('a-scene')
+      if (scene.hasLoaded) {
+        this.isLoaded = true
+        this.buildSplineAndRun()
+      } else {
+        scene.addEventListener('loaded', () => {
+          this.isLoaded = true
+          this.buildSplineAndRun()
+      })
+      }
+
     }
   }
 
 </script>
 
-<style>
+<style lang="scss" scoped>
+
+  #renderer {
+    transition: opacity .5s;
+
+    &.show {
+      opacity: 1;
+    }
+
+    &.hide {
+      opacity: 0;
+    }
+
+  }
 
 </style>
