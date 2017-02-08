@@ -1,7 +1,8 @@
 <template>
-  <a-plane :position="attributify(position)"
-           :width="tweetParams.width"
+  <a-plane :width="tweetParams.width"
            :height="tweetParams.height"
+           :position="attributify(position)"
+           :rotation="attributify(rotation)"
            :canvas-material="'width:' + tweetParams.canvasWidth + ';height:' + tweetParams.canvasHeight + ';'"
   >
   </a-plane>
@@ -17,6 +18,7 @@
     name: 'Tweet',
     props: {
       position: Object,
+      rotation: Object,
       tweet: Object
     },
     data() {
