@@ -6,6 +6,7 @@ const TWEET_SIZE = {
   canvasWidth: 512,
   canvasHeight: 512
 }
+const TWEET_ROTATION = { x: 0, y: 30, z: 0 }
 
 // PATH PARAMS
 const SPEED = 50
@@ -26,6 +27,10 @@ class SimulationParams {
 
   static get tweetSize() {
     return TWEET_SIZE
+  }
+
+  static get tweetRotation () {
+    return TWEET_ROTATION
   }
 
   static get tweetSeparator() {
