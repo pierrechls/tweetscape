@@ -86,7 +86,12 @@
       },
       cycleTweets: function() {
         let tweet = this.tweets[0]
-        tweet.position = PathCalculator.after(this.pathParams.separator)
+        if(this.displayedTweets.length % 2 == 0) {
+            tweet.position = PathCalculator.after(this.pathParams.separator, 'left')
+        } else {
+          tweet.position = PathCalculator.after(this.pathParams.separator, 'right')
+        }
+
         this.$store.dispatch('removeFirstTweet')
         this.pathParams.separator += SimulationParams.tweetSeparator
         this.displayedTweets.push(tweet)
