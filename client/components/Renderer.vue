@@ -3,7 +3,7 @@
     <a-scene gridhelper="size: 3000;">
       <assets></assets>
       <!-- tweets -->
-      <tweet v-for="tweet in displayedTweets" :position="tweet.position" :tweet="tweet"></tweet>
+      <tweet v-for="tweet in displayedTweets" :position="tweet.position" :rotation="tweet.rotation" :tweet="tweet"></tweet>
       <!-- /tweets -->
       <camera :position="camera.position"></camera>
     </a-scene>
@@ -88,8 +88,10 @@
         let tweet = this.tweets[0]
         if(this.displayedTweets.length % 2 == 0) {
             tweet.position = PathCalculator.after(this.pathParams.separator, 'left')
+            tweet.rotation = { x: 0, y: -30, z: 0 }
         } else {
           tweet.position = PathCalculator.after(this.pathParams.separator, 'right')
+          tweet.rotation = { x: 0, y: 30, z: 0 }
         }
 
         this.$store.dispatch('removeFirstTweet')
