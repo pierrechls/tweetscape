@@ -22,7 +22,8 @@ module.exports = {
       'assets': path.join(__dirname, '../client/assets'),
       'views': path.join(__dirname, '../client/views'),
       'store': path.join(__dirname, '../client/store'),
-      'utils': path.join(__dirname, '../client/utils')
+      'utils': path.join(__dirname, '../client/utils'),
+      'settings':  path.join(__dirname, '../settings')
     }
   },
   module: {
