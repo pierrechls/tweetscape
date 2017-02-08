@@ -88,10 +88,10 @@
         let tweet = this.tweets[0]
         if(this.displayedTweets.length % 2 == 0) {
             tweet.position = PathCalculator.after(this.pathParams.separator, 'left')
-            tweet.rotation = { x: 0, y: -30, z: 0 }
+            tweet.rotation = { x: SimulationParams.tweetRotation.x, y: -SimulationParams.tweetRotation.y, z: SimulationParams.tweetRotation.z }
         } else {
           tweet.position = PathCalculator.after(this.pathParams.separator, 'right')
-          tweet.rotation = { x: 0, y: 30, z: 0 }
+          tweet.rotation = { x: SimulationParams.tweetRotation.x, y: SimulationParams.tweetRotation.y, z: SimulationParams.tweetRotation.z }
         }
 
         this.$store.dispatch('removeFirstTweet')
