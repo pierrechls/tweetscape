@@ -18,9 +18,8 @@
     ]
   },
   "dependencies": {
-    "aframe": "^0.3.2",
-    "aframe-canvas": "0.0.6",
-    "aframe-gridhelper-component": "^0.1.1",
+    "aframe": "^0.4",
+    "aframe-gridhelper-component": "^0.2.0",
     "canvas-text-wrapper": "git+https://github.com/koroeskohr/canvas-text-wrapper.git",
     "dotenv": "^2.0.0",
     "gsap": "^1.19.0",

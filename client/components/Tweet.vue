@@ -3,8 +3,7 @@
            :height="tweetParams.height"
            :position="attributify(position)"
            :rotation="attributify(rotation)"
-           :canvas-material="'width:' + tweetParams.canvasWidth + ';height:' + tweetParams.canvasHeight + ';'"
-  >
+    >
   </a-plane>
 </template>
 
@@ -30,13 +29,24 @@
       }
     },
     mounted() {
-      window.setTimeout( () => {
-        let canvas = this.$el.components['canvas-material'].canvas
-        let tweetDrawer = new TweetDrawer(this.tweet, canvas)
+      let canvas = document.createElement('canvas')
+      canvas.width = 512
+      canvas.height = 512
+
+      let tweetDrawer = new TweetDrawer(this.tweet, canvas)
+
+      let fadeTexture = setInterval( () => {
         tweetDrawer.draw().then( () => {
-            this.$el.components['canvas-material'].updateTexture()
+          let texture = new THREE.Texture(canvas)
+          let material = new THREE.MeshBasicMaterial({ map: texture, transparent: true })
+          this.$el.object3D.children[0].material = material
+          texture.needsUpdate = true
+          if( tweetDrawer.getAlpha() >= 1.0 ) {
+            clearInterval(fadeTexture)
+          }
         })
       },100)
+
     },
     methods: {
       attributify

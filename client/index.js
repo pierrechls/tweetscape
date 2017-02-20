@@ -15,7 +15,6 @@ sync(store, router)
 
 import 'gsap'
 import 'aframe'
-import 'aframe-canvas'
 import 'aframe-gridhelper-component'
 
 const app = new Vue({

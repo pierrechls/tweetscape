@@ -7,6 +7,7 @@ class TweetDrawer {
     this.canvas = canvas
     this.ctx = canvas.getContext('2d')
     this.color = '#FF0000'
+    this.alpha = 0
   }
 
   drawBackground () {
@@ -54,14 +55,20 @@ class TweetDrawer {
 
   draw () {
     return new Promise((resolve, reject) => {
+      this.ctx.globalAlpha = this.alpha
       this.drawBackground()
       this.drawUserName()
       this.drawUserScreenName()
       this.drawContent()
       this.drawImage().then( () => {
+        this.alpha += 0.1
         resolve()
       })
     })
+  }
+
+  getAlpha () {
+    return this.alpha
   }
 
 }
