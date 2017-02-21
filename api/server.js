@@ -1,4 +1,3 @@
-var config  = require('../build/config')
 var settings = require('../settings/default')
 var Twitter = require('./twitter')
 var express = require('express')
@@ -20,18 +19,6 @@ app.get('/search/:hashtag', function (req, res) {
   })
 })
 
-var stream = Twitter.stream('statuses/filter', { track: '#ALaCantineYaToujours' })
-
-app.get('/stream', function (req, res) {
-  stream.on('tweet', function (tweet) {
-    console.log(tweet)
-  })
-})
-
-app.get('/', function (req, res) {
-  res.send('Hello World!')
-})
-
-app.listen(config.API.port, function () {
-  console.log(`Listening at ${config.API.url}:${config.API.port}`)
+app.listen(settings.API.port, function () {
+  console.log(`Listening at ${settings.API.url}:${settings.API.port}`)
 })

@@ -1,9 +1,22 @@
-'use strict'
-const pkg = require('../package')
+const path = require('path')
+const pkg = require('../package.json')
 const settings = require('../settings/default')
 
 module.exports = {
   title: 'tweet-vr',
+  build: {
+    env: require('./config.prod.env'),
+    index: path.resolve(__dirname, '../dist/index.html'),
+    assetsRoot: path.resolve(__dirname, '../dist'),
+    assetsSubDirectory: 'static',
+    assetsPublicPath: '/',
+    productionSourceMap: true
+  },
+  dev: {
+    env: require('./config.dev.env'),
+    port: settings.client.port,
+    proxyTable: {}
+  },
   client: {
     url: settings.client.url,
     port: settings.client.port
@@ -11,24 +24,5 @@ module.exports = {
   API : {
     url: settings.API.url,
     port: settings.API.port
-  },
-  vendor: Object.keys(pkg.dependencies),
-  babel: {
-    babelrc: false,
-    presets: [
-      ['es2015', {modules: false}],
-      'stage-1'
-    ],
-    plugins: [
-      'transform-vue-jsx'
-    ]
-  },
-  postcss: [
-    require('autoprefixer')({
-      // Vue does not support ie 8 and below
-      browsers: ['last 2 versions', 'ie > 8']
-    }),
-    require('postcss-nested')
-  ],
-  cssModules: true,
+  }
 }

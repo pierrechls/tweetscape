@@ -1,9 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import _ from 'lodash'
+
+import settings from 'lib/settings'
 
 Vue.use(Vuex)
 
 const state = {
+  lang: settings.lang,
   tweets: [],
   hashtag: null,
   isLoading: false
@@ -21,6 +25,12 @@ const mutations = {
   },
   SET_IS_LOADING(state, loading) {
     state.isLoading = loading
+  },
+  FILTER_UNIQ_TWEETS(state) {
+    state.tweets = _.uniqBy(state.tweets, 'id')
+  },
+  SORT_TWEETS_BY_DATE(state) {
+    state.tweets = _.sortBy(state.tweets, (tweet) => { return new Date(tweet.created_at) })
   }
 }
 
@@ -39,6 +49,16 @@ const actions = {
   },
   isNotLoading({commit}) {
     commit('SET_IS_LOADING', false)
+  },
+  filterUniqTweets({commit}) {
+    commit('FILTER_UNIQ_TWEETS')
+  },
+  sortTweetsByDate({commit}) {
+    commit('SORT_TWEETS_BY_DATE')
+  },
+  updateTweets({commit}) {
+    commit('FILTER_UNIQ_TWEETS')
+    commit('SORT_TWEETS_BY_DATE')
   }
 }
 
