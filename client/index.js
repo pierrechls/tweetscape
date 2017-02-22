@@ -1,8 +1,16 @@
 import Vue from 'vue'
 import App from 'components/App'
-import router from './router'
-import store from './store'
-import settings from 'settings/default'
+import settings from 'lib/settings'
+
+// Global vue stuffs
+import 'gsap'
+import 'locales/index'
+
+// Routing
+import router from 'client/router'
+
+// Store
+import store from 'client/store'
 
 // add vue-resource to Vue
 import VueResource from 'vue-resource'
@@ -13,12 +21,9 @@ Vue.http.options.root = `${settings.API.url}:${settings.API.port}`
 import { sync } from 'vuex-router-sync'
 sync(store, router)
 
-import 'gsap'
-import 'aframe'
-import 'aframe-canvas'
 import 'aframe-gridhelper-component'
 
-const app = new Vue({
+new Vue({
   el: '#app',
   router: router,
   store: store,
