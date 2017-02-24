@@ -21,6 +21,8 @@
   import Random from 'utils/maths/random.js'
   import PathCalculator from 'utils/PathCalculator.js'
 
+  import { getTweetsFromAPI } from 'store/api'
+
   export default {
     name: 'Renderer',
     components: {
@@ -97,6 +99,14 @@
         this.$store.dispatch('removeFirstTweet')
         this.pathParams.separator += SimulationParams.tweetSeparator
         this.displayedTweets.push(tweet)
+
+        if(this.tweets.length < 5 ) {
+            getTweetsFromAPI()
+              .then( () => {
+                this.$store.dispatch('updateTweets')
+            })
+        }
+
       }
     },
     mounted () {
