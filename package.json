@@ -17,7 +17,7 @@
     ]
   },
   "dependencies": {
-    "aframe": "^0.4",
+    "aframe": "^0.5",
     "aframe-gridhelper-component": "^0.2.0",
     "babel-runtime": "^6.0.0",
     "canvas-text-wrapper": "git+https://github.com/koroeskohr/canvas-text-wrapper.git",
