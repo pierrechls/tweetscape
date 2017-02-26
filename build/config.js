@@ -2,6 +2,8 @@ const path = require('path')
 const pkg = require('../package.json')
 const settings = require('../settings/default')
 
+// Global client config
+
 module.exports = {
   title: 'tweet-vr',
   build: {
