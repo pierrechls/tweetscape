@@ -22,6 +22,7 @@
     "babel-runtime": "^6.0.0",
     "canvas-text-wrapper": "git+https://github.com/koroeskohr/canvas-text-wrapper.git",
     "dotenv": "^2.0.0",
+    "granim": "^1.0.6",
     "gsap": "^1.19.0",
     "lodash": "^4.17.4",
     "node-sass": "^3.10.0",
