@@ -9,7 +9,7 @@
   },
   "app": {
     "tweet": {
-      "numberPerRequest": 25
+      "numberPerRequest": 20
     },
     "lang": "en"
   }
