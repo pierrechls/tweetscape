@@ -1,10 +1,24 @@
 <template>
   <div id="app">
+    <gradient-canvas></gradient-canvas>
     <transition name="fade" mode="out-in">
       <router-view></router-view>
     </transition>
   </div>
 </template>
+
+<script>
+
+  import GradientCanvas from 'components/GradientCanvas'
+
+  export default {
+    name: 'App',
+    components: {
+      GradientCanvas
+    }
+  }
+
+</script>
 
 <style>
 
