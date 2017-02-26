@@ -7,7 +7,7 @@ import settings from 'lib/settings'
 Vue.use(Vuex)
 
 const state = {
-  lang: settings.lang,
+  lang: settings.app.lang,
   tweets: [],
   hashtag: null,
   isLoading: false
