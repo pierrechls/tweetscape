@@ -1,3 +1,5 @@
+// ESLint configuration
+
 module.exports = {
   root: true,
   parserOptions: {
