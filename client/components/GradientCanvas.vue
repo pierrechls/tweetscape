@@ -1,5 +1,5 @@
 <template>
-  <canvas :id="name" class="canvas-interactive"></canvas>
+  <canvas :id="name" class="canvas-interactive" width="512" height="512"></canvas>
 </template>
 
 <script>
@@ -40,6 +40,9 @@
              }
          }
       })
+
+      this.$el.width = 512
+      this.$el.height = 512
 
       this.$store.dispatch('addGranimGradient', granimInstance)
 
