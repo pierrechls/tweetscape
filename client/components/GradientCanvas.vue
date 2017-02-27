@@ -22,7 +22,6 @@
 
       let granimInstance = new Granim({
          element: `#${this.name}`,
-         name: this.name,
          direction: 'top-bottom',
          defaultStateName: this.defaultState,
          opacity: [1, 1],
@@ -44,7 +43,7 @@
       this.$el.width = 512
       this.$el.height = 512
 
-      this.$store.dispatch('addGranimGradient', granimInstance)
+      this.$store.dispatch('addGranimGradient', { name: this.name, gradient: granimInstance })
 
 
     }
