@@ -11,7 +11,7 @@ const state = {
   tweets: [],
   hashtag: null,
   isLoading: false,
-  granimGradients: []
+  gradients: []
 }
 
 const mutations = {
@@ -34,7 +34,7 @@ const mutations = {
     state.tweets = _.sortBy(state.tweets, (tweet) => { return new Date(tweet.created_at) })
   },
   ADD_GRANIM_GRADIENT(state, gradient) {
-    state.granimGradients.push(gradient)
+    state.gradients.push(gradient)
   }
 }
 
