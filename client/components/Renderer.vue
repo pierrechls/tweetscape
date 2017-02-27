@@ -6,6 +6,7 @@
       <tweet v-for="tweet in displayedTweets" :position="tweet.position" :rotation="tweet.rotation" :tweet="tweet"></tweet>
       <!-- /tweets -->
       <camera :position="camera.position"></camera>
+      <a-sky src="#gradient-skybox"></a-sky>
     </a-scene>
   </div>
 </template>
