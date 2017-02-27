@@ -13,12 +13,8 @@
     components: {
       Renderer
     },
-    computed: {
-      gradient: function () { return this.$store.state.granimGradients.filter(function(item) { return item.name === 'canvas-interactive-home'}) }
-    },
     mounted () {
       TweenMax.fromTo('.timeline', 0.5, { opacity: 0 }, { opacity: 1 }).delay(1.5)
-      console.log('GRADIENT', this.gradient)
     }
   }
 

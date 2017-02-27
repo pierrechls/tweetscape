@@ -31,11 +31,15 @@
       isHashtag: function() {
         const regex = /^\w{1,100}$/
         return regex.test(this.userHashtag)
+      },
+      gradientCanvas: function () {
+        return this.$store.state.gradients.find(function(item) { return item.name === 'canvas-interactive'})
       }
     },
     methods: {
       start: function () {
         this.$store.dispatch('setHashtag', this.userHashtag)
+        this.gradientCanvas.gradient.changeState('timeline-state')
         this.userHashtag = ''
 
         getTweetsFromAPI()
