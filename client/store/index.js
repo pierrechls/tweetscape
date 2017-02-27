@@ -10,7 +10,8 @@ const state = {
   lang: settings.app.lang,
   tweets: [],
   hashtag: null,
-  isLoading: false
+  isLoading: false,
+  granimGradients: []
 }
 
 const mutations = {
@@ -31,6 +32,9 @@ const mutations = {
   },
   SORT_TWEETS_BY_DATE(state) {
     state.tweets = _.sortBy(state.tweets, (tweet) => { return new Date(tweet.created_at) })
+  },
+  ADD_GRANIM_GRADIENT(state, gradient) {
+    state.granimGradients.push(gradient)
   }
 }
 
@@ -59,6 +63,9 @@ const actions = {
   updateTweets({commit}) {
     commit('FILTER_UNIQ_TWEETS')
     commit('SORT_TWEETS_BY_DATE')
+  },
+  addGranimGradient({commit}, gradient) {
+    commit('ADD_GRANIM_GRADIENT', gradient)
   }
 }
 
