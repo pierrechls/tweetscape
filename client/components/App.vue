@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <gradient-canvas name="canvas-interactive-home" default-state="home-state"></gradient-canvas>
+    <gradient-canvas name="canvas-interactive" default-state="home-state"></gradient-canvas>
     <transition name="fade" mode="out-in">
       <router-view></router-view>
     </transition>
