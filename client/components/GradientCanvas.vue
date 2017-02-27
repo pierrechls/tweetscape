@@ -1,5 +1,5 @@
 <template>
-  <canvas id="canvas-interactive"></canvas>
+  <canvas :id="name" class="canvas-interactive"></canvas>
 </template>
 
 <script>
@@ -8,20 +8,42 @@
 
   export default {
     name: 'GradientCanvas',
+    props: {
+      name: {
+        type: String,
+        required: true
+      },
+      defaultState: {
+        type: String,
+        required: true
+      }
+    },
     mounted () {
-      var granimInstance = new Granim({
-         element: '#canvas-interactive',
-         name: 'canvas-interactive',
+
+      let granimInstance = new Granim({
+         element: `#${this.name}`,
+         name: this.name,
+         direction: 'top-bottom',
+         defaultStateName: this.defaultState,
          opacity: [1, 1],
          states : {
-             "default-state": {
+             'home-state': {
                  gradients: [
-                     ['#834D9B', '#D04ED6'],
-                     ['#1CD8D2', '#93EDC7']
+                     ['#141E30', '#243B55'],
+                     ['#0D1523', '#15283C']
+                 ]
+             },
+             'timeline-state': {
+                 gradients: [
+                     ['#0D1523', '#15283C']
                  ]
              }
          }
       })
+
+      this.$store.dispatch('addGranimGradient', granimInstance)
+
+
     }
   }
 
@@ -29,7 +51,7 @@
 
 <style scoped>
 
-  #canvas-interactive {
+  .canvas-interactive {
     position: absolute;
     display: block;
     width: 100%;
