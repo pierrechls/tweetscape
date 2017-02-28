@@ -53,6 +53,16 @@ app.use(hotMiddleware)
 var staticPath = path.posix.join(config.build.assetsPublicPath, config.build.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
 
+const mfs = devMiddleware.fileSystem
+const file = path.join(webpackConfig.output.path, 'index.html')
+
+app.get('*', (req, res) => {
+  devMiddleware.waitUntilValid(() => {
+    const html = mfs.readFileSync(file)
+    res.end(html)
+  })
+})
+
 module.exports = app.listen(config.client.port, function (err) {
   if (err) {
     console.log(err)
