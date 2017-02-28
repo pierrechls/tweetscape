@@ -2,6 +2,9 @@ import Vue from 'vue'
 import App from 'components/App'
 import settings from 'lib/settings'
 
+// Import favicon
+import 'assets/favicon.png'
+
 // Global vue stuffs
 import 'gsap'
 import 'locales/index'

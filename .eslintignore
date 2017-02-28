@@ -1,2 +1,4 @@
+# Ignore built and config files
+
 build/*.js
 config/*.js

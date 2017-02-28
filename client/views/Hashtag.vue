@@ -1,10 +1,10 @@
 <template>
   <div class="home">
     <div class="content">
-      <h1 class="title">Insert your fucking hashtag</h1>
+      <h1 class="title">Insert your hashtag</h1>
       <div class="select-your-hashtag">
-        <p><span class="hashtag-icon">#</span><input type="text" name="hashtag" v-model="userHashtag"/></p>
-        <button @click="startLoader" :disabled="!isHashtag">Let's start!</button>
+        <div class="search-hashtag"><p class="hashtag-input"><input type="text" id="hashtaginput" name="hashtag" v-model="userHashtag" tabindex="-1" autofocus/></p></div>
+        <button id="start" @click="startLoader" :disabled="!isHashtag">Let's start!</button>
       </div>
     </div>
     <preloader :display="isLoading"></preloader>
@@ -31,11 +31,15 @@
       isHashtag: function() {
         const regex = /^\w{1,100}$/
         return regex.test(this.userHashtag)
+      },
+      gradientCanvas: function () {
+        return this.$store.state.gradients.find(function(item) { return item.name === 'canvas-interactive'})
       }
     },
     methods: {
       start: function () {
         this.$store.dispatch('setHashtag', this.userHashtag)
+        this.gradientCanvas.gradient.changeState('timeline-state')
         this.userHashtag = ''
 
         getTweetsFromAPI()
@@ -60,6 +64,14 @@
           this.$router.push({ path: '/timeline' })
         }}).delay(1)
       }
+    },
+    mounted () {
+      this.$el.querySelector('#hashtaginput').addEventListener('keypress', (ev) => {
+          var key = ev.which || ev.keyCode
+          if (key === 13) {
+            this.startLoader()
+          }
+      })
     }
   }
 
@@ -70,17 +82,91 @@
   .home {
 
     .content {
+      width: 30rem;
+      height: 30rem;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-left: -15rem;
+      margin-top: -15rem;
+      color: #FFFFFF;
 
       .title {
         text-align: center;
+        font-size: 3.5rem;
       }
 
       .select-your-hashtag {
         text-align: center;
         vertical-align: middle;
 
-        .hashtag-icon {
-          margin-right: 1rem;
+        .search-hashtag {
+
+          .hashtag-input {
+
+            input[type="text"] {
+              border-radius: 0;
+              border: none;
+              background: none;
+              color: #FFFFFF;
+              padding-left: 3rem;
+              font-size: 1.5rem;
+              outline: none;
+              background-image: url('~assets/hashtag-icon.svg');
+              background-repeat: no-repeat;
+              background-size: 15%;
+              background-position: 0.5rem;
+              width: 15rem;
+              height: 5rem;
+            }
+
+          }
+
+        }
+
+        #start{
+          outline: none;
+          border: none;
+          padding: 1rem 2rem;
+          border-radius: 8px;
+          color: #FFF;
+          opacity: 1;
+          text-transform: uppercase;
+          border: 0.1rem solid rgba(255,255,255,0.5);
+          cursor: pointer;
+          font-weight: 400;
+          letter-spacing: 0.2rem;
+          background-image: linear-gradient(45deg, #48c6ef, #6f86d6, #48c6ef);
+          background-size: 300% 300%;
+          background-position: 0% 100%;
+          animation-name: test_hover;
+          animation-duration: 4s;
+          animation-iteration-count: infinite;
+          animation-timing-function: linear;
+          animation-direction: alternate;
+          -webkit-transition: all .6s ease-in-out;
+          -moz-transition: all .6s ease-in-out;
+          -o-transition: all .6s ease-in-out;
+          transition: all .6s ease-in-out;
+
+          &:hover {
+            color: #141E30;
+            box-shadow: 0 20rem 10rem -10rem rgba(255,255,255,0.9) inset;
+          }
+
+          &:disabled {
+            opacity: 0;
+          }
+
+        }
+
+        @keyframes test_hover {
+          from {
+            background-position: 0% 100%;
+          }
+          to {
+            background-position: 100% 0%;
+          }
         }
       }
     }

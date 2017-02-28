@@ -6,6 +6,7 @@
       <tweet v-for="tweet in displayedTweets" :position="tweet.position" :rotation="tweet.rotation" :tweet="tweet"></tweet>
       <!-- /tweets -->
       <camera :position="camera.position"></camera>
+      <a-sky src="#gradient-skybox"></a-sky>
     </a-scene>
   </div>
 </template>
@@ -20,6 +21,8 @@
   import Vector3D from 'utils/maths/vector3d.js'
   import Random from 'utils/maths/random.js'
   import PathCalculator from 'utils/PathCalculator.js'
+
+  import { getTweetsFromAPI } from 'store/api'
 
   export default {
     name: 'Renderer',
@@ -97,6 +100,14 @@
         this.$store.dispatch('removeFirstTweet')
         this.pathParams.separator += SimulationParams.tweetSeparator
         this.displayedTweets.push(tweet)
+
+        if(this.tweets.length < 5 ) {
+            getTweetsFromAPI()
+              .then( () => {
+                this.$store.dispatch('updateTweets')
+            })
+        }
+
       }
     },
     mounted () {

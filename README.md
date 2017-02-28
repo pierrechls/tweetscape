@@ -5,7 +5,8 @@
 ### Connect your Twitter API
 
 - Duplicate the `.env.example` file and rename it to `.env`
-- Remplate default values by your Twitter API consumer key and access token
+- Get your application settings from the [Twitter Application Management](https://apps.twitter.com/)
+- Remplace the default values into your `.env` file by your Twitter Application values
 
 ### Install dependencies
 

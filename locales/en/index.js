@@ -1,3 +1,4 @@
 module.exports = {
-  'hello': 'Hi'
+  'hello': 'Hi',
+  'hashtag': 'Insert your hashtag'
 }
