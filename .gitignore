@@ -5,3 +5,6 @@ dist/
 npm-debug.log
 
 .env
+
+yarn.lock
+
