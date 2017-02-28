@@ -49,6 +49,7 @@
           this.$el.object3D.children[0].material = material
           texture.needsUpdate = true
 
+          // doesn't work right now
           let fadeIn = 0
           let fadeTexture = setInterval( () => {
             if(fadeIn >= 1.0){ clearInterval(fadeTexture) }
