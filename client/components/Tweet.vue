@@ -38,8 +38,8 @@
       window.setTimeout( () => {
 
         let canvas = document.createElement('canvas')
-        canvas.width = 512
-        canvas.height = 512
+        canvas.width = SimulationParams.tweetSize.canvasWidth
+        canvas.height = SimulationParams.tweetSize.canvasHeight
 
         let tweetDrawer = new TweetDrawer(this.tweet, canvas)
 
