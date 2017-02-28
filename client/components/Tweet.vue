@@ -43,9 +43,9 @@
 
         let tweetDrawer = new TweetDrawer(this.tweet, canvas)
 
-        tweetDrawer.draw().then( () => {
-          let texture = new THREE.Texture(canvas)
-          let material = new THREE.MeshBasicMaterial({ map: texture, transparent: true, opacity: 0 })
+        tweetDrawer.draw().then( (c) => {
+          let texture = new THREE.Texture(c)
+          let material = new THREE.MeshBasicMaterial({ map: texture, transparent: false, opacity: 0 })
           this.$el.object3D.children[0].material = material
           texture.needsUpdate = true
 

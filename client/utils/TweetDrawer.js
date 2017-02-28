@@ -59,7 +59,7 @@ class TweetDrawer {
       this.drawUserScreenName()
       this.drawContent()
       this.drawImage().then( () => {
-        resolve()
+        resolve(this.canvas)
       })
     })
   }
