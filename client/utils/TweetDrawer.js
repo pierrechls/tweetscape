@@ -15,7 +15,6 @@ class TweetDrawer {
   }
 
   drawImage () {
-
     let promise = new Promise( (resolve, reject) => {
       let img = new Image()
       img.crossOrigin = 'anonymous'
@@ -44,12 +43,12 @@ class TweetDrawer {
 
   drawContent () {
     this.ctx.fillStyle = '#222222'
-    CanvasTextWrapper(this.canvas, this.tweet.content, {
+/*    CanvasTextWrapper(this.canvas, this.tweet.content, {
       font: '20px Lato',
       lineHeight: 1.2,
       paddingX: 20,
       marginY: 110
-    })
+    })*/
   }
 
   draw () {
