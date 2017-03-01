@@ -1,4 +1,4 @@
-import { CanvasTextWrapper } from 'canvas-text-wrapper'
+import { CanvasTextWrapper } from 'utils/CanvasTextWrapper'
 
 class TweetDrawer {
 
@@ -7,7 +7,6 @@ class TweetDrawer {
     this.canvas = canvas
     this.ctx = canvas.getContext('2d')
     this.color = '#FF0000'
-    this.alpha = 0
   }
 
   drawBackground () {
@@ -16,7 +15,6 @@ class TweetDrawer {
   }
 
   drawImage () {
-
     let promise = new Promise( (resolve, reject) => {
       let img = new Image()
       img.crossOrigin = 'anonymous'
@@ -44,31 +42,22 @@ class TweetDrawer {
   }
 
   drawContent () {
-    this.ctx.fillStyle = '#222222'
     CanvasTextWrapper(this.canvas, this.tweet.content, {
-      font: '20px Lato',
-      lineHeight: 1.2,
-      paddingX: 20,
-      marginY: 110
+      fontSize: 30,
+      color: '#222222'
     })
   }
 
   draw () {
     return new Promise((resolve, reject) => {
-      this.ctx.globalAlpha = this.alpha
       this.drawBackground()
       this.drawUserName()
       this.drawUserScreenName()
       this.drawContent()
       this.drawImage().then( () => {
-        this.alpha += 0.1
-        resolve()
+        resolve(this.canvas)
       })
     })
-  }
-
-  getAlpha () {
-    return this.alpha
   }
 
 }
