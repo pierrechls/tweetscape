@@ -1,8 +1,8 @@
 // TWEET PARAMS
 const TWEET_SEPARATOR = 10
 const TWEET_SIZE = {
-  width: 4,
-  height: 3,
+  width: 5,
+  height: 5,
   canvasWidth: 512,
   canvasHeight: 512
 }
