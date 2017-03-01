@@ -1,4 +1,4 @@
-import { CanvasTextWrapper } from 'canvas-text-wrapper'
+import { CanvasTextWrapper } from 'utils/CanvasTextWrapper'
 
 class TweetDrawer {
 
@@ -42,13 +42,10 @@ class TweetDrawer {
   }
 
   drawContent () {
-    this.ctx.fillStyle = '#222222'
-/*    CanvasTextWrapper(this.canvas, this.tweet.content, {
-      font: '20px Lato',
-      lineHeight: 1.2,
-      paddingX: 20,
-      marginY: 110
-    })*/
+    CanvasTextWrapper(this.canvas, this.tweet.content, {
+      fontSize: 30,
+      color: '#222222'
+    })
   }
 
   draw () {
