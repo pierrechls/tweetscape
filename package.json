@@ -20,7 +20,6 @@
     "aframe": "^0.5",
     "aframe-gridhelper-component": "^0.2.0",
     "babel-runtime": "^6.0.0",
-    "canvas-text-wrapper": "git+https://github.com/koroeskohr/canvas-text-wrapper.git",
     "dotenv": "^2.0.0",
     "granim": "^1.0.6",
     "gsap": "^1.19.0",
