@@ -31,10 +31,6 @@
     },
     mounted() {
 
-      /* *********************************************** */
-      /* TEST 3 : sans aframe-canvas + fade-in animation */
-      /* *********************************************** */
-
       window.setTimeout( () => {
 
         let canvas = document.createElement('canvas')
