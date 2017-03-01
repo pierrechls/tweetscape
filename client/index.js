@@ -24,7 +24,7 @@ Vue.http.options.root = `${settings.API.url}:${settings.API.port}`
 import { sync } from 'vuex-router-sync'
 sync(store, router)
 
-import 'aframe-canvas'
+// Import global libraries
 import 'aframe-gridhelper-component'
 
 new Vue({
