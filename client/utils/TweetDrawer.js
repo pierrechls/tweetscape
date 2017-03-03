@@ -2,7 +2,7 @@ import { getLines, CanvasTextWrapper } from 'utils/CanvasTextWrapper'
 
 const textStyle = {
   fontSize: 25,
-  color: '#222222'
+  color: '#245170'
 }
 
 const imageStyle = {
@@ -21,7 +21,12 @@ class TweetDrawer {
   }
 
   drawBackground () {
-    this.ctx.fillStyle = this.color
+    let grd = this.ctx.createLinearGradient(150.000, 0.000, 150.000, 300.000);
+
+    grd.addColorStop(0.000, 'rgba(161, 196, 253, 1.000)');
+    grd.addColorStop(1.000, 'rgba(194, 233, 251, 1.000)');
+
+    this.ctx.fillStyle = grd
     this.ctx.fillRect (0, 0, this.canvas.width, this.canvas.height)
   }
 
@@ -65,14 +70,14 @@ class TweetDrawer {
 
   drawUserName () {
     this.ctx.font = 'bold 30px Open Sans, Roboto, sans-serif'
-    this.ctx.fillStyle = '#000000'
+    this.ctx.fillStyle = '#245170'
     this.ctx.textAlign= 'center'
     this.ctx.fillText(this.tweet.author.name, this.canvas.width/2, 150 - (this.lines.length + 1) * 5 + imageStyle.imageSize + 30)
   }
 
   drawUserScreenName () {
     this.ctx.font = 'italic 20px Open Sans, Roboto, sans-serif'
-    this.ctx.fillStyle = '#000000'
+    this.ctx.fillStyle = '#245170'
     this.ctx.textAlign= 'center'
     this.ctx.fillText('@' + this.tweet.author.screen_name, this.canvas.width/2, 150 - (this.lines.length + 1) * 5 + imageStyle.imageSize + 65)
   }
