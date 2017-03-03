@@ -45,17 +45,17 @@ class TweetDrawer {
   }
 
   drawUserName () {
-    this.ctx.font = '20px Lato'
+    this.ctx.font = 'bold 30px Open Sans, Roboto, sans-serif'
     this.ctx.fillStyle = '#000000'
     this.ctx.textAlign= 'center'
     this.ctx.fillText(this.tweet.author.name, this.canvas.width/2, 110 - (this.lines.length + 1) * 5 + imageStyle.imageSize + 30)
   }
 
   drawUserScreenName () {
-    this.ctx.font = '16px Lato'
+    this.ctx.font = 'italic 20px Open Sans, Roboto, sans-serif'
     this.ctx.fillStyle = '#000000'
     this.ctx.textAlign= 'center'
-    this.ctx.fillText('@' + this.tweet.author.screen_name, this.canvas.width/2, 110 - (this.lines.length + 1) * 5 + imageStyle.imageSize + 50)
+    this.ctx.fillText('@' + this.tweet.author.screen_name, this.canvas.width/2, 110 - (this.lines.length + 1) * 5 + imageStyle.imageSize + 65)
   }
 
   draw () {

@@ -6,7 +6,7 @@ export function CanvasTextWrapper(canvas, lines, style) {
   const fontSize = style.fontSize || 30
   const lineheight = 1 * fontSize
 
-  ctx.font = `normal ${fontSize}px Helvetica Neue, Helvetica, Roboto, Arial, sans-serif`
+  ctx.font = `normal ${fontSize}px Open Sans, Roboto, sans-serif`
   ctx.textAlign = 'center'
   ctx.textBaseline = 'middle'
   ctx.fillStyle = style.color || '#000000'
