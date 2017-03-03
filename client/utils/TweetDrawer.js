@@ -6,7 +6,7 @@ const textStyle = {
 }
 
 const imageStyle = {
-  imageSize: 100,
+  imageSize: 50,
   imageMargin: 30
 }
 
@@ -34,7 +34,26 @@ class TweetDrawer {
       let img = new Image()
       img.crossOrigin = 'anonymous'
       img.onload = () => {
-        this.ctx.drawImage(img, (this.canvas.width / 2) - (imageStyle.imageSize / 2), 110 - (this.lines.length + 1) * 5, imageStyle.imageSize, imageStyle.imageSize)
+
+        // normal image drawing
+        // this.ctx.drawImage(img, (this.canvas.width / 2) - (imageStyle.imageSize / 2), 110 - (this.lines.length + 1) * 5, imageStyle.imageSize, imageStyle.imageSize)
+
+        // circle image drawing
+
+        this.ctx.save()
+        this.ctx.beginPath()
+          this.ctx.arc((this.canvas.width / 2), 150 - (this.lines.length + 1) * 5, imageStyle.imageSize, 0, Math.PI*2, true)
+        this.ctx.closePath()
+        this.ctx.clip()
+
+        this.ctx.drawImage(img, (this.canvas.width / 2)-imageStyle.imageSize, (150 - (this.lines.length + 1) * 5)-imageStyle.imageSize, 2 * imageStyle.imageSize, 2 * imageStyle.imageSize)
+
+        this.ctx.beginPath()
+          this.ctx.arc((this.canvas.width / 2)-imageStyle.imageSize, (150 - (this.lines.length + 1) * 5)-imageStyle.imageSize, imageStyle.imageSize, 0, Math.PI*2, true)
+        this.ctx.clip()
+        this.ctx.closePath()
+        this.ctx.restore()
+
         resolve()
       }
       img.src = this.tweet.author.image_url
@@ -48,14 +67,14 @@ class TweetDrawer {
     this.ctx.font = 'bold 30px Open Sans, Roboto, sans-serif'
     this.ctx.fillStyle = '#000000'
     this.ctx.textAlign= 'center'
-    this.ctx.fillText(this.tweet.author.name, this.canvas.width/2, 110 - (this.lines.length + 1) * 5 + imageStyle.imageSize + 30)
+    this.ctx.fillText(this.tweet.author.name, this.canvas.width/2, 150 - (this.lines.length + 1) * 5 + imageStyle.imageSize + 30)
   }
 
   drawUserScreenName () {
     this.ctx.font = 'italic 20px Open Sans, Roboto, sans-serif'
     this.ctx.fillStyle = '#000000'
     this.ctx.textAlign= 'center'
-    this.ctx.fillText('@' + this.tweet.author.screen_name, this.canvas.width/2, 110 - (this.lines.length + 1) * 5 + imageStyle.imageSize + 65)
+    this.ctx.fillText('@' + this.tweet.author.screen_name, this.canvas.width/2, 150 - (this.lines.length + 1) * 5 + imageStyle.imageSize + 65)
   }
 
   draw () {
