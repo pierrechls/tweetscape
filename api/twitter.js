@@ -1,4 +1,6 @@
-require('dotenv').config()
+if (!process.env.PORT) {
+	require('dotenv').config()
+}
 var Twit = require('twit')
 
 var T = new Twit({
