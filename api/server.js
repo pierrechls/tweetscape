@@ -3,6 +3,9 @@ var Twitter = require('./twitter')
 var express = require('express')
 var app = express()
 
+var port = process.env.PORT || settings.API.port
+var url = process.env.PORT ? "localhost" : settings.API.port
+
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
@@ -20,5 +23,5 @@ app.get('/search/:hashtag', function (req, res) {
 })
 
 app.listen(settings.API.port, function () {
-  console.log(`Listening at ${settings.API.url}:${settings.API.port}`)
+  console.log(`Listening at ${url}:${port}`)
 })
