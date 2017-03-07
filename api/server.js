@@ -22,6 +22,6 @@ app.get('/search/:hashtag', function (req, res) {
   })
 })
 
-app.listen(settings.API.port, function () {
+app.listen(port, function () {
   console.log(`Listening at ${url}:${port}`)
 })
