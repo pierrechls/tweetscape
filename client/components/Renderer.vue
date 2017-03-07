@@ -98,9 +98,10 @@
             tweet.rotation = { x: SimulationParams.tweetRotation.x, y: SimulationParams.tweetRotation.y, z: SimulationParams.tweetRotation.z }
           }
 
-        this.$store.dispatch('removeFirstTweet')
-        this.pathParams.separator += SimulationParams.tweetSeparator
-        this.displayedTweets.push(tweet)
+          this.$store.dispatch('removeFirstTweet')
+          this.pathParams.separator += SimulationParams.tweetSeparator
+          this.displayedTweets.push(tweet)
+        }
 
         if(this.tweets.length < 5 ) {
             getTweetsFromAPI()
