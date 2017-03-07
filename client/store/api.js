@@ -17,10 +17,12 @@ function tweetFromStatus (status) {
 export function getTweetsFromAPI () {
   return new Promise( (resolve, reject) => {
     let hashtag = store.state.hashtag
-    Vue.http.get(`search/${hashtag}`)
+    let max_id = store.state.max_id || ''
+    Vue.http.get(`search/${hashtag}?max_id=${max_id}`)
     .then((response) => {
       if(response.data.statuses.length > 20) {
         console.log('success: ', response.data)
+        store.dispatch('setTweetsMaxId', response.data['search_metadata']['max_id_str'])
         response.data.statuses.forEach((status) => {
           //TODO (Victor) : gérer les différents types de tweets (médias différents, image, vidéo)
           //TODO (Victor) : faire une factory qui crée un type selon son type de média
