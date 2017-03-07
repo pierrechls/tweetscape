@@ -24,6 +24,8 @@
 
   import { getTweetsFromAPI } from 'store/api'
 
+  let cycleTweetsInterval = null
+
   export default {
     name: 'Renderer',
     components: {
@@ -114,7 +116,7 @@
       PathCalculator.setAmplitude(Random.getRandomInt(SimulationParams.pathAmplitude.x.min, SimulationParams.pathAmplitude.x.max), Random.getRandomInt(SimulationParams.pathAmplitude.y.min, SimulationParams.pathAmplitude.y.max))
       PathCalculator.setFrequency(Random.getRandomInt(SimulationParams.pathFrequency.x.min, SimulationParams.pathFrequency.x.max) + Math.random()*2, Random.getRandomInt(SimulationParams.pathFrequency.y.min, SimulationParams.pathFrequency.y.max) + Math.random()*2)
 
-      setInterval(this.cycleTweets, 1000)
+      cycleTweetsInterval = setInterval(this.cycleTweets, 1000)
 
       const scene = this.$el.querySelector('a-scene')
       if (scene.hasLoaded) {
@@ -126,6 +128,9 @@
           this.buildSplineAndRun()
         })
       }
+    },
+    beforeDestroy () {
+      clearInterval(cycleTweetsInterval)
     }
   }
 
