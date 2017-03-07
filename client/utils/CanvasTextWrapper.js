@@ -1,4 +1,4 @@
-export function CanvasTextWrapper(canvas, text, style) {
+export function CanvasTextWrapper(canvas, lines, style) {
 
   const width = canvas.width * 2
   const height = canvas.height * 2
@@ -6,24 +6,24 @@ export function CanvasTextWrapper(canvas, text, style) {
   const fontSize = style.fontSize || 30
   const lineheight = 1 * fontSize
 
-  ctx.font = `normal ${fontSize}px Helvetica Neue, Helvetica, Roboto, Arial, sans-serif`
+  ctx.font = `normal ${fontSize}px Open Sans, Roboto, sans-serif`
   ctx.textAlign = 'center'
   ctx.textBaseline = 'middle'
   ctx.fillStyle = style.color || '#000000'
 
-  const maxTextWidth = width / 2 - fontSize * 1.5
-  const lines = getLines(ctx, text, maxTextWidth)
+  const maxTextWidth = width / 3 - fontSize * 1.5
 
   lines.map((line, i) => ctx.fillText(
       line,
       width / 4,
-      height / 4 + lineheight * ((i + 1) - (lines.length + 1) / 2),
+      height / 3.5 + lineheight * (i + 1) - (lines.length * 5),
       maxTextWidth
     )
   )
 }
 
-function getLines(ctx, text, maxTextWidth) {
+export function getLines(ctx, text, canvasWidth, fontSize) {
+  const maxTextWidth = canvasWidth / 3 - fontSize * 1.5
   const words = text.split(' ');
   const lines = words.reduce((acc, word) => {
     const lastLineIndex = acc.length > 0 ? acc.length - 1 : 0;

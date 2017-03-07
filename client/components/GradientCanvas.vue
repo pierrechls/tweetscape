@@ -22,19 +22,19 @@
 
       let granimInstance = new Granim({
          element: `#${this.name}`,
-         direction: 'top-bottom',
+         direction: 'diagonal',
          defaultStateName: this.defaultState,
          opacity: [1, 1],
          states : {
              'home-state': {
                  gradients: [
-                     ['#141E30', '#243B55'],
-                     ['#0D1523', '#15283C']
+                     ['#21c2cc', '#6b4bba'],
+                     ['#229ea6', '#3f28b1']
                  ]
              },
              'timeline-state': {
                  gradients: [
-                     ['#0D1523', '#15283C']
+                     ['#245170', '#2f3a65']
                  ]
              }
          }
