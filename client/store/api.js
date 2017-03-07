@@ -20,7 +20,7 @@ export function getTweetsFromAPI () {
     let max_id = store.state.max_id || ''
     Vue.http.get(`search/${hashtag}?max_id=${max_id}`)
     .then((response) => {
-      if(response.data.statuses.length > 20) {
+      if(response.data.statuses.length > 0) {
         console.log('success: ', response.data)
         store.dispatch('setTweetsMaxId', response.data['search_metadata']['max_id_str'])
         response.data.statuses.forEach((status) => {
