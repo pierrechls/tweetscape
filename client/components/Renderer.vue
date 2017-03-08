@@ -37,6 +37,7 @@
       return {
         tweetsToRender: [],
         isLoaded: false,
+        experimentOngoing: true,
         camera: {
           position: {
             x: 0,
@@ -85,7 +86,6 @@
       },
       initLastPath: function () {
         this.lastPath = this.paths[0]
-        // TODO : get paths[0] and paths[1], get coeff_dir, set as base camera rot
       },
       startSimulation: function () {
         TweenMax.to(this.camera.position, SimulationParams.speed, { bezier: this.paths, ease: Linear.easeNone, repeat: 0, onComplete: this.buildSplineAndRun })
@@ -97,24 +97,27 @@
       cycleTweets: function() {
 
         let tweet = this.tweets[0]
+        if (tweet) {
 
-        if(this.tweetsToRender.length % 2 == 0) {
-            tweet.position = PathCalculator.after(this.pathParams.separator, 'left')
-            tweet.rotation = { x: SimulationParams.tweetRotation.x, y: -SimulationParams.tweetRotation.y, z: SimulationParams.tweetRotation.z }
-        } else {
-          tweet.position = PathCalculator.after(this.pathParams.separator, 'right')
-          tweet.rotation = { x: SimulationParams.tweetRotation.x, y: SimulationParams.tweetRotation.y, z: SimulationParams.tweetRotation.z }
+          if(this.tweetsToRender.length % 2 == 0) {
+              tweet.position = PathCalculator.after(this.pathParams.separator, 'left')
+              tweet.rotation = { x: SimulationParams.tweetRotation.x, y: -SimulationParams.tweetRotation.y, z: SimulationParams.tweetRotation.z }
+          } else {
+            tweet.position = PathCalculator.after(this.pathParams.separator, 'right')
+            tweet.rotation = { x: SimulationParams.tweetRotation.x, y: SimulationParams.tweetRotation.y, z: SimulationParams.tweetRotation.z }
+          }
+
+          this.$store.dispatch('removeFirstTweet')
+          this.pathParams.separator += SimulationParams.tweetSeparator
+          this.tweetsToRender.push(tweet)
         }
 
-        this.$store.dispatch('removeFirstTweet')
-        this.pathParams.separator += SimulationParams.tweetSeparator
-        this.tweetsToRender.push(tweet)
-
-        if(this.tweets.length < 5 ) {
+        if(this.experimentOngoing && this.tweets.length < 5 ) {
             getTweetsFromAPI()
-              .then( () => {
-                this.$store.dispatch('updateTweets')
-            })
+              .then(
+                () => this.$store.dispatch('updateTweets'),
+                () => this.experimentOngoing = false
+              )
         }
 
       }

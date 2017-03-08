@@ -13,8 +13,13 @@ app.use(function (req, res, next) {
 
 app.get('/search/:hashtag', function (req, res) {
   var hashtag = req.params.hashtag
-  Twitter.get('search/tweets', { q: '#' + hashtag, count: settings.app.tweet.numberPerRequest }, function(err, data, response) {
-    console.log(data)
+  var max_id = req.query.max_id
+  var count = 60 //settings.app.tweet.numberPerRequest
+
+  Twitter.get('search/tweets', { q: '#' + hashtag, count: count , since_id: max_id }, function(err, data, response) {
+    data.statuses.map((s) => {
+      console.log(s["id_str"])
+    })
     res.send(data)
   })
 })

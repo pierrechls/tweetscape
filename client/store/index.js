@@ -9,6 +9,7 @@ Vue.use(Vuex)
 const state = {
   lang: settings.app.lang,
   tweets: [],
+  max_id: '',
   hashtag: null,
   isLoading: false,
   gradients: []
@@ -35,6 +36,9 @@ const mutations = {
   },
   ADD_GRANIM_GRADIENT(state, gradient) {
     state.gradients.push(gradient)
+  },
+  SET_TWEETS_MAX_ID(state, maxId) {
+    state.max_id = maxId
   }
 }
 
@@ -66,6 +70,9 @@ const actions = {
   },
   addGranimGradient({commit}, gradient) {
     commit('ADD_GRANIM_GRADIENT', gradient)
+  },
+  setTweetsMaxId({commit}, maxId) {
+    commit('SET_TWEETS_MAX_ID', maxId)
   }
 }
 
