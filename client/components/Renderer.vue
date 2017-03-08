@@ -96,25 +96,33 @@
       },
       cycleTweets: function() {
 
-        let tweet = this.tweets[0]
+        if(this.tweets.length > 0) {
+          let tweet = this.tweets[0]
 
-        if(this.tweetsToRender.length % 2 == 0) {
-            tweet.position = PathCalculator.after(this.pathParams.separator, 'left')
-            tweet.rotation = { x: SimulationParams.tweetRotation.x, y: -SimulationParams.tweetRotation.y, z: SimulationParams.tweetRotation.z }
-        } else {
-          tweet.position = PathCalculator.after(this.pathParams.separator, 'right')
-          tweet.rotation = { x: SimulationParams.tweetRotation.x, y: SimulationParams.tweetRotation.y, z: SimulationParams.tweetRotation.z }
+          if(this.tweetsToRender.length % 2 == 0) {
+              tweet.position = PathCalculator.after(this.pathParams.separator, 'left')
+              tweet.rotation = { x: SimulationParams.tweetRotation.x, y: -SimulationParams.tweetRotation.y, z: SimulationParams.tweetRotation.z }
+          } else {
+            tweet.position = PathCalculator.after(this.pathParams.separator, 'right')
+            tweet.rotation = { x: SimulationParams.tweetRotation.x, y: SimulationParams.tweetRotation.y, z: SimulationParams.tweetRotation.z }
+          }
+
+          this.$store.dispatch('removeFirstTweet')
+          this.pathParams.separator += SimulationParams.tweetSeparator
+          this.tweetsToRender.push(tweet)
+
+          if(this.tweets.length < 5 ) {
+              getTweetsFromAPI()
+                .then( () => {
+                  this.$store.dispatch('updateTweets')
+              })
+          }
+
         }
 
-        this.$store.dispatch('removeFirstTweet')
-        this.pathParams.separator += SimulationParams.tweetSeparator
-        this.tweetsToRender.push(tweet)
-
-        if(this.tweets.length < 5 ) {
-            getTweetsFromAPI()
-              .then( () => {
-                this.$store.dispatch('updateTweets')
-            })
+        if(this.visibleTweets.length == 0) {
+          console.log('FINISH')
+          clearInterval(cycleTweetsInterval)
         }
 
       }
