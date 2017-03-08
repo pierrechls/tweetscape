@@ -52,6 +52,9 @@
       }
     },
     computed: {
+      hasHashtag () {
+        return this.$store.state.hashtag ? true : false
+      },
       tweets() {
         return this.$store.state.tweets
       },
@@ -125,6 +128,7 @@
       }
     },
     mounted () {
+
       PathCalculator.setAmplitude(Random.getRandomInt(SimulationParams.pathAmplitude.x.min, SimulationParams.pathAmplitude.x.max), Random.getRandomInt(SimulationParams.pathAmplitude.y.min, SimulationParams.pathAmplitude.y.max))
       PathCalculator.setFrequency(Random.getRandomInt(SimulationParams.pathFrequency.x.min, SimulationParams.pathFrequency.x.max) + Math.random()*2, Random.getRandomInt(SimulationParams.pathFrequency.y.min, SimulationParams.pathFrequency.y.max) + Math.random()*2)
 
@@ -132,12 +136,20 @@
 
       const scene = this.$el.querySelector('a-scene')
       if (scene.hasLoaded) {
-        this.isLoaded = true
-        this.buildSplineAndRun()
-      } else {
-        scene.addEventListener('loaded', () => {
+        if(this.hasHashtag) {
           this.isLoaded = true
           this.buildSplineAndRun()
+        } else {
+          this.$router.push({ path: '/' })
+        }
+      } else {
+        scene.addEventListener('loaded', () => {
+          if(this.hasHashtag) {
+            this.isLoaded = true
+            this.buildSplineAndRun()
+          } else {
+            this.$router.push({ path: '/' })
+          }
         })
       }
 
