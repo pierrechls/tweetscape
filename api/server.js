@@ -15,11 +15,10 @@ app.get('/search/:hashtag', function (req, res) {
   var hashtag = req.params.hashtag
   var max_id = req.query.max_id
   var count = 60 //settings.app.tweet.numberPerRequest
+  var lang = req.acceptsLanguages()[0].substr(0,2)
+  var q = '#' + hashtag + " AND -filter:retweets AND -filter:replies AND -filter:links"
 
-  Twitter.get('search/tweets', { q: '#' + hashtag, count: count , since_id: max_id }, function(err, data, response) {
-    data.statuses.map((s) => {
-      console.log(s["id_str"])
-    })
+  Twitter.get('search/tweets', { q: q, count: count , since_id: max_id, lang: lang }, function(err, data, response) {
     res.send(data)
   })
 })
