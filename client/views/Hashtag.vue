@@ -66,6 +66,9 @@
       }
     },
     mounted () {
+      if(this.gradientCanvas) {
+        this.gradientCanvas.gradient.changeState('home-state')
+      }
       this.$el.querySelector('#hashtaginput').addEventListener('keypress', (ev) => {
           var key = ev.which || ev.keyCode
           if (key === 13) {
@@ -136,22 +139,15 @@
           cursor: pointer;
           font-weight: 400;
           letter-spacing: 0.2rem;
-          background-image: linear-gradient(45deg, #48c6ef, #6f86d6, #48c6ef);
-          background-size: 300% 300%;
-          background-position: 0% 100%;
-          animation-name: test_hover;
-          animation-duration: 4s;
-          animation-iteration-count: infinite;
-          animation-timing-function: linear;
-          animation-direction: alternate;
+          background-color: rgba(255, 255, 255, 0.2);
           -webkit-transition: all .6s ease-in-out;
           -moz-transition: all .6s ease-in-out;
           -o-transition: all .6s ease-in-out;
           transition: all .6s ease-in-out;
 
           &:hover {
-            color: #141E30;
-            box-shadow: 0 20rem 10rem -10rem rgba(255,255,255,0.9) inset;
+            color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(255, 255, 255, 0.6);
           }
 
           &:disabled {

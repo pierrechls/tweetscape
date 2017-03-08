@@ -3,7 +3,7 @@
     <a-scene gridhelper="size: 3000; divisions: 1000">
       <assets></assets>
       <!-- tweets -->
-      <tweet v-for="tweet in displayedTweets" :position="tweet.position" :rotation="tweet.rotation" :tweet="tweet"></tweet>
+      <tweet v-for="tweet in visibleTweets" :key="tweet.id" :position="tweet.position" :rotation="tweet.rotation" :tweet="tweet"></tweet>
       <!-- /tweets -->
       <camera :position="camera.position"></camera>
       <a-sky src="#gradient-skybox"></a-sky>
@@ -24,6 +24,8 @@
 
   import { getTweetsFromAPI } from 'store/api'
 
+  let cycleTweetsInterval = null
+
   export default {
     name: 'Renderer',
     components: {
@@ -33,8 +35,9 @@
     },
     data: () => {
       return {
-        displayedTweets: [],
+        tweetsToRender: [],
         isLoaded: false,
+        experimentOngoing: true,
         camera: {
           position: {
             x: 0,
@@ -62,6 +65,11 @@
     computed: {
       tweets() {
         return this.$store.state.tweets
+      },
+      visibleTweets: function () {
+        return this.tweetsToRender.filter((tweet) => {
+          return Math.abs(tweet.position.z) > (Math.abs(this.camera.position.z) - 5)
+        })
       }
     },
     methods: {
@@ -78,7 +86,6 @@
       },
       initLastPath: function () {
         this.lastPath = this.paths[0]
-        // TODO : get paths[0] and paths[1], get coeff_dir, set as base camera rot
       },
       startSimulation: function () {
         TweenMax.to(this.camera.position, SimulationParams.speed, { bezier: this.paths, ease: Linear.easeNone, repeat: 0, onComplete: this.buildSplineAndRun })
@@ -88,9 +95,11 @@
         this.startSimulation()
       },
       cycleTweets: function() {
+
         let tweet = this.tweets[0]
         if (tweet) {
-          if(this.displayedTweets.length % 2 == 0) {
+
+          if(this.tweetsToRender.length % 2 == 0) {
               tweet.position = PathCalculator.after(this.pathParams.separator, 'left')
               tweet.rotation = { x: SimulationParams.tweetRotation.x, y: -SimulationParams.tweetRotation.y, z: SimulationParams.tweetRotation.z }
           } else {
@@ -100,14 +109,15 @@
 
           this.$store.dispatch('removeFirstTweet')
           this.pathParams.separator += SimulationParams.tweetSeparator
-          this.displayedTweets.push(tweet)
+          this.tweetsToRender.push(tweet)
         }
 
-        if(this.tweets.length < 5 ) {
+        if(this.experimentOngoing && this.tweets.length < 5 ) {
             getTweetsFromAPI()
-              .then( () => {
-                this.$store.dispatch('updateTweets')
-            })
+              .then(
+                () => this.$store.dispatch('updateTweets'),
+                () => this.experimentOngoing = false
+              )
         }
 
       }
@@ -116,7 +126,7 @@
       PathCalculator.setAmplitude(Random.getRandomInt(SimulationParams.pathAmplitude.x.min, SimulationParams.pathAmplitude.x.max), Random.getRandomInt(SimulationParams.pathAmplitude.y.min, SimulationParams.pathAmplitude.y.max))
       PathCalculator.setFrequency(Random.getRandomInt(SimulationParams.pathFrequency.x.min, SimulationParams.pathFrequency.x.max) + Math.random()*2, Random.getRandomInt(SimulationParams.pathFrequency.y.min, SimulationParams.pathFrequency.y.max) + Math.random()*2)
 
-      setInterval(this.cycleTweets, 1000)
+      cycleTweetsInterval = setInterval(this.cycleTweets, 1000)
 
       const scene = this.$el.querySelector('a-scene')
       if (scene.hasLoaded) {
@@ -128,6 +138,9 @@
           this.buildSplineAndRun()
         })
       }
+    },
+    beforeDestroy () {
+      clearInterval(cycleTweetsInterval)
     }
   }
 

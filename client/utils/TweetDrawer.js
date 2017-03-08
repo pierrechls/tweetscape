@@ -1,4 +1,14 @@
-import { CanvasTextWrapper } from 'utils/CanvasTextWrapper'
+import { getLines, CanvasTextWrapper } from 'utils/CanvasTextWrapper'
+
+const textStyle = {
+  fontSize: 25,
+  color: '#245170'
+}
+
+const imageStyle = {
+  imageSize: 50,
+  imageMargin: 30
+}
 
 class TweetDrawer {
 
@@ -7,11 +17,21 @@ class TweetDrawer {
     this.canvas = canvas
     this.ctx = canvas.getContext('2d')
     this.color = '#FF0000'
+    this.lines = getLines(this.ctx, this.tweet.content, this.canvas.width, textStyle.fontSize)
   }
 
   drawBackground () {
-    this.ctx.fillStyle = this.color
+    let grd = this.ctx.createLinearGradient(150.000, 0.000, 150.000, 300.000);
+
+    grd.addColorStop(0.000, 'rgba(161, 196, 253, 1.000)');
+    grd.addColorStop(1.000, 'rgba(194, 233, 251, 1.000)');
+
+    this.ctx.fillStyle = grd
     this.ctx.fillRect (0, 0, this.canvas.width, this.canvas.height)
+  }
+
+  drawContent () {
+    CanvasTextWrapper(this.canvas, this.lines, textStyle)
   }
 
   drawImage () {
@@ -19,7 +39,26 @@ class TweetDrawer {
       let img = new Image()
       img.crossOrigin = 'anonymous'
       img.onload = () => {
-        this.ctx.drawImage(img, 20, 20, 70, 70)
+
+        // normal image drawing
+        // this.ctx.drawImage(img, (this.canvas.width / 2) - (imageStyle.imageSize / 2), 110 - (this.lines.length + 1) * 5, imageStyle.imageSize, imageStyle.imageSize)
+
+        // circle image drawing
+
+        this.ctx.save()
+        this.ctx.beginPath()
+          this.ctx.arc((this.canvas.width / 2), 150 - (this.lines.length + 1) * 5, imageStyle.imageSize, 0, Math.PI*2, true)
+        this.ctx.closePath()
+        this.ctx.clip()
+
+        this.ctx.drawImage(img, (this.canvas.width / 2)-imageStyle.imageSize, (150 - (this.lines.length + 1) * 5)-imageStyle.imageSize, 2 * imageStyle.imageSize, 2 * imageStyle.imageSize)
+
+        this.ctx.beginPath()
+          this.ctx.arc((this.canvas.width / 2)-imageStyle.imageSize, (150 - (this.lines.length + 1) * 5)-imageStyle.imageSize, imageStyle.imageSize, 0, Math.PI*2, true)
+        this.ctx.clip()
+        this.ctx.closePath()
+        this.ctx.restore()
+
         resolve()
       }
       img.src = this.tweet.author.image_url
@@ -30,30 +69,25 @@ class TweetDrawer {
   }
 
   drawUserName () {
-    this.ctx.font = '20px Lato'
-    this.ctx.fillStyle = '#000000'
-    this.ctx.fillText(this.tweet.author.name, 70 + 20 + 10, 70/2 + 20)
+    this.ctx.font = 'bold 30px Open Sans, Roboto, sans-serif'
+    this.ctx.fillStyle = '#245170'
+    this.ctx.textAlign= 'center'
+    this.ctx.fillText(this.tweet.author.name, this.canvas.width/2, 150 - (this.lines.length + 1) * 5 + imageStyle.imageSize + 30)
   }
 
   drawUserScreenName () {
-    this.ctx.font = '16px Lato'
-    this.ctx.fillStyle = '#AAAAAA'
-    this.ctx.fillText('@' + this.tweet.author.screen_name, 70 + 20 + 10, 70/2 + 20 + 20 + 1)
-  }
-
-  drawContent () {
-    CanvasTextWrapper(this.canvas, this.tweet.content, {
-      fontSize: 30,
-      color: '#222222'
-    })
+    this.ctx.font = 'italic 20px Open Sans, Roboto, sans-serif'
+    this.ctx.fillStyle = '#245170'
+    this.ctx.textAlign= 'center'
+    this.ctx.fillText('@' + this.tweet.author.screen_name, this.canvas.width/2, 150 - (this.lines.length + 1) * 5 + imageStyle.imageSize + 65)
   }
 
   draw () {
     return new Promise((resolve, reject) => {
       this.drawBackground()
+      this.drawContent()
       this.drawUserName()
       this.drawUserScreenName()
-      this.drawContent()
       this.drawImage().then( () => {
         resolve(this.canvas)
       })
