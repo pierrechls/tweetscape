@@ -5,7 +5,7 @@
       <!-- tweets -->
       <tweet v-for="tweet in visibleTweets" :key="tweet.id" :position="tweet.position" :rotation="tweet.rotation" :tweet="tweet"></tweet>
       <!-- /tweets -->
-      <camera :position="camera.position"></camera>
+      <camera :position="camera.position" :controls-enabled="controlsEnabled"></camera>
       <a-sky src="#gradient-skybox"></a-sky>
     </a-scene>
   </div>
@@ -35,30 +35,20 @@
     },
     data: () => {
       return {
+        controlsEnabled: true,
+        inProgress: true,
+        isVR: false,
         tweetsToRender: [],
         isLoaded: false,
         camera: {
-          position: {
-            x: 0,
-            y: 0,
-            z: 0
-          },
-          rotation: {
-            x: 0,
-            y: 0,
-            z: 0
-          }
+          position: { x: 0, y: 0, z: 0 }
         },
         paths: [],
         pathParams: {
           offset: 0,
           separator: SimulationParams.pathAmountPerCycle/2
         },
-        lastPath: {
-          x: 0,
-          y: 0,
-          z: 0
-        }
+        lastPath: { x: 0, y: 0, z: 0 }
       }
     },
     computed: {
@@ -121,8 +111,15 @@
         }
 
         if(this.visibleTweets.length == 0) {
-          console.log('FINISH')
+          this.controlsEnabled = false
+          document.querySelector('#msg-end').emit('fade')
           clearInterval(cycleTweetsInterval)
+          let redirectToHome = setTimeout( () => {
+            if(this.isVR) {
+              this.$el.querySelector('a-scene').exitVR()
+            }
+            this.$router.push({ path: '/' })
+          }, 5 * 1000)
         }
 
       }
@@ -143,6 +140,12 @@
           this.buildSplineAndRun()
         })
       }
+
+      let events = 'enter-vr exit-vr'
+      events.split(' ').forEach(e => scene.addEventListener(e, () => {
+          this.isVR = scene.is('vr-mode')
+      }), false)
+
     },
     beforeDestroy () {
       clearInterval(cycleTweetsInterval)
