@@ -15,7 +15,7 @@
   import { attributify } from 'utils/aframe-utils'
 
   export default {
-    name: 'Tweet',
+    replace: true,
     props: {
       position: Object,
       rotation: Object,
@@ -56,6 +56,9 @@
 
       }, 100)
 
+    },
+    beforeDestroy (){
+      console.log(`tweet ${this.tweet.id} was destroyed`)
     },
     methods: {
       attributify

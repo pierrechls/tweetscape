@@ -3,7 +3,7 @@
     <a-scene gridhelper="size: 3000; divisions: 1000">
       <assets></assets>
       <!-- tweets -->
-      <tweet v-for="tweet in displayedTweets" :position="tweet.position" :rotation="tweet.rotation" :tweet="tweet"></tweet>
+      <tweet v-for="tweet in visibleTweets" :key="tweet.id" :position="tweet.position" :rotation="tweet.rotation" :tweet="tweet"></tweet>
       <!-- /tweets -->
       <camera :position="camera.position"></camera>
       <a-sky src="#gradient-skybox"></a-sky>
@@ -35,7 +35,7 @@
     },
     data: () => {
       return {
-        displayedTweets: [],
+        tweetsToRender: [],
         isLoaded: false,
         camera: {
           position: {
@@ -64,6 +64,11 @@
     computed: {
       tweets() {
         return this.$store.state.tweets
+      },
+      visibleTweets: function () {
+        return this.tweetsToRender.filter((tweet) => {
+          return Math.abs(tweet.position.z) > (Math.abs(this.camera.position.z) - 5)
+        })
       }
     },
     methods: {
@@ -90,8 +95,10 @@
         this.startSimulation()
       },
       cycleTweets: function() {
+
         let tweet = this.tweets[0]
-        if(this.displayedTweets.length % 2 == 0) {
+
+        if(this.tweetsToRender.length % 2 == 0) {
             tweet.position = PathCalculator.after(this.pathParams.separator, 'left')
             tweet.rotation = { x: SimulationParams.tweetRotation.x, y: -SimulationParams.tweetRotation.y, z: SimulationParams.tweetRotation.z }
         } else {
@@ -101,7 +108,7 @@
 
         this.$store.dispatch('removeFirstTweet')
         this.pathParams.separator += SimulationParams.tweetSeparator
-        this.displayedTweets.push(tweet)
+        this.tweetsToRender.push(tweet)
 
         if(this.tweets.length < 5 ) {
             getTweetsFromAPI()
