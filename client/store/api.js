@@ -20,7 +20,8 @@ export function getTweetsFromAPI () {
     let max_id = store.state.max_id || ''
     Vue.http.get(`search/${hashtag}?max_id=${max_id}`)
     .then((response) => {
-      if(response.data.statuses.length > 0) {
+      let min = max_id === '' ? 5 : 1
+      if(response.data.statuses.length >= min) {
         store.dispatch('setTweetsMaxId', response.data['search_metadata']['max_id_str'])
         response.data.statuses.forEach((status) => {
           //TODO (Victor) : gérer les différents types de tweets (médias différents, image, vidéo)
@@ -33,6 +34,7 @@ export function getTweetsFromAPI () {
         console.log('Sorry but your hashtag seems to be not very famous')
         reject()
       }
+
     }, (response) => {
       console.log('error: ', response)
       reject()
