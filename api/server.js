@@ -17,9 +17,6 @@ app.get('/search/:hashtag', function (req, res) {
   var count = 60 //settings.app.tweet.numberPerRequest
 
   Twitter.get('search/tweets', { q: '#' + hashtag, count: count , since_id: max_id }, function(err, data, response) {
-    data.statuses.map((s) => {
-      console.log(s["id_str"])
-    })
     res.send(data)
   })
 })
