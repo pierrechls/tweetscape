@@ -1,4 +1,6 @@
-require('dotenv').config()
+if (!process.env.NODE_ENV === "production") {
+	require('dotenv').config()
+}
 var Twit = require('twit')
 
 var T = new Twit({
