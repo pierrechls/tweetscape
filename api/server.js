@@ -3,8 +3,8 @@ var Twitter = require('./twitter')
 var express = require('express')
 var app = express()
 
-var port = process.env.PORT || settings.API.port
-var url = process.env.PORT ? "localhost" : settings.API.port
+var port = process.env.NODE_ENV === "production" ? process.env.PORT : settings.API.port
+var url = process.env.NODE_ENV === "production" ? "localhost" : settings.API.url
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*')

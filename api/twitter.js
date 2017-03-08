@@ -1,4 +1,4 @@
-if (!process.env.PORT) {
+if (!process.env.NODE_ENV === "production") {
 	require('dotenv').config()
 }
 var Twit = require('twit')
