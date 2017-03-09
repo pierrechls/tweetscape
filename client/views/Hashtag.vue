@@ -1,10 +1,10 @@
 <template>
   <div class="home">
-    <div class="content">
+    <div :class="waitingResponseFromAPI ? 'content waiting' : 'content'">
       <h1 class="title">Insert your hashtag</h1>
       <div class="select-your-hashtag">
         <div class="search-hashtag"><p class="hashtag-input"><input type="text" id="hashtaginput" name="hashtag" v-model="userHashtag" tabindex="-1" autofocus/></p></div>
-        <button id="start" @click="startLoader" :disabled="!isHashtag">Let's start!</button>
+        <button id="start" @click="start" :disabled="!isHashtag">Let's start!</button>
       </div>
     </div>
     <preloader :display="isLoading"></preloader>
@@ -20,6 +20,7 @@
     name: 'Hashtag',
     data () {
       return {
+        waitingResponseFromAPI: false,
         userHashtag: '',
         isLoading: false
       }
@@ -38,25 +39,31 @@
     },
     methods: {
       start: function () {
+        this.waitingResponseFromAPI = true
+
         this.$store.dispatch('setHashtag', this.userHashtag)
-        this.gradientCanvas.gradient.changeState('timeline-state')
         this.userHashtag = ''
 
         getTweetsFromAPI()
           .then( () => {
+            this.isLoading = true
+            this.gradientCanvas.gradient.changeState('timeline-state')
+            this.startLoader()
             this.$store.dispatch('sortTweetsByDate')
             this.goToTimeline()
           }, (response) => {
-            this.$store.dispatch('isNotLoading')
+            setTimeout( () => {
+              this.waitingResponseFromAPI = false
+            }, 3 * 1000)
+            if(response.error == -1) {
+              console.log('Hashtag not very famous')
+            } else {
+              console.log('Twitter API seems to have a problem...')
+            }
           })
       },
       startLoader: function () {
-        TweenMax.fromTo('.home .content', 0.5, { opacity: 1 }, { opacity: 0, onComplete: () => {
-          this.isLoading = true
-          TweenMax.fromTo('.preloader', 1.5, { opacity: 0 }, { opacity: 1, onComplete: () => {
-            this.start()
-          }})
-      }})
+        TweenMax.fromTo('.preloader', 1.5, { opacity: 0 }, { opacity: 1, onComplete: () => {}})
       },
       goToTimeline: function () {
         TweenMax.fromTo('.preloader', 1.5, { opacity: 1 }, { opacity: 0, onComplete: () => {
@@ -71,8 +78,8 @@
       }
       this.$el.querySelector('#hashtaginput').addEventListener('keypress', (ev) => {
           var key = ev.which || ev.keyCode
-          if (key === 13) {
-            this.startLoader()
+          if (key === 13 && this.isHashtag) {
+            this.start()
           }
       })
     }
@@ -93,6 +100,11 @@
       margin-left: -15rem;
       margin-top: -15rem;
       color: #FFFFFF;
+      opacity: 1;
+      -webkit-transition: all .6s ease-in-out;
+      -moz-transition: all .6s ease-in-out;
+      -o-transition: all .6s ease-in-out;
+      transition: all .6s ease-in-out;
 
       .title {
         text-align: center;
@@ -165,6 +177,11 @@
           }
         }
       }
+
+      &.waiting {
+        opacity: 0;
+      }
+
     }
   }
 
