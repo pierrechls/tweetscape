@@ -122,7 +122,7 @@
             if(this.isVR) {
               this.$el.querySelector('a-scene').exitVR()
             }
-            this.$router.push({ path: '/' })
+            this.$router.push({ path: '/hashtag' })
           }, 5 * 1000)
         }
 
@@ -141,7 +141,7 @@
           this.isLoaded = true
           this.buildSplineAndRun()
         } else {
-          this.$router.push({ path: '/' })
+          this.$router.push({ path: '/hashtag' })
         }
       } else {
         scene.addEventListener('loaded', () => {
@@ -149,7 +149,7 @@
             this.isLoaded = true
             this.buildSplineAndRun()
           } else {
-            this.$router.push({ path: '/' })
+            this.$router.push({ path: '/hashtag' })
           }
         })
       }
