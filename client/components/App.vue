@@ -20,17 +20,14 @@
 
 </script>
 
-<style>
+<style lang="scss">
+
+  @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400i,600,600i,700,700i,900,900i');
 
   body {
     margin: 0;
     font-size: 2rem;
-    font-family: -apple-system, BlinkMacSystemFont,
-                 'avenir next', avenir,
-                 helvetica, 'helvetica neue',
-                 Ubuntu,
-                 'segoe ui', arial,
-                 sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
   }
   .page {
     text-align: center;
