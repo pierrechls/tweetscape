@@ -11,7 +11,6 @@ const state = {
   tweets: [],
   max_id: '',
   hashtag: null,
-  isLoading: false,
   gradients: []
 }
 
@@ -24,9 +23,6 @@ const mutations = {
   },
   SET_HASHTAG(state, hashtag) {
     state.hashtag = hashtag
-  },
-  SET_IS_LOADING(state, loading) {
-    state.isLoading = loading
   },
   FILTER_UNIQ_TWEETS(state) {
     state.tweets = _.uniqBy(state.tweets, 'id')
@@ -51,12 +47,6 @@ const actions = {
   },
   setHashtag({commit}, hashtag) {
     commit('SET_HASHTAG', hashtag)
-  },
-  isLoading({commit}) {
-    commit('SET_IS_LOADING', true)
-  },
-  isNotLoading({commit}) {
-    commit('SET_IS_LOADING', false)
   },
   filterUniqTweets({commit}) {
     commit('FILTER_UNIQ_TWEETS')
