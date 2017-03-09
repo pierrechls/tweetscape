@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <gradient-canvas name="canvas-interactive" default-state="home-state"></gradient-canvas>
+    <gradient-canvas name="canvas-interactive" default-state="home-state" :style="currentRoute != 'home' ? 'opacity: 1;' : 'opacity: 0;'"></gradient-canvas>
     <transition name="fade" mode="out-in">
       <router-view></router-view>
     </transition>
@@ -13,8 +13,18 @@
 
   export default {
     name: 'App',
+    data () {
+      return {
+        currentRoute: this.$router.currentRoute.name
+      }
+    },
     components: {
       GradientCanvas
+    },
+    watch: {
+      $route () {
+        this.currentRoute = this.$route.name
+      }
     }
   }
 
@@ -39,7 +49,10 @@
   }
 
   .fade-enter-active, .fade-leave-active {
-    transition: opacity .5s
+    -webkit-transition: opacity .5s ease-in-out;
+    -moz-transition: opacity .5s ease-in-out;
+    -o-transition: opacity .5s ease-in-out;
+    transition: opacity .5s ease-in-out;
   }
 
   .fade-enter, .fade-leave-to, .fade-leave-active {
