@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="view-hashtag">
     <div :class="waitingResponseFromAPI ? 'content waiting' : 'content'">
       <div id="logo"><img src="~assets/logo/logo-white.svg"/></div>
       <h1 class="title">Insert your hashtag</h1>
@@ -36,6 +36,9 @@
       },
       gradientCanvas: function () {
         return this.$store.state.gradients.find(function(item) { return item.name === 'canvas-interactive'})
+      },
+      inputWidthStyle () {
+        return `width: ${(this.userHashtag.length + 2)*0.8}rem;`
       }
     },
     methods: {
@@ -76,11 +79,6 @@
         this.$el.querySelector('#hashtaginput').focus()
       }
     },
-    computed: {
-      inputWidthStyle () {
-        return `width: ${(this.userHashtag.length + 2)*0.8}rem;`
-      }
-    },
     mounted () {
       if(this.gradientCanvas) {
         this.gradientCanvas.gradient.changeState('home-state')
@@ -98,7 +96,7 @@
 
 <style lang="scss" scoped>
 
-  .home {
+  .view-hashtag {
 
     .content {
       width: 40rem;
