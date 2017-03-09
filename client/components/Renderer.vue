@@ -5,7 +5,7 @@
       <!-- tweets -->
       <tweet v-for="tweet in visibleTweets" :key="tweet.id" :position="tweet.position" :rotation="tweet.rotation" :tweet="tweet"></tweet>
       <!-- /tweets -->
-      <camera :position="camera.position"></camera>
+      <camera :position="camera.position" :controls-enabled="controlsEnabled"></camera>
       <a-sky src="#gradient-skybox"></a-sky>
     </a-scene>
   </div>
@@ -35,40 +35,33 @@
     },
     data: () => {
       return {
+        controlsEnabled: true,
+        inProgress: true,
+        isVR: false,
         tweetsToRender: [],
         isLoaded: false,
         experimentOngoing: true,
         camera: {
-          position: {
-            x: 0,
-            y: 0,
-            z: 0
-          },
-          rotation: {
-            x: 0,
-            y: 0,
-            z: 0
-          }
+          position: { x: 0, y: 0, z: 0 }
         },
         paths: [],
         pathParams: {
           offset: 0,
           separator: SimulationParams.pathAmountPerCycle/2
         },
-        lastPath: {
-          x: 0,
-          y: 0,
-          z: 0
-        }
+        lastPath: { x: 0, y: 0, z: 0 }
       }
     },
     computed: {
+      hasHashtag () {
+        return this.$store.state.hashtag ? true : false
+      },
       tweets() {
         return this.$store.state.tweets
       },
       visibleTweets: function () {
         return this.tweetsToRender.filter((tweet) => {
-          return Math.abs(tweet.position.z) > (Math.abs(this.camera.position.z) - 5)
+          return (Math.abs(tweet.position.z) > (Math.abs(this.camera.position.z) - 5)) && (Math.abs(tweet.position.z) < (Math.abs(this.camera.position.z) + 50))
         })
       }
     },
@@ -96,8 +89,8 @@
       },
       cycleTweets: function() {
 
-        let tweet = this.tweets[0]
-        if (tweet) {
+        if(this.tweets.length > 0) {
+          let tweet = this.tweets[0]
 
           if(this.tweetsToRender.length % 2 == 0) {
               tweet.position = PathCalculator.after(this.pathParams.separator, 'left')
@@ -110,19 +103,33 @@
           this.$store.dispatch('removeFirstTweet')
           this.pathParams.separator += SimulationParams.tweetSeparator
           this.tweetsToRender.push(tweet)
+
+          if(this.experimentOngoing && this.tweets.length < 5 ) {
+              getTweetsFromAPI()
+                .then(
+                  () => this.$store.dispatch('updateTweets'),
+                  () => this.experimentOngoing = false
+                )
+          }
+
         }
 
-        if(this.experimentOngoing && this.tweets.length < 5 ) {
-            getTweetsFromAPI()
-              .then(
-                () => this.$store.dispatch('updateTweets'),
-                () => this.experimentOngoing = false
-              )
+        if(this.visibleTweets.length == 0) {
+          this.controlsEnabled = false
+          document.querySelector('#msg-end').emit('fade')
+          clearInterval(cycleTweetsInterval)
+          let redirectToHome = setTimeout( () => {
+            if(this.isVR) {
+              this.$el.querySelector('a-scene').exitVR()
+            }
+            this.$router.push({ path: '/' })
+          }, 5 * 1000)
         }
 
       }
     },
     mounted () {
+
       PathCalculator.setAmplitude(Random.getRandomInt(SimulationParams.pathAmplitude.x.min, SimulationParams.pathAmplitude.x.max), Random.getRandomInt(SimulationParams.pathAmplitude.y.min, SimulationParams.pathAmplitude.y.max))
       PathCalculator.setFrequency(Random.getRandomInt(SimulationParams.pathFrequency.x.min, SimulationParams.pathFrequency.x.max) + Math.random()*2, Random.getRandomInt(SimulationParams.pathFrequency.y.min, SimulationParams.pathFrequency.y.max) + Math.random()*2)
 
@@ -130,14 +137,28 @@
 
       const scene = this.$el.querySelector('a-scene')
       if (scene.hasLoaded) {
-        this.isLoaded = true
-        this.buildSplineAndRun()
-      } else {
-        scene.addEventListener('loaded', () => {
+        if(this.hasHashtag) {
           this.isLoaded = true
           this.buildSplineAndRun()
+        } else {
+          this.$router.push({ path: '/' })
+        }
+      } else {
+        scene.addEventListener('loaded', () => {
+          if(this.hasHashtag) {
+            this.isLoaded = true
+            this.buildSplineAndRun()
+          } else {
+            this.$router.push({ path: '/' })
+          }
         })
       }
+
+      let events = 'enter-vr exit-vr'
+      events.split(' ').forEach(e => scene.addEventListener(e, () => {
+          this.isVR = scene.is('vr-mode')
+      }), false)
+
     },
     beforeDestroy () {
       clearInterval(cycleTweetsInterval)
