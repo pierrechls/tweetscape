@@ -80,15 +80,19 @@
       }
     },
     mounted () {
+
       if(this.gradientCanvas) {
         this.gradientCanvas.gradient.changeState('home-state')
       }
+
       this.$el.querySelector('#hashtaginput').addEventListener('keypress', (ev) => {
           var key = ev.which || ev.keyCode
           if (key === 13 && this.isHashtag) {
             this.start()
           }
       })
+
+      this.focusToInput()
     }
   }
 
