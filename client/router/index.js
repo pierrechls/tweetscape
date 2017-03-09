@@ -10,14 +10,17 @@ export default new Router({
   mode: 'hash',
   routes: [
     {
+      name: 'home',
       path: '/',
       component: Home
     },
     {
+      name: 'hashtag',
       path: '/hashtag',
       component: Hashtag
     },
     {
+      name: 'timeline',
       path: '/timeline',
       component: Timeline
     }
