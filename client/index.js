@@ -3,7 +3,7 @@ import App from 'components/App'
 import settings from 'lib/settings'
 
 // Import favicon
-import 'assets/favicon.png'
+import 'assets/favicon/favicon.png'
 
 // Global vue stuffs
 import 'gsap'
