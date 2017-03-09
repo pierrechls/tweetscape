@@ -31,13 +31,13 @@ export function getTweetsFromAPI () {
         })
         resolve()
       } else {
-        console.log('Sorry but your hashtag seems to be not very famous')
-        reject()
+        // console.log('Sorry but your hashtag seems to be not very famous')
+        reject({error: -1})
       }
 
     }, (response) => {
-      console.log('error: ', response)
-      reject()
+      // console.log('error: ', response)
+      reject(response)
     })
   })
 }
