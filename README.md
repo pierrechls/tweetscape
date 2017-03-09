@@ -7,6 +7,7 @@
 - Duplicate the `.env.example` file and rename it to `.env`
 - Get your application settings from the [Twitter Application Management](https://apps.twitter.com/)
 - Remplace the default values into your `.env` file by your Twitter Application values
+- Keep `NODE_ENV` value to `production` from your [Heroku application](heroku.com) to deploy the API
 
 ### Install dependencies
 
