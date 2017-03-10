@@ -1,12 +1,13 @@
 <template>
   <div id="renderer" :class="isLoaded ? 'show' : 'hide' ">
-    <a-scene gridhelper="size: 3000; divisions: 1000">
+    <a-scene>
       <assets></assets>
       <!-- tweets -->
       <tweet v-for="tweet in visibleTweets" :key="tweet.id" :position="tweet.position" :rotation="tweet.rotation" :tweet="tweet"></tweet>
       <!-- /tweets -->
-      <camera :position="camera.position" :controls-enabled="controlsEnabled"></camera>
       <a-gradient-sky material="shader: gradient; topColor: 36 81 112; bottomColor: 47 58 101;"></a-gradient-sky>
+      <camera :position="camera.position" :controls-enabled="controlsEnabled"></camera>
+      <particle-system :cameraPosition="camera.position"></particle-system>
     </a-scene>
   </div>
 </template>
@@ -16,6 +17,7 @@
   import Camera from './Camera.vue'
   import Assets from './Assets.vue'
   import Tweet from './Tweet.vue'
+  import ParticleSystem from './ParticleSystem.vue'
 
   import SimulationParams from '../params.js'
   import Vector3D from 'utils/maths/vector3d.js'
@@ -23,6 +25,7 @@
   import PathCalculator from 'utils/PathCalculator.js'
 
   import { getTweetsFromAPI } from 'store/api'
+  import { attributify } from 'utils/aframe-utils.js'
 
   let cycleTweetsInterval = null
 
@@ -31,7 +34,8 @@
     components: {
       'camera': Camera,
       'assets': Assets,
-      'tweet': Tweet
+      'tweet': Tweet,
+      'particle-system': ParticleSystem
     },
     data: () => {
       return {
@@ -126,7 +130,8 @@
           }, 5 * 1000)
         }
 
-      }
+      },
+      attributify
     },
     mounted () {
 
