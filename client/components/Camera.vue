@@ -1,6 +1,7 @@
 <template>
   <a-entity camera :position="attributify(position)" :look-controls="controlsEnabled ? '' : 'enabled: false; hmdEnabled: false;'">
     <end-message></end-message>
+    <a-entity position="0 0 0" light="type: ambient; color: #CCC" ></a-entity>
   </a-entity>
 </template>
 
