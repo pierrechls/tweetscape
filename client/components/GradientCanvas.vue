@@ -51,7 +51,7 @@
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
   .canvas-interactive {
     position: absolute;
@@ -63,6 +63,10 @@
     bottom: 0;
     left: 0;
     z-index: -1;
+    -webkit-transition: opacity .5s ease-in-out;
+    -moz-transition: opacity .5s ease-in-out;
+    -o-transition: opacity .5s ease-in-out;
+    transition: opacity .5s ease-in-out;
   }
 
 </style>

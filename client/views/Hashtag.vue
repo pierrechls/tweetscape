@@ -1,9 +1,10 @@
 <template>
-  <div class="home">
+  <div class="view-hashtag">
     <div :class="waitingResponseFromAPI ? 'content waiting' : 'content'">
+      <div id="logo"><img src="~assets/logo/logo-white.svg"/></div>
       <h1 class="title">Insert your hashtag</h1>
       <div class="select-your-hashtag">
-        <div class="search-hashtag"><p class="hashtag-input"><input type="text" id="hashtaginput" name="hashtag" v-model="userHashtag" tabindex="-1" autofocus/></p></div>
+        <div class="search-hashtag"><p class="hashtag-input"><span @click="focusToInput">#</span><input type="text" id="hashtaginput" :style="inputWidthStyle" name="hashtag" v-model="userHashtag" tabindex="-1" maxlength="40" autofocus/></p></div>
         <button id="start" @click="start" :disabled="!isHashtag">Let's start!</button>
       </div>
     </div>
@@ -35,6 +36,9 @@
       },
       gradientCanvas: function () {
         return this.$store.state.gradients.find(function(item) { return item.name === 'canvas-interactive'})
+      },
+      inputWidthStyle () {
+        return `width: ${(this.userHashtag.length + 2)*0.8}rem;`
       }
     },
     methods: {
@@ -70,18 +74,25 @@
           this.isLoading = false
           this.$router.push({ path: '/timeline' })
         }}).delay(1)
+      },
+      focusToInput: function () {
+        this.$el.querySelector('#hashtaginput').focus()
       }
     },
     mounted () {
+
       if(this.gradientCanvas) {
         this.gradientCanvas.gradient.changeState('home-state')
       }
+
       this.$el.querySelector('#hashtaginput').addEventListener('keypress', (ev) => {
           var key = ev.which || ev.keyCode
           if (key === 13 && this.isHashtag) {
             this.start()
           }
       })
+
+      this.focusToInput()
     }
   }
 
@@ -89,16 +100,16 @@
 
 <style lang="scss" scoped>
 
-  .home {
+  .view-hashtag {
 
     .content {
-      width: 30rem;
-      height: 30rem;
+      width: 40rem;
+      height: 20rem;
       position: absolute;
       left: 50%;
       top: 50%;
-      margin-left: -15rem;
-      margin-top: -15rem;
+      margin-left: -20rem;
+      margin-top: -10rem;
       color: #FFFFFF;
       opacity: 1;
       -webkit-transition: all .6s ease-in-out;
@@ -106,9 +117,24 @@
       -o-transition: all .6s ease-in-out;
       transition: all .6s ease-in-out;
 
+      #logo {
+        width: 100%;
+        height: auto;
+
+        img {
+          display: block;
+          width: calc(30rem - 25rem);
+          margin: 0 auto;
+        }
+
+      }
+
       .title {
         text-align: center;
-        font-size: 3.5rem;
+        font-size: 1.2rem;
+        font-weight: 500;
+        letter-spacing: 0.3rem;
+        text-transform: uppercase;
       }
 
       .select-your-hashtag {
@@ -119,20 +145,25 @@
 
           .hashtag-input {
 
+            font-size: 1.2rem;
+
+            span {
+              margin-left: 1rem;
+              padding-right: 1rem;
+            }
+
             input[type="text"] {
               border-radius: 0;
               border: none;
               background: none;
               color: #FFFFFF;
-              padding-left: 3rem;
-              font-size: 1.5rem;
+              font-size: 1rem;
+              font-weight: 100;
+              letter-spacing: 0.2rem;
               outline: none;
-              background-image: url('~assets/hashtag-icon.svg');
-              background-repeat: no-repeat;
-              background-size: 15%;
-              background-position: 0.5rem;
-              width: 15rem;
+              width: 1rem;
               height: 5rem;
+              text-align: left;
             }
 
           }
@@ -164,6 +195,7 @@
 
           &:disabled {
             opacity: 0;
+            cursor: default;
           }
 
         }
