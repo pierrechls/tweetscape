@@ -6,7 +6,7 @@
       <tweet v-for="tweet in visibleTweets" :key="tweet.id" :position="tweet.position" :rotation="tweet.rotation" :tweet="tweet"></tweet>
       <!-- /tweets -->
       <camera :position="camera.position" :controls-enabled="controlsEnabled"></camera>
-      <a-sky src="#gradient-skybox"></a-sky>
+      <a-gradient-sky material="shader: gradient; topColor: 36 81 112; bottomColor: 47 58 101;"></a-gradient-sky>
     </a-scene>
   </div>
 </template>
