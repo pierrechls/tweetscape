@@ -6,6 +6,8 @@
       <tweet v-for="tweet in visibleTweets" :key="tweet.id" :position="tweet.position" :rotation="tweet.rotation" :tweet="tweet"></tweet>
       <!-- /tweets -->
       <camera :position="camera.position" :controls-enabled="controlsEnabled"></camera>
+      <a-obj-model src="#logo-obj" mtl="#logo-mtl"></a-obj-model>
+      <a-gltf-model src="#logo-gltf"></a-gltf-model>
       <a-gradient-sky material="shader: gradient; topColor: 36 81 112; bottomColor: 47 58 101;"></a-gradient-sky>
     </a-scene>
   </div>
@@ -13,9 +15,9 @@
 
 <script>
 
-  import Camera from './Camera.vue'
-  import Assets from './Assets.vue'
-  import Tweet from './Tweet.vue'
+  import Camera from 'components/Camera'
+  import Assets from 'components/Assets'
+  import Tweet from 'components/Tweet'
 
   import SimulationParams from '../params.js'
   import Vector3D from 'utils/maths/vector3d.js'
