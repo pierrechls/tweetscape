@@ -3,7 +3,7 @@
     <div id="gradient-logo" :class="showLogo ? '' : 'hide'">
       <gradient-canvas name="canvas-interactive-logo" default-state="home-state"></gradient-canvas>
       <div class="mask">
-        <img src="~assets/logo-mask.svg">
+        <img src="~assets/mask/mask-logo-full.svg">
       </div>
     </div>
   </div>
