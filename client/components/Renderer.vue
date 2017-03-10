@@ -6,8 +6,9 @@
       <tweet v-for="tweet in visibleTweets" :key="tweet.id" :position="tweet.position" :rotation="tweet.rotation" :tweet="tweet"></tweet>
       <!-- /tweets -->
       <camera :position="camera.position" :controls-enabled="controlsEnabled"></camera>
-      <a-obj-model src="#logo-obj" mtl="#logo-mtl"></a-obj-model>
-      <a-gltf-model src="#logo-gltf"></a-gltf-model>
+      <!-- <a-obj-model v-if="modelsAreLoaded" src="#logo-obj" mtl="#logo-mtl"></a-obj-model> -->
+      <!-- <a-gltf-model v-if="modelsAreLoaded" src="#logo-gltf" color="#FFF"></a-gltf-model> -->
+      <a-entity v-if="modelsAreLoaded" gltf-model="#logo-gltf" scale="70 70 70" position="0 0 -60"></a-entity>
       <a-gradient-sky material="shader: gradient; topColor: 36 81 112; bottomColor: 47 58 101;"></a-gradient-sky>
     </a-scene>
   </div>
@@ -37,6 +38,7 @@
     },
     data: () => {
       return {
+        modelsAreLoaded: false,
         controlsEnabled: true,
         inProgress: true,
         isVR: false,
@@ -131,6 +133,11 @@
       }
     },
     mounted () {
+
+      document.querySelector('a-assets').addEventListener('loaded', () => {
+        console.log('All a-frame assets are loaded');
+        this.modelsAreLoaded = true
+      })
 
       PathCalculator.setAmplitude(Random.getRandomInt(SimulationParams.pathAmplitude.x.min, SimulationParams.pathAmplitude.x.max), Random.getRandomInt(SimulationParams.pathAmplitude.y.min, SimulationParams.pathAmplitude.y.max))
       PathCalculator.setFrequency(Random.getRandomInt(SimulationParams.pathFrequency.x.min, SimulationParams.pathFrequency.x.max) + Math.random()*2, Random.getRandomInt(SimulationParams.pathFrequency.y.min, SimulationParams.pathFrequency.y.max) + Math.random()*2)
