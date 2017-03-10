@@ -1,6 +1,7 @@
 <template>
   <a-assets>
     <img id="gradient-skybox" :src="gradientSkybox">
+    <img id="logo-end-message" src="~assets/favicon.png">
   </a-assets>
 </template>
 
