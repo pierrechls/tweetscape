@@ -1,7 +1,5 @@
 <template>
-  <a-assets>
-    <img id="gradient-skybox" :src="gradientSkybox">
-  </a-assets>
+  <a-assets></a-assets>
 </template>
 
 <script>
@@ -9,14 +7,9 @@
   export default {
     name: 'Assets',
     data: () => {
-      return {
-        gradientSkybox: ''
-      }
+      return {}
     },
-    mounted () {
-      let homeGradientCanvas = document.querySelector('#canvas-interactive')
-      this.gradientSkybox = homeGradientCanvas.toDataURL()
-    }
+    mounted () {}
   }
 
 </script>
