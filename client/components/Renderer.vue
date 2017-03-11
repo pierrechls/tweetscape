@@ -6,10 +6,10 @@
       <tweet v-for="tweet in visibleTweets" :key="tweet.id" :position="tweet.position" :rotation="tweet.rotation" :tweet="tweet"></tweet>
       <!-- /tweets -->
       <camera :position="camera.position" :controls-enabled="controlsEnabled"></camera>
-      <!-- <a-obj-model v-if="modelsAreLoaded" src="#logo-obj" mtl="#logo-mtl"></a-obj-model> -->
-      <!-- <a-gltf-model v-if="modelsAreLoaded" src="#logo-gltf" color="#FFF"></a-gltf-model> -->
-      <a-entity v-if="modelsAreLoaded" gltf-model="#logo-gltf" scale="70 70 70" position="0 0 -60"></a-entity>
-      <a-gradient-sky material="shader: gradient; topColor: 36 81 112; bottomColor: 47 58 101;"></a-gradient-sky>
+      <a-torus v-for="n in 10" scale="20 10 10" :rotation="`0 0 ${(-30 * n)}`" radius="1.60" arc="250" :position="`0 0 ${(-20 * n)}`" material="shader: standard; color: #60ffec; side: double;"></a-torus>
+      <a-entity light="type: ambient; color: #00094e; intensity: 0.5;"></a-entity>
+      <a-entity light="type: spot; angle: 45; color: #bbc2ff; penumbra: 1; distance: 17; intensity: 0.7; decay: -3;" :position="`${camera.position.x} ${camera.position.y} ${camera.position.z}`"></a-entity>
+      <a-gradient-sky material="shader: gradient; topColor: 2 25 65; bottomColor: 2 20 50;"></a-gradient-sky>
     </a-scene>
   </div>
 </template>
