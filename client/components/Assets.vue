@@ -1,6 +1,6 @@
 <template>
   <a-assets>
-    <img id="logo-end-message" src="~assets/favicon.png">
+    <img id="logo-end-message" src="~assets/logo/logo-white.png">
   </a-assets>
 </template>
 
