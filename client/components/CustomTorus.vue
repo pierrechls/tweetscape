@@ -1,5 +1,5 @@
 <template>
-  <a-torus scale="20 10 10" :position="attributify(position)" :rotation="attributify(rotation)" radius="1.60" arc="250" material="shader: standard; color: #60ffec; side: double;"></a-torus>
+  <a-torus scale="10 5 5" :position="attributify(position)" :rotation="attributify(rotation)" radius="1.60" arc="250" material="shader: standard; color: #60ffec; side: double;"></a-torus>
 </template>
 
 <script>
