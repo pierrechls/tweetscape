@@ -160,6 +160,7 @@
 
         if(this.visibleTweets.length == 0) {
           this.controlsEnabled = false
+          document.querySelector('#spot-light').emit('turn-the-light-off')
           document.querySelector('#msg-end').emit('fade')
           clearInterval(cycleTweetsInterval)
           clearInterval(cycleCustomTorusInterval)
