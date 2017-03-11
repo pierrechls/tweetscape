@@ -164,6 +164,7 @@
     },
     beforeDestroy () {
       clearInterval(cycleTweetsInterval)
+      this.$store.dispatch('resetAfterExperiment')
     }
   }
 
