@@ -11,7 +11,8 @@ const state = {
   tweets: [],
   max_id: '',
   hashtag: null,
-  gradients: []
+  gradients: [],
+  showEndMessage: false
 }
 
 const mutations = {
@@ -35,6 +36,9 @@ const mutations = {
   },
   SET_TWEETS_MAX_ID(state, maxId) {
     state.max_id = maxId
+  },
+  SHOW_END_MESSAGE(state, show) {
+    state.showEndMessage = show
   }
 }
 
@@ -63,6 +67,9 @@ const actions = {
   },
   setTweetsMaxId({commit}, maxId) {
     commit('SET_TWEETS_MAX_ID', maxId)
+  },
+  showEndMessage({commit}, show) {
+    commit('SHOW_END_MESSAGE', show)
   }
 }
 
