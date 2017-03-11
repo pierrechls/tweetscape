@@ -8,6 +8,9 @@
         <button id="start" @click="start" :disabled="!isHashtag">Let's start!</button>
       </div>
     </div>
+    <div :class="requestError.show ? 'request-error show' : 'request-error'">
+      <p>{{ requestError.message }}</p>
+    </div>
     <preloader :display="isLoading"></preloader>
   </div>
 </template>
@@ -21,6 +24,10 @@
     name: 'Hashtag',
     data () {
       return {
+        requestError: {
+          message: '',
+          show: false
+        },
         waitingResponseFromAPI: false,
         userHashtag: '',
         isLoading: false
@@ -56,14 +63,18 @@
             this.$store.dispatch('sortTweetsByDate')
             this.goToTimeline()
           }, (response) => {
+            if(response.error == -1) {
+              this.requestError.message = 'Your hashtag seems to be not very famous'
+            } else {
+              this.requestError.message = 'Problem when connecting to the twitter API'
+            }
+
+            setTimeout( () => { this.requestError.show = true }, 1 * 1000)
+            setTimeout( () => { this.requestError.show = false }, 3 * 1000)
+
             setTimeout( () => {
               this.waitingResponseFromAPI = false
-            }, 3 * 1000)
-            if(response.error == -1) {
-              console.log('Hashtag not very famous')
-            } else {
-              console.log('Twitter API seems to have a problem...')
-            }
+            }, 4 * 1000)
           })
       },
       startLoader: function () {
@@ -215,6 +226,36 @@
       }
 
     }
+
+    .request-error {
+      width: 40rem;
+      height: 10rem;
+      position: absolute;
+      z-index: -1;
+      left: 50%;
+      top: 50%;
+      margin-left: -20rem;
+      margin-top: -5rem;
+      color: #FFFFFF;
+      opacity: 0;
+      -webkit-transition: all .6s ease-in-out;
+      -moz-transition: all .6s ease-in-out;
+      -o-transition: all .6s ease-in-out;
+      transition: all .6s ease-in-out;
+
+      p {
+        text-align: center;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1rem;
+      }
+
+      &.show {
+        opacity: 1;
+      }
+
+    }
+
   }
 
 </style>
