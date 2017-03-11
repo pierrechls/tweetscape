@@ -2,13 +2,11 @@
   <div id="renderer" :class="isLoaded ? 'show' : 'hide' ">
     <a-scene gridhelper="size: 3000; divisions: 1000">
       <assets></assets>
-      <!-- tweets -->
       <tweet v-for="tweet in visibleTweets" :key="tweet.id" :position="tweet.position" :rotation="tweet.rotation" :tweet="tweet"></tweet>
-      <!-- /tweets -->
       <camera :position="camera.position" :controls-enabled="controlsEnabled"></camera>
       <a-torus v-for="n in 10" scale="20 10 10" :rotation="`0 0 ${(-30 * n)}`" radius="1.60" arc="250" :position="`0 0 ${(-20 * n)}`" material="shader: standard; color: #60ffec; side: double;"></a-torus>
-      <a-entity light="type: ambient; color: #00094e; intensity: 0.5;"></a-entity>
-      <a-entity light="type: spot; angle: 45; color: #bbc2ff; penumbra: 1; distance: 17; intensity: 0.7; decay: -3;" :position="`${camera.position.x} ${camera.position.y} ${camera.position.z}`"></a-entity>
+      <a-entity light="type: ambient; color: #6B4BBA; intensity: 0.5;"></a-entity>
+      <a-entity light="type: spot; angle: 45; color: #21C2CC; penumbra: 1; distance: 17; intensity: 0.7; decay: -3;" :position="`${camera.position.x} ${camera.position.y} ${camera.position.z}`"></a-entity>
       <a-gradient-sky material="shader: gradient; topColor: 2 25 65; bottomColor: 2 20 50;"></a-gradient-sky>
     </a-scene>
   </div>
