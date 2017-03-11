@@ -1,4 +1,4 @@
-# tweet-vr
+# tweetscape
 
 ## How to use it
 
