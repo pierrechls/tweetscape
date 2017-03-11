@@ -58,7 +58,7 @@
 
     },
     beforeDestroy (){
-      console.log(`tweet ${this.tweet.id} was destroyed`)
+      // console.log(`tweet ${this.tweet.id} was destroyed`)
     },
     methods: {
       attributify
