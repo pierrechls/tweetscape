@@ -213,6 +213,7 @@
     beforeDestroy () {
       clearInterval(cycleTweetsInterval)
       clearInterval(cycleCustomTorusInterval)
+      this.$store.dispatch('resetAfterExperiment')
     }
   }
 

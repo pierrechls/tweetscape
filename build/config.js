@@ -5,7 +5,7 @@ const settings = require('../settings/default')
 // Global client config
 
 module.exports = {
-  title: 'tweet-vr',
+  title: 'tweetscape',
   build: {
     env: require('./config.prod.env'),
     index: path.resolve(__dirname, '../dist/index.html'),
