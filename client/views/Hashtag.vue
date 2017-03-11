@@ -4,7 +4,7 @@
       <div id="logo"><img src="~assets/logo/logo-white.svg"/></div>
       <h1 class="title">Insert your hashtag</h1>
       <div class="select-your-hashtag">
-        <div class="search-hashtag"><p class="hashtag-input"><span @click="focusToInput">#</span><input type="text" id="hashtaginput" :style="inputWidthStyle" name="hashtag" v-model="userHashtag" tabindex="-1" maxlength="40" autofocus/></p></div>
+        <div class="search-hashtag"><p class="hashtag-input"><span @click="focusToInput">#</span><input type="text" id="hashtaginput" :style="inputWidthStyle" name="hashtag" v-model="userHashtag" tabindex="-1" :maxlength="inputMaxLength" autofocus/></p></div>
         <button id="start" @click="start" :disabled="!isHashtag">Let's start!</button>
       </div>
     </div>
@@ -30,7 +30,8 @@
         },
         waitingResponseFromAPI: false,
         userHashtag: '',
-        isLoading: false
+        isLoading: false,
+        inputMaxLength: 40
       }
     },
     components: {
@@ -102,6 +103,20 @@
             this.start()
           }
       })
+
+      if(window.innerWidth < 640) {
+        this.inputMaxLength = 20
+      } else {
+        this.inputMaxLength = 40
+      }
+
+      window.addEventListener('resize', () => {
+        if(window.innerWidth < 640) {
+          this.inputMaxLength = 20
+        } else {
+          this.inputMaxLength = 40
+        }
+      });
 
       this.focusToInput()
     }
@@ -254,6 +269,19 @@
         opacity: 1;
       }
 
+    }
+
+    @media screen and (max-width: 640px) {
+
+      .content {
+        width: 25rem;
+        margin-left: -12.5rem;
+      }
+
+      .request-error {
+        width: 10rem;
+        margin-left: -5rem;
+      }
     }
 
   }
