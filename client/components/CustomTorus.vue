@@ -18,7 +18,7 @@
     },
     mounted() {},
     beforeDestroy (){
-      console.log(`torus ${this.id} was destroyed`)
+      // console.log(`torus ${this.id} was destroyed`)
     },
     methods: {
       attributify
