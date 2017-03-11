@@ -39,6 +39,9 @@ const mutations = {
   },
   SHOW_END_MESSAGE(state, show) {
     state.showEndMessage = show
+  },
+  RESET_TWEETS(state) {
+    state.tweets = []
   }
 }
 
@@ -68,8 +71,16 @@ const actions = {
   setTweetsMaxId({commit}, maxId) {
     commit('SET_TWEETS_MAX_ID', maxId)
   },
+  resetTweets({commit}) {
+    commit('RESET_TWEETS')
+  },
   showEndMessage({commit}, show) {
     commit('SHOW_END_MESSAGE', show)
+  },
+  resetAfterExperiment({commit}) {
+    commit('SET_HASHTAG', null)
+    commit('RESET_TWEETS'),
+    commit('SET_TWEETS_MAX_ID', '')
   }
 }
 
