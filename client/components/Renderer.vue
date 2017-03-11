@@ -3,8 +3,8 @@
     <a-scene gridhelper="size: 3000; divisions: 1000">
       <assets></assets>
       <tweet v-for="tweet in visibleTweets" :key="tweet.id" :position="tweet.position" :rotation="tweet.rotation" :tweet="tweet"></tweet>
+      <custom-torus v-for="torus in visibleCustomTorus" :key="torus.id" :id="torus.id" :position="torus.position" :rotation="torus.rotation"></custom-torus>
       <camera :position="camera.position" :controls-enabled="controlsEnabled"></camera>
-      <custom-torus v-for="torus in customTorusToRender" :key="torus.id" :id="torus.id" :position="torus.position" :rotation="torus.rotation"></custom-torus>
       <light :position="camera.position"></light>
       <a-gradient-sky material="shader: gradient; topColor: 2 25 65; bottomColor: 2 20 50;"></a-gradient-sky>
     </a-scene>
@@ -80,6 +80,11 @@
         return this.tweetsToRender.filter((tweet) => {
           return (Math.abs(tweet.position.z) > (Math.abs(this.camera.position.z) - 5)) && (Math.abs(tweet.position.z) < (Math.abs(this.camera.position.z) + 50))
         })
+      },
+      visibleCustomTorus: function () {
+        return this.customTorusToRender.filter((customTorus) => {
+          return (Math.abs(customTorus.position.z) > (Math.abs(this.camera.position.z) - 10)) && (Math.abs(customTorus.position.z) < (Math.abs(this.camera.position.z) + 250))
+        })
       }
     },
     methods: {
@@ -112,17 +117,19 @@
         cycleCustomTorusInterval = setInterval(this.cycleCustomTorus, 1000)
       },
       cycleCustomTorus: function () {
-        let torus = {}
+        if( this.customTorusToRender.length < (this.tweetsToRender.length + 10) ) {
+          let torus = {}
 
-        torus.id = this.customTorusParams.number
-        torus.position = PathCalculator.torusAfter(this.customTorusParams.offset)
-        torus.rotation = { x: 0, y: 0, z: -this.customTorusParams.rotation }
+          torus.id = this.customTorusParams.number
+          torus.position = PathCalculator.torusAfter(this.customTorusParams.offset + 50)
+          torus.rotation = { x: 0, y: 0, z: -this.customTorusParams.rotation }
 
-        this.customTorusParams.number += 1
-        this.customTorusParams.offset += this.customTorusParams.separator
-        this.customTorusParams.rotation += this.customTorusParams.rotationOffset
+          this.customTorusParams.number += 1
+          this.customTorusParams.offset += this.customTorusParams.separator
+          this.customTorusParams.rotation += this.customTorusParams.rotationOffset
 
-        this.customTorusToRender.push(torus)
+          this.customTorusToRender.push(torus)
+        }
       },
       cycleTweets: function() {
 
