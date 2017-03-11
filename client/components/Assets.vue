@@ -1,5 +1,7 @@
 <template>
-  <a-assets></a-assets>
+  <a-assets>
+    <img id="logo-end-message" src="~assets/favicon.png">
+  </a-assets>
 </template>
 
 <script>

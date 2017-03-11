@@ -17,7 +17,7 @@ app.use(function (req, res, next) {
 app.get('/search/:hashtag', function (req, res) {
   var hashtag = req.params.hashtag
   var max_id = req.query.max_id
-  var count = 60 //settings.app.tweet.numberPerRequest
+  var count = settings.app.tweet.numberPerRequest
   var lang = req.acceptsLanguages()[0].substr(0,2)
   var q = '#' + hashtag + " AND -filter:retweets AND -filter:replies AND -filter:links"
 

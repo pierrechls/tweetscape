@@ -116,19 +116,21 @@
 
         if(this.visibleTweets.length == 0) {
           this.controlsEnabled = false
-          document.querySelector('#msg-end').emit('fade')
+          this.$store.dispatch('showEndMessage', true)
           clearInterval(cycleTweetsInterval)
           let redirectToHome = setTimeout( () => {
             if(this.isVR) {
               this.$el.querySelector('a-scene').exitVR()
             }
             this.$router.push({ path: '/hashtag' })
-          }, 5 * 1000)
+          }, 6 * 1000)
         }
 
       }
     },
     mounted () {
+
+      this.$store.dispatch('showEndMessage', false)
 
       PathCalculator.setAmplitude(Random.getRandomInt(SimulationParams.pathAmplitude.x.min, SimulationParams.pathAmplitude.x.max), Random.getRandomInt(SimulationParams.pathAmplitude.y.min, SimulationParams.pathAmplitude.y.max))
       PathCalculator.setFrequency(Random.getRandomInt(SimulationParams.pathFrequency.x.min, SimulationParams.pathFrequency.x.max) + Math.random()*2, Random.getRandomInt(SimulationParams.pathFrequency.y.min, SimulationParams.pathFrequency.y.max) + Math.random()*2)
