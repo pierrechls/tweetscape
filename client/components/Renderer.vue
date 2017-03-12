@@ -3,7 +3,7 @@
     <a-scene gridhelper="size: 3000; divisions: 1000">
       <assets></assets>
       <tweet v-for="tweet in visibleTweets" :key="tweet.id" :position="tweet.position" :rotation="tweet.rotation" :tweet="tweet"></tweet>
-      <custom-torus v-for="torus in visibleCustomTorus" :key="torus.id" :id="torus.id" :position="torus.position" :rotation="torus.rotation"></custom-torus>
+      <frame v-for="frame in visibleFrames" :key="frame.id" :id="frame.id" :position="frame.position" :rotation="frame.rotation"></frame>
       <camera :position="camera.position" :controls-enabled="controlsEnabled"></camera>
       <light :position="camera.position"></light>
       <a-gradient-sky material="shader: gradient; topColor: 2 25 65; bottomColor: 2 20 50;"></a-gradient-sky>
@@ -17,7 +17,7 @@
   import Assets from 'components/Assets'
   import Light from 'components/Light'
   import Tweet from 'components/Tweet'
-  import CustomTorus from 'components/CustomTorus'
+  import Frame from 'components/Frame'
 
   import SimulationParams from '../params.js'
   import Vector3D from 'utils/maths/vector3d.js'
@@ -26,7 +26,7 @@
 
   import { getTweetsFromAPI } from 'store/api'
 
-  let cycleCustomTorusInterval = null
+  let cycleFramesInterval = null
   let cycleTweetsInterval = null
 
   export default {
@@ -36,24 +36,24 @@
       'assets': Assets,
       'tweet': Tweet,
       'light': Light,
-      'custom-torus': CustomTorus
+      'frame': Frame
     },
     data: () => {
       return {
         controlsEnabled: true,
         inProgress: true,
         isVR: false,
-        customTorusParams: {
+        frameParams: {
           number: 0,
           offset: 0,
           separator: 30,
           rotation: 0,
           rotationOffset: 20
         },
-        customTorusToRender: [],
+        framesToRender: [],
         tweetsToRender: [],
         isLoaded: false,
-        torusAreReady: false,
+        framesAreReady: false,
         experimentOngoing: true,
         camera: {
           position: { x: 0, y: 0, z: 0 }
@@ -68,7 +68,7 @@
     },
     computed: {
       sceneIsReady () {
-        return this.isLoaded && this.torusAreReady ? true : false
+        return this.isLoaded && this.framesAreReady ? true : false
       },
       hasHashtag () {
         return this.$store.state.hashtag ? true : false
@@ -81,9 +81,9 @@
           return (Math.abs(tweet.position.z) > (Math.abs(this.camera.position.z) - 5)) && (Math.abs(tweet.position.z) < (Math.abs(this.camera.position.z) + 50))
         })
       },
-      visibleCustomTorus: function () {
-        return this.customTorusToRender.filter((customTorus) => {
-          return (Math.abs(customTorus.position.z) > (Math.abs(this.camera.position.z) - 10)) && (Math.abs(customTorus.position.z) < (Math.abs(this.camera.position.z) + 250))
+      visibleFrames: function () {
+        return this.framesToRender.filter((frame) => {
+          return (Math.abs(frame.position.z) > (Math.abs(this.camera.position.z) - 10)) && (Math.abs(frame.position.z) < (Math.abs(this.camera.position.z) + 250))
         })
       }
     },
@@ -109,26 +109,26 @@
         this.drawPath()
         this.startSimulation()
       },
-      initFirstTorus: function () {
+      initFirstFrames: function () {
         for (let nb = 0; nb < 10; nb++) {
-          this.cycleCustomTorus()
+          this.cycleFrames()
         }
-        this.torusAreReady = true
-        cycleCustomTorusInterval = setInterval(this.cycleCustomTorus, 1000)
+        this.framesAreReady = true
+        cycleFramesInterval = setInterval(this.cycleFrames, 1000)
       },
-      cycleCustomTorus: function () {
-        if( this.customTorusToRender.length < (this.tweetsToRender.length + 10) ) {
-          let torus = {}
+      cycleFrames: function () {
+        if( this.framesToRender.length < (this.tweetsToRender.length + 10) ) {
+          let frame = {}
 
-          torus.id = this.customTorusParams.number
-          torus.position = PathCalculator.objectAfter(this.customTorusParams.offset + 50)
-          torus.rotation = { x: 0, y: 45, z: 0 }
+          frame.id = this.frameParams.number
+          frame.position = PathCalculator.objectAfter(this.frameParams.offset + 50)
+          frame.rotation = { x: 0, y: 45, z: 0 }
 
-          this.customTorusParams.number += 1
-          this.customTorusParams.offset += this.customTorusParams.separator
-          this.customTorusParams.rotation += this.customTorusParams.rotationOffset
+          this.frameParams.number += 1
+          this.frameParams.offset += this.frameParams.separator
+          this.frameParams.rotation += this.frameParams.rotationOffset
 
-          this.customTorusToRender.push(torus)
+          this.framesToRender.push(frame)
         }
       },
       cycleTweets: function() {
@@ -163,7 +163,7 @@
           document.querySelector('#spot-light').emit('turn-the-light-off')
           this.$store.dispatch('showEndMessage', true)
           clearInterval(cycleTweetsInterval)
-          clearInterval(cycleCustomTorusInterval)
+          clearInterval(cycleFramesInterval)
           let redirectToHome = setTimeout( () => {
             if(this.isVR) {
               this.$el.querySelector('a-scene').exitVR()
@@ -181,7 +181,7 @@
       PathCalculator.setAmplitude(Random.getRandomInt(SimulationParams.pathAmplitude.x.min, SimulationParams.pathAmplitude.x.max), Random.getRandomInt(SimulationParams.pathAmplitude.y.min, SimulationParams.pathAmplitude.y.max))
       PathCalculator.setFrequency(Random.getRandomInt(SimulationParams.pathFrequency.x.min, SimulationParams.pathFrequency.x.max) + Math.random()*2, Random.getRandomInt(SimulationParams.pathFrequency.y.min, SimulationParams.pathFrequency.y.max) + Math.random()*2)
 
-      this.initFirstTorus()
+      this.initFirstFrames()
 
       const scene = this.$el.querySelector('a-scene')
       if (scene.hasLoaded) {
@@ -212,7 +212,7 @@
     },
     beforeDestroy () {
       clearInterval(cycleTweetsInterval)
-      clearInterval(cycleCustomTorusInterval)
+      clearInterval(cycleFramesInterval)
       this.$store.dispatch('resetAfterExperiment')
     }
   }
