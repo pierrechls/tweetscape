@@ -38,9 +38,9 @@ class PathCalculator {
     return { x: x, y: y, z: z }
   }
 
-  static torusAfter(offset) {
+  static torusAfter(offset, position) {
     let x = instance.amplitude.x*Math.sin(instance.frequency.x*offset*3.1415926535/180)
-    let y = instance.amplitude.y*Math.sin(instance.frequency.y*offset*3.1415926535/180)
+    let y = instance.amplitude.y*Math.sin(instance.frequency.y*offset*3.1415926535/180) + (position === 'top' ? 5 : -5)
     let z = -offset
 
     return { x: x, y: y, z: z }
