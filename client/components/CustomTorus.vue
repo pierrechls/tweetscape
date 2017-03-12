@@ -1,5 +1,8 @@
 <template>
-  <a-torus scale="10 5 5" :position="attributify(position)" :rotation="attributify(rotation)" radius="1.60" arc="250" material="shader: standard; color: #60ffec; side: double;"></a-torus>
+  <a-entity>
+    <a-entity obj-model="obj: #frame-obj;"  scale="2 2 2" :position="attributify(positionTop)" :rotation="attributify(rotation)" material="shader: standard; color: #60ffec; side: double;"></a-entity>
+    <a-entity obj-model="obj: #frame-obj;"  scale="2 2 2" :position="attributify(positionBottom)" :rotation="attributify(rotation)" material="shader: standard; color: #60ffec; side: double;"></a-entity>
+  </a-entity>
 </template>
 
 <script>
@@ -10,7 +13,8 @@
     replace: true,
     props: {
       id: 0,
-      position: Object,
+      positionTop: Object,
+      positionBottom: Object,
       rotation: Object
     },
     data() {
