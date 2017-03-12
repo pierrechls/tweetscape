@@ -3,7 +3,7 @@
     <a-scene gridhelper="size: 3000; divisions: 1000">
       <assets></assets>
       <tweet v-for="tweet in visibleTweets" :key="tweet.id" :position="tweet.position" :rotation="tweet.rotation" :tweet="tweet"></tweet>
-      <custom-torus v-for="torus in visibleCustomTorus" :key="torus.id" :id="torus.id" :position="torus.position" :rotation="torus.rotation"></custom-torus>
+      <custom-torus v-for="torus in visibleCustomTorus" :key="torus.id" :id="torus.id" :positionTop="torus.positionTop" :positionBottom="torus.positionBottom" :rotation="torus.rotation"></custom-torus>
       <camera :position="camera.position" :controls-enabled="controlsEnabled"></camera>
       <light :position="camera.position"></light>
       <a-gradient-sky material="shader: gradient; topColor: 2 25 65; bottomColor: 2 20 50;"></a-gradient-sky>
@@ -83,7 +83,7 @@
       },
       visibleCustomTorus: function () {
         return this.customTorusToRender.filter((customTorus) => {
-          return (Math.abs(customTorus.position.z) > (Math.abs(this.camera.position.z) - 10)) && (Math.abs(customTorus.position.z) < (Math.abs(this.camera.position.z) + 250))
+          return (Math.abs(customTorus.positionTop.z) > (Math.abs(this.camera.position.z) - 10)) && (Math.abs(customTorus.positionTop.z) < (Math.abs(this.camera.position.z) + 250))
         })
       }
     },
@@ -121,8 +121,9 @@
           let torus = {}
 
           torus.id = this.customTorusParams.number
-          torus.position = PathCalculator.torusAfter(this.customTorusParams.offset + 50)
-          torus.rotation = { x: 0, y: 0, z: -this.customTorusParams.rotation }
+          torus.positionTop = PathCalculator.torusAfter(this.customTorusParams.offset + 50, 'top')
+          torus.positionBottom = PathCalculator.torusAfter(this.customTorusParams.offset + 50, 'bottom')
+          torus.rotation = { x: 0, y: 45, z: 0 }
 
           this.customTorusParams.number += 1
           this.customTorusParams.offset += this.customTorusParams.separator
