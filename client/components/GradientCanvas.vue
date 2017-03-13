@@ -28,13 +28,13 @@
          states : {
              'home-state': {
                  gradients: [
-                     ['#21c2cc', '#6b4bba'],
-                     ['#229ea6', '#3f28b1']
+                     ['#21C2CC', '#6B4BBA'],
+                     ['#229EA6', '#3F28B1']
                  ]
              },
              'timeline-state': {
                  gradients: [
-                     ['#245170', '#2f3a65']
+                     ['#021941', '#021432']
                  ]
              }
          }

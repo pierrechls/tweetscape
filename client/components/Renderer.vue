@@ -1,21 +1,23 @@
 <template>
-  <div id="renderer" :class="isLoaded ? 'show' : 'hide' ">
+  <div id="renderer" :class="sceneIsReady ? 'show' : 'hide' ">
     <a-scene gridhelper="size: 3000; divisions: 1000">
       <assets></assets>
-      <!-- tweets -->
       <tweet v-for="tweet in visibleTweets" :key="tweet.id" :position="tweet.position" :rotation="tweet.rotation" :tweet="tweet"></tweet>
-      <!-- /tweets -->
+      <frame v-for="frame in visibleFrames" :key="frame.id" :id="frame.id" :position="frame.position" :rotation="frame.rotation"></frame>
       <camera :position="camera.position" :controls-enabled="controlsEnabled"></camera>
-      <a-gradient-sky material="shader: gradient; topColor: 36 81 112; bottomColor: 47 58 101;"></a-gradient-sky>
+      <light :position="camera.position"></light>
+      <a-gradient-sky material="shader: gradient; topColor: 2 25 65; bottomColor: 2 20 50;"></a-gradient-sky>
     </a-scene>
   </div>
 </template>
 
 <script>
 
-  import Camera from './Camera.vue'
-  import Assets from './Assets.vue'
-  import Tweet from './Tweet.vue'
+  import Camera from 'components/Camera'
+  import Assets from 'components/Assets'
+  import Light from 'components/Light'
+  import Tweet from 'components/Tweet'
+  import Frame from 'components/Frame'
 
   import SimulationParams from '../params.js'
   import Vector3D from 'utils/maths/vector3d.js'
@@ -24,6 +26,7 @@
 
   import { getTweetsFromAPI } from 'store/api'
 
+  let cycleFramesInterval = null
   let cycleTweetsInterval = null
 
   export default {
@@ -31,15 +34,26 @@
     components: {
       'camera': Camera,
       'assets': Assets,
-      'tweet': Tweet
+      'tweet': Tweet,
+      'light': Light,
+      'frame': Frame
     },
     data: () => {
       return {
         controlsEnabled: true,
         inProgress: true,
         isVR: false,
+        frameParams: {
+          number: 0,
+          offset: 0,
+          separator: 30,
+          rotation: 0,
+          rotationOffset: 20
+        },
+        framesToRender: [],
         tweetsToRender: [],
         isLoaded: false,
+        framesAreReady: false,
         experimentOngoing: true,
         camera: {
           position: { x: 0, y: 0, z: 0 }
@@ -53,6 +67,9 @@
       }
     },
     computed: {
+      sceneIsReady () {
+        return this.isLoaded && this.framesAreReady ? true : false
+      },
       hasHashtag () {
         return this.$store.state.hashtag ? true : false
       },
@@ -62,6 +79,11 @@
       visibleTweets: function () {
         return this.tweetsToRender.filter((tweet) => {
           return (Math.abs(tweet.position.z) > (Math.abs(this.camera.position.z) - 5)) && (Math.abs(tweet.position.z) < (Math.abs(this.camera.position.z) + 50))
+        })
+      },
+      visibleFrames: function () {
+        return this.framesToRender.filter((frame) => {
+          return (Math.abs(frame.position.z) > (Math.abs(this.camera.position.z) - 10)) && (Math.abs(frame.position.z) < (Math.abs(this.camera.position.z) + 250))
         })
       }
     },
@@ -86,6 +108,28 @@
       buildSplineAndRun: function() {
         this.drawPath()
         this.startSimulation()
+      },
+      initFirstFrames: function () {
+        for (let nb = 0; nb < 10; nb++) {
+          this.cycleFrames()
+        }
+        this.framesAreReady = true
+        cycleFramesInterval = setInterval(this.cycleFrames, 1000)
+      },
+      cycleFrames: function () {
+        if( this.framesToRender.length < (this.tweetsToRender.length + 10) ) {
+          let frame = {}
+
+          frame.id = this.frameParams.number
+          frame.position = PathCalculator.objectAfter(this.frameParams.offset + 50)
+          frame.rotation = { x: 0, y: 45, z: 0 }
+
+          this.frameParams.number += 1
+          this.frameParams.offset += this.frameParams.separator
+          this.frameParams.rotation += this.frameParams.rotationOffset
+
+          this.framesToRender.push(frame)
+        }
       },
       cycleTweets: function() {
 
@@ -116,8 +160,10 @@
 
         if(this.visibleTweets.length == 0) {
           this.controlsEnabled = false
+          document.querySelector('#spot-light').emit('turn-the-light-off')
           this.$store.dispatch('showEndMessage', true)
           clearInterval(cycleTweetsInterval)
+          clearInterval(cycleFramesInterval)
           let redirectToHome = setTimeout( () => {
             if(this.isVR) {
               this.$el.querySelector('a-scene').exitVR()
@@ -135,13 +181,14 @@
       PathCalculator.setAmplitude(Random.getRandomInt(SimulationParams.pathAmplitude.x.min, SimulationParams.pathAmplitude.x.max), Random.getRandomInt(SimulationParams.pathAmplitude.y.min, SimulationParams.pathAmplitude.y.max))
       PathCalculator.setFrequency(Random.getRandomInt(SimulationParams.pathFrequency.x.min, SimulationParams.pathFrequency.x.max) + Math.random()*2, Random.getRandomInt(SimulationParams.pathFrequency.y.min, SimulationParams.pathFrequency.y.max) + Math.random()*2)
 
-      cycleTweetsInterval = setInterval(this.cycleTweets, 1000)
+      this.initFirstFrames()
 
       const scene = this.$el.querySelector('a-scene')
       if (scene.hasLoaded) {
         if(this.hasHashtag) {
           this.isLoaded = true
           this.buildSplineAndRun()
+          cycleTweetsInterval = setInterval(this.cycleTweets, 1000)
         } else {
           this.$router.push({ path: '/hashtag' })
         }
@@ -150,6 +197,7 @@
           if(this.hasHashtag) {
             this.isLoaded = true
             this.buildSplineAndRun()
+            cycleTweetsInterval = setInterval(this.cycleTweets, 1000)
           } else {
             this.$router.push({ path: '/hashtag' })
           }
@@ -164,6 +212,7 @@
     },
     beforeDestroy () {
       clearInterval(cycleTweetsInterval)
+      clearInterval(cycleFramesInterval)
       this.$store.dispatch('resetAfterExperiment')
     }
   }
