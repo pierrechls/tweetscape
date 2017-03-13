@@ -4,9 +4,12 @@
       <div id="logo"><img src="~assets/logo/logo-white.svg"/></div>
       <h1 class="title">Insert your hashtag</h1>
       <div class="select-your-hashtag">
-        <div class="search-hashtag"><p class="hashtag-input"><span @click="focusToInput">#</span><input type="text" id="hashtaginput" :style="inputWidthStyle" name="hashtag" v-model="userHashtag" tabindex="-1" maxlength="40" autofocus/></p></div>
+        <div class="search-hashtag"><p class="hashtag-input"><span @click="focusToInput">#</span><input type="text" id="hashtaginput" :style="inputWidthStyle" name="hashtag" v-model="userHashtag" tabindex="-1" :maxlength="inputMaxLength" autofocus/></p></div>
         <button id="start" @click="start" :disabled="!isHashtag">Let's start!</button>
       </div>
+    </div>
+    <div :class="requestError.show ? 'request-error show' : 'request-error'">
+      <p>{{ requestError.message }}</p>
     </div>
     <preloader :display="isLoading"></preloader>
   </div>
@@ -21,9 +24,14 @@
     name: 'Hashtag',
     data () {
       return {
+        requestError: {
+          message: '',
+          show: false
+        },
         waitingResponseFromAPI: false,
         userHashtag: '',
-        isLoading: false
+        isLoading: false,
+        inputMaxLength: 40
       }
     },
     components: {
@@ -56,14 +64,18 @@
             this.$store.dispatch('sortTweetsByDate')
             this.goToTimeline()
           }, (response) => {
+            if(response.error == -1) {
+              this.requestError.message = 'Your hashtag seems to be not very famous'
+            } else {
+              this.requestError.message = 'Problem when connecting to the twitter API'
+            }
+
+            setTimeout( () => { this.requestError.show = true }, 1 * 1000)
+            setTimeout( () => { this.requestError.show = false }, 3 * 1000)
+
             setTimeout( () => {
               this.waitingResponseFromAPI = false
-            }, 3 * 1000)
-            if(response.error == -1) {
-              console.log('Hashtag not very famous')
-            } else {
-              console.log('Twitter API seems to have a problem...')
-            }
+            }, 4 * 1000)
           })
       },
       startLoader: function () {
@@ -91,6 +103,20 @@
             this.start()
           }
       })
+
+      if(window.innerWidth < 640) {
+        this.inputMaxLength = 20
+      } else {
+        this.inputMaxLength = 40
+      }
+
+      window.addEventListener('resize', () => {
+        if(window.innerWidth < 640) {
+          this.inputMaxLength = 20
+        } else {
+          this.inputMaxLength = 40
+        }
+      });
 
       this.focusToInput()
     }
@@ -215,6 +241,49 @@
       }
 
     }
+
+    .request-error {
+      width: 40rem;
+      height: 10rem;
+      position: absolute;
+      z-index: -1;
+      left: 50%;
+      top: 50%;
+      margin-left: -20rem;
+      margin-top: -5rem;
+      color: #FFFFFF;
+      opacity: 0;
+      -webkit-transition: all .6s ease-in-out;
+      -moz-transition: all .6s ease-in-out;
+      -o-transition: all .6s ease-in-out;
+      transition: all .6s ease-in-out;
+
+      p {
+        text-align: center;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1rem;
+      }
+
+      &.show {
+        opacity: 1;
+      }
+
+    }
+
+    @media screen and (max-width: 640px) {
+
+      .content {
+        width: 25rem;
+        margin-left: -12.5rem;
+      }
+
+      .request-error {
+        width: 10rem;
+        margin-left: -5rem;
+      }
+    }
+
   }
 
 </style>
