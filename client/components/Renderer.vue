@@ -46,7 +46,7 @@
         frameParams: {
           number: 0,
           offset: 0,
-          separator: 30,
+          separator: 32,
           rotation: 0,
           rotationOffset: 20
         },
@@ -83,7 +83,7 @@
       },
       visibleFrames: function () {
         return this.framesToRender.filter((frame) => {
-          return (Math.abs(frame.position.z) > (Math.abs(this.camera.position.z) - 10)) && (Math.abs(frame.position.z) < (Math.abs(this.camera.position.z) + 250))
+          return (Math.abs(frame.position.z) > (Math.abs(this.camera.position.z) - 20)) && (Math.abs(frame.position.z) < (Math.abs(this.camera.position.z) + 250))
         })
       }
     },
@@ -121,7 +121,7 @@
           let frame = {}
 
           frame.id = this.frameParams.number
-          frame.position = PathCalculator.objectAfter(this.frameParams.offset + 50)
+          frame.position = PathCalculator.objectAfter(this.frameParams.offset + 10)
           frame.rotation = { x: 0, y: 45, z: 0 }
 
           this.frameParams.number += 1
@@ -137,10 +137,10 @@
           let tweet = this.tweets[0]
 
           if(this.tweetsToRender.length % 2 == 0) {
-              tweet.position = PathCalculator.after(this.pathParams.separator, 'left')
+              tweet.position = PathCalculator.after(this.pathParams.separator - 30, 'left')
               tweet.rotation = { x: SimulationParams.tweetRotation.x, y: -SimulationParams.tweetRotation.y, z: SimulationParams.tweetRotation.z }
           } else {
-            tweet.position = PathCalculator.after(this.pathParams.separator, 'right')
+            tweet.position = PathCalculator.after(this.pathParams.separator - 30, 'right')
             tweet.rotation = { x: SimulationParams.tweetRotation.x, y: SimulationParams.tweetRotation.y, z: SimulationParams.tweetRotation.z }
           }
 
