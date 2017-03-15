@@ -21,13 +21,19 @@ class TweetDrawer {
   }
 
   drawBackground () {
-    let grd = this.ctx.createLinearGradient(150.000, 0.000, 150.000, 300.000);
+    let grd = this.ctx.createLinearGradient(150.000, 0.000, 150.000, 300.000)
 
-    grd.addColorStop(0.000, 'rgba(161, 196, 253, 1.000)');
-    grd.addColorStop(1.000, 'rgba(194, 233, 251, 1.000)');
+    grd.addColorStop(0.000, 'rgba(161, 196, 253, 1.000)')
+    grd.addColorStop(1.000, 'rgba(194, 233, 251, 1.000)')
 
     this.ctx.fillStyle = grd
     this.ctx.fillRect (0, 0, this.canvas.width, this.canvas.height)
+  }
+
+  drawBorder () {
+    this.ctx.strokeStyle = "#021941"
+    this.ctx.lineWidth = 20
+    this.ctx.strokeRect(0, 0, this.canvas.width, this.canvas.height)
   }
 
   drawContent () {
@@ -85,6 +91,7 @@ class TweetDrawer {
   draw () {
     return new Promise((resolve, reject) => {
       this.drawBackground()
+      this.drawBorder()
       this.drawContent()
       this.drawUserName()
       this.drawUserScreenName()
