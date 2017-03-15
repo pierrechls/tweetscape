@@ -40,6 +40,14 @@ $ npm run build
 $ npm run lint
 ```
 
+### Deploy your build
+
+Before, you have to build for production.
+
+```bash
+$ npm run deploy
+```
+
 ## Prior installation
 
 You have to download [Node.js](https://nodejs.org/en/download/)

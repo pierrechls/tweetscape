@@ -12,5 +12,8 @@
       "numberPerRequest": 60
     },
     "lang": "en"
+  },
+  "production": {
+    "API_URL": "https://tweetscape.herokuapp.com"
   }
 }
