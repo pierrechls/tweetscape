@@ -1,7 +1,7 @@
 <template>
   <a-entity :position="attributify(position)">
-    <a-entity obj-model="obj: #frame-obj;"  scale="2 2 2" position="0 5 0" :rotation="attributify(rotation)" material="shader: standard; color: #60ffec; side: double;"></a-entity>
-    <a-entity obj-model="obj: #frame-obj;"  scale="2 2 2" position="0 -5 0" :rotation="attributify(rotation)" material="shader: standard; color: #60ffec; side: double;"></a-entity>
+    <a-entity obj-model="obj: #frame-obj;"  scale="2 2 2" position="0 6 0" :rotation="attributify(rotation)" material="shader: standard; color: #60ffec; side: double;"></a-entity>
+    <a-entity obj-model="obj: #frame-obj;"  scale="2 2 2" position="0 -6 0" :rotation="attributify(rotation)" material="shader: standard; color: #60ffec; side: double;"></a-entity>
   </a-entity>
 </template>
 

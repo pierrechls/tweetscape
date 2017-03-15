@@ -9,7 +9,7 @@ const TWEET_SIZE = {
 const TWEET_ROTATION = { x: 0, y: 30, z: 0 }
 
 // PATH PARAMS
-const SPEED = 40
+const SPEED = 50
 const PATH_AMOUNT_PER_CYCLE = 100
 const PATH_AMPLITUDE = {
   x: { min: 1, max: 3 },
