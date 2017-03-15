@@ -40,7 +40,7 @@ $ npm run build
 $ npm run lint
 ```
 
-## Deploy your build
+### Deploy your build
 
 Before, you have to build for production.
 
