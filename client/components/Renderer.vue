@@ -1,6 +1,6 @@
 <template>
   <div id="renderer" :class="sceneIsReady ? 'show' : 'hide' ">
-    <a-scene gridhelper="size: 3000; divisions: 1000">
+    <a-scene>
       <assets></assets>
       <tweet v-for="tweet in visibleTweets" :key="tweet.id" :position="tweet.position" :rotation="tweet.rotation" :tweet="tweet"></tweet>
       <frame v-for="frame in visibleFrames" :key="frame.id" :id="frame.id" :position="frame.position" :rotation="frame.rotation"></frame>
