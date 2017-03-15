@@ -18,7 +18,10 @@ import store from 'client/store'
 // Add vue-resource to Vue
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
-Vue.http.options.root = `${settings.API.url}:${settings.API.port}`
+
+let isProduction = process.env.NODE_ENV === 'production'
+
+Vue.http.options.root = isProduction ? settings.production.API_URL : `${settings.API.url}:${settings.API.port}`
 
 // Sync store with router
 import { sync } from 'vuex-router-sync'
