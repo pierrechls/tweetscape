@@ -166,7 +166,8 @@
       },
       createPauseHandler: function () {
         if (isMobile()) {
-          window.addEventListener("click", this.pauseOrPlay, false)
+          window.addEventListener("touchstart", this.pauseOrPlayTouchHandler, false)
+          window.addEventListener("touchend", this.pauseOrPlayTouchHandler, false)
         } else {
           window.addEventListener("keydown", this.pauseOrPlaySpacebarHandler, false)
           window.addEventListener("keyup", this.pauseOrPlaySpacebarHandler, false)
@@ -183,6 +184,12 @@
         const onSpaceUp = (e, f) => { if (e.code == "Space" && e.type == "keyup") f() }
         onSpaceDown(e, this.pause)
         onSpaceUp(e, this.play)
+      },
+      pauseOrPlayTouchHandler: function(e) {
+        const onTouchStart = (e, f) => { if (e.type == "touchstart") f() }
+        const onTouchEnd = (e, f) => { if (e.type == "touchend") f() }
+        onTouchStart(e, this.pause)
+        onTouchEnd(e, this.play)
       }
     },
     mounted () {
