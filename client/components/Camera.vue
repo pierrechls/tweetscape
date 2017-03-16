@@ -1,5 +1,5 @@
 <template>
-  <a-entity camera :position="attributify(position)" :look-controls="controlsEnabled ? '' : 'enabled: false; hmdEnabled: false;'">
+  <a-entity id="camera" camera :position="attributify(position)" :look-controls="controlsEnabled ? '' : 'enabled: false; hmdEnabled: false;'">
     <end-message></end-message>
   </a-entity>
 </template>

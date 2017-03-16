@@ -21,6 +21,7 @@
     "aframe": "^0.5",
     "aframe-gradient-sky": "^1.0.4",
     "aframe-gridhelper-component": "^0.2.0",
+    "aframe-look-at-component": "^0.2.0",
     "babel-runtime": "^6.0.0",
     "express": "^4.13.3",
     "granim": "^1.0.6",

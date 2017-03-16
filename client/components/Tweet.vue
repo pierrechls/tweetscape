@@ -2,8 +2,8 @@
   <a-plane :width="tweetParams.width"
            :height="tweetParams.height"
            :position="attributify(position)"
-           :rotation="attributify(rotation)"
            material="opacity: 0;"
+           look-at="#camera"
     >
   </a-plane>
 </template>
@@ -18,7 +18,6 @@
     replace: true,
     props: {
       position: Object,
-      rotation: Object,
       tweet: Object
     },
     data() {
