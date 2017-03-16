@@ -4,6 +4,7 @@
            :position="attributify(position)"
            :rotation="attributify(rotation)"
            material="opacity: 0;"
+           look-at="#camera"
     >
   </a-plane>
 </template>
