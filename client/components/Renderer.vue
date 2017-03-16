@@ -20,7 +20,6 @@
   import Frame from 'components/Frame'
 
   import SimulationParams from '../params.js'
-  import Vector3D from 'utils/maths/vector3d.js'
   import Random from 'utils/maths/random.js'
   import PathCalculator from 'utils/PathCalculator.js'
 
@@ -68,10 +67,10 @@
     },
     computed: {
       sceneIsReady () {
-        return this.isLoaded && this.framesAreReady ? true : false
+        return this.isLoaded && this.framesAreReady
       },
       hasHashtag () {
-        return this.$store.state.hashtag ? true : false
+        return !!this.$store.state.hashtag
       },
       tweets() {
         return this.$store.state.tweets
@@ -89,8 +88,6 @@
     },
     methods: {
       drawPath: function () {
-        let pathCalculator = new PathCalculator()
-
         let tempPaths = []
         for(let i = this.pathParams.offset; i < SimulationParams.pathAmountPerCycle + this.pathParams.offset; ++i) {
           tempPaths.push(PathCalculator.at(i))
@@ -98,9 +95,6 @@
 
         this.paths = tempPaths
         this.pathParams.offset += SimulationParams.pathAmountPerCycle
-      },
-      initLastPath: function () {
-        this.lastPath = this.paths[0]
       },
       startSimulation: function () {
         TweenMax.to(this.camera.position, SimulationParams.speed, { bezier: this.paths, ease: Linear.easeNone, repeat: 0, onComplete: this.buildSplineAndRun })
@@ -132,12 +126,11 @@
         }
       },
       cycleTweets: function() {
-
         if(this.tweets.length > 0) {
           let tweet = this.tweets[0]
 
           if(this.tweetsToRender.length % 2 == 0) {
-              tweet.position = PathCalculator.after(this.pathParams.separator - 30, 'left')
+            tweet.position = PathCalculator.after(this.pathParams.separator - 30, 'left')
           } else {
             tweet.position = PathCalculator.after(this.pathParams.separator - 30, 'right')
           }
@@ -147,13 +140,12 @@
           this.tweetsToRender.push(tweet)
 
           if(this.experimentOngoing && this.tweets.length < 5 ) {
-              getTweetsFromAPI()
-                .then(
-                  () => this.$store.dispatch('updateTweets'),
-                  () => this.experimentOngoing = false
-                )
+            getTweetsFromAPI()
+              .then(
+                () => this.$store.dispatch('updateTweets'),
+                () => this.experimentOngoing = false
+              )
           }
-
         }
 
         if(this.visibleTweets.length == 0) {
@@ -169,20 +161,19 @@
             this.$router.push({ path: '/hashtag' })
           }, 6 * 1000)
         }
-
       }
     },
     mounted () {
-
       this.$store.dispatch('showEndMessage', false)
 
-      PathCalculator.setAmplitude(Random.getRandomInt(SimulationParams.pathAmplitude.x.min, SimulationParams.pathAmplitude.x.max), Random.getRandomInt(SimulationParams.pathAmplitude.y.min, SimulationParams.pathAmplitude.y.max))
-      PathCalculator.setFrequency(Random.getRandomInt(SimulationParams.pathFrequency.x.min, SimulationParams.pathFrequency.x.max) + Math.random()*2, Random.getRandomInt(SimulationParams.pathFrequency.y.min, SimulationParams.pathFrequency.y.max) + Math.random()*2)
+      const freq = SimulationParams.pathFrequency
+      const ampl = SimulationParams.pathAmplitude
+      PathCalculator.setAmplitude(Random.getRandomInt(ampl.x.min, ampl.x.max), Random.getRandomInt(ampl.y.min, ampl.y.max))
+      PathCalculator.setFrequency(Random.getRandomInt(freq.x.min, freq.x.max) + Math.random()*2, Random.getRandomInt(freq.y.min, freq.y.max) + Math.random()*2)
 
       this.initFirstFrames()
 
-      const scene = this.$el.querySelector('a-scene')
-      if (scene.hasLoaded) {
+      const startIfOk = () => {
         if(this.hasHashtag) {
           this.isLoaded = true
           this.buildSplineAndRun()
@@ -190,23 +181,19 @@
         } else {
           this.$router.push({ path: '/hashtag' })
         }
+      }
+
+      const scene = this.$el.querySelector('a-scene')
+      if (scene.hasLoaded) {
+        startIfOk()
       } else {
-        scene.addEventListener('loaded', () => {
-          if(this.hasHashtag) {
-            this.isLoaded = true
-            this.buildSplineAndRun()
-            cycleTweetsInterval = setInterval(this.cycleTweets, 1000)
-          } else {
-            this.$router.push({ path: '/hashtag' })
-          }
-        })
+        scene.addEventListener('loaded', startIfOk)
       }
 
       let events = 'enter-vr exit-vr'
       events.split(' ').forEach(e => scene.addEventListener(e, () => {
-          this.isVR = scene.is('vr-mode')
+        this.isVR = scene.is('vr-mode')
       }), false)
-
     },
     beforeDestroy () {
       clearInterval(cycleTweetsInterval)
