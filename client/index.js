@@ -30,6 +30,7 @@ sync(store, router)
 // Import a-frame libraries
 import 'aframe-gradient-sky'
 import 'aframe-gridhelper-component'
+import 'aframe-look-at-component'
 
 new Vue({
   el: '#app',
