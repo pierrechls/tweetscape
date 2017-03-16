@@ -2,7 +2,7 @@
   <div id="renderer" :class="sceneIsReady ? 'show' : 'hide' ">
     <a-scene>
       <assets></assets>
-      <tweet v-for="tweet in visibleTweets" :key="tweet.id" :position="tweet.position" :rotation="tweet.rotation" :tweet="tweet"></tweet>
+      <tweet v-for="tweet in visibleTweets" :key="tweet.id" :position="tweet.position" :tweet="tweet"></tweet>
       <frame v-for="frame in visibleFrames" :key="frame.id" :id="frame.id" :position="frame.position" :rotation="frame.rotation"></frame>
       <camera :position="camera.position" :controls-enabled="controlsEnabled"></camera>
       <light :position="camera.position"></light>
@@ -138,10 +138,8 @@
 
           if(this.tweetsToRender.length % 2 == 0) {
               tweet.position = PathCalculator.after(this.pathParams.separator - 30, 'left')
-              tweet.rotation = { x: SimulationParams.tweetRotation.x, y: -SimulationParams.tweetRotation.y, z: SimulationParams.tweetRotation.z }
           } else {
             tweet.position = PathCalculator.after(this.pathParams.separator - 30, 'right')
-            tweet.rotation = { x: SimulationParams.tweetRotation.x, y: SimulationParams.tweetRotation.y, z: SimulationParams.tweetRotation.z }
           }
 
           this.$store.dispatch('removeFirstTweet')
