@@ -294,6 +294,14 @@
       }
     }
 
+    @media screen and (max-width: 400px) {
+
+      .content {
+        width: 100%;
+        margin-left: -50%;
+      }
+    }
+
   }
 
 </style>
