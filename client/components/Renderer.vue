@@ -27,6 +27,7 @@
 
   let cycleFramesInterval = null
   let cycleTweetsInterval = null
+  let cameraTween = null
 
   export default {
     name: 'Renderer',
@@ -97,7 +98,7 @@
         this.pathParams.offset += SimulationParams.pathAmountPerCycle
       },
       startSimulation: function () {
-        TweenMax.to(this.camera.position, SimulationParams.speed, { bezier: this.paths, ease: Linear.easeNone, repeat: 0, onComplete: this.buildSplineAndRun })
+        cameraTween = TweenMax.to(this.camera.position, SimulationParams.speed, { bezier: this.paths, ease: Linear.easeNone, repeat: 0, onComplete: this.buildSplineAndRun })
       },
       buildSplineAndRun: function() {
         this.drawPath()
@@ -161,6 +162,26 @@
             this.$router.push({ path: '/hashtag' })
           }, 6 * 1000)
         }
+      },
+      createPauseHandler: function () {
+        if (false) { //TODO : is mobile
+          window.addEventListener("click", this.pauseOrPlay, false)
+        } else {
+          window.addEventListener("keydown", this.pauseOrPlaySpacebarHandler, false)
+          window.addEventListener("keyup", this.pauseOrPlaySpacebarHandler, false)
+        }
+      },
+      pause: function() {
+        cameraTween.timeScale(0.3)
+      },
+      play: function() {
+        cameraTween.timeScale(1)
+      },
+      pauseOrPlaySpacebarHandler: function (e) {
+        const onSpaceDown = (e, f) => { if (e.code == "Space" && e.type == "keydown") f() }
+        const onSpaceUp = (e, f) => { if (e.code == "Space" && e.type == "keyup") f() }
+        onSpaceDown(e, this.pause)
+        onSpaceUp(e, this.play)
       }
     },
     mounted () {
@@ -178,6 +199,7 @@
           this.isLoaded = true
           this.buildSplineAndRun()
           cycleTweetsInterval = setInterval(this.cycleTweets, 1000)
+          this.createPauseHandler()
         } else {
           this.$router.push({ path: '/hashtag' })
         }
@@ -198,6 +220,12 @@
     beforeDestroy () {
       clearInterval(cycleTweetsInterval)
       clearInterval(cycleFramesInterval)
+      if (false) { // TODO : is mobile
+        document.removeEventListener("click", this.pauseOrPlay)
+      } else {
+        document.removeEventListener("keyup", this.pauseOrPlaySpacebarHandler)
+        document.removeEventListener("keydown", this.pauseOrPlaySpacebarHandler)
+      }
       this.$store.dispatch('resetAfterExperiment')
     }
   }
