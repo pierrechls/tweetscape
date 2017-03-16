@@ -202,6 +202,15 @@
               text-align: left;
             }
 
+            input, input:before, input:after {
+              user-drag: initial;
+              user-select: initial;
+              -moz-user-select: initial;
+              -webkit-user-drag: initial;
+              -webkit-user-select: initial;
+              -ms-user-select: initial;
+            }
+
           }
 
         }
