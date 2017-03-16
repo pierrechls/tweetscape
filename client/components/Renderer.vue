@@ -126,12 +126,11 @@
         }
       },
       cycleTweets: function() {
-
         if(this.tweets.length > 0) {
           let tweet = this.tweets[0]
 
           if(this.tweetsToRender.length % 2 == 0) {
-              tweet.position = PathCalculator.after(this.pathParams.separator - 30, 'left')
+            tweet.position = PathCalculator.after(this.pathParams.separator - 30, 'left')
           } else {
             tweet.position = PathCalculator.after(this.pathParams.separator - 30, 'right')
           }
@@ -141,13 +140,12 @@
           this.tweetsToRender.push(tweet)
 
           if(this.experimentOngoing && this.tweets.length < 5 ) {
-              getTweetsFromAPI()
-                .then(
-                  () => this.$store.dispatch('updateTweets'),
-                  () => this.experimentOngoing = false
-                )
+            getTweetsFromAPI()
+              .then(
+                () => this.$store.dispatch('updateTweets'),
+                () => this.experimentOngoing = false
+              )
           }
-
         }
 
         if(this.visibleTweets.length == 0) {
@@ -163,11 +161,9 @@
             this.$router.push({ path: '/hashtag' })
           }, 6 * 1000)
         }
-
       }
     },
     mounted () {
-
       this.$store.dispatch('showEndMessage', false)
 
       const freq = SimulationParams.pathFrequency
@@ -196,9 +192,8 @@
 
       let events = 'enter-vr exit-vr'
       events.split(' ').forEach(e => scene.addEventListener(e, () => {
-          this.isVR = scene.is('vr-mode')
+        this.isVR = scene.is('vr-mode')
       }), false)
-
     },
     beforeDestroy () {
       clearInterval(cycleTweetsInterval)
