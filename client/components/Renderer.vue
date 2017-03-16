@@ -20,7 +20,6 @@
   import Frame from 'components/Frame'
 
   import SimulationParams from '../params.js'
-  import Vector3D from 'utils/maths/vector3d.js'
   import Random from 'utils/maths/random.js'
   import PathCalculator from 'utils/PathCalculator.js'
 
