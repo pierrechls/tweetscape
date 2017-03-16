@@ -24,6 +24,7 @@
   import PathCalculator from 'utils/PathCalculator.js'
 
   import { getTweetsFromAPI } from 'store/api'
+  import { isMobile } from 'utils/isMobile'
 
   let cycleFramesInterval = null
   let cycleTweetsInterval = null
@@ -164,7 +165,7 @@
         }
       },
       createPauseHandler: function () {
-        if (false) { //TODO : is mobile
+        if (isMobile()) {
           window.addEventListener("click", this.pauseOrPlay, false)
         } else {
           window.addEventListener("keydown", this.pauseOrPlaySpacebarHandler, false)
@@ -220,7 +221,7 @@
     beforeDestroy () {
       clearInterval(cycleTweetsInterval)
       clearInterval(cycleFramesInterval)
-      if (false) { // TODO : is mobile
+      if (isMobile()) {
         document.removeEventListener("click", this.pauseOrPlay)
       } else {
         document.removeEventListener("keyup", this.pauseOrPlaySpacebarHandler)
