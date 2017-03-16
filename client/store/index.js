@@ -12,6 +12,7 @@ const state = {
   max_id: '',
   hashtag: null,
   gradients: [],
+  showPreloader: false,
   showEndMessage: false
 }
 
@@ -42,7 +43,10 @@ const mutations = {
   },
   RESET_TWEETS(state) {
     state.tweets = []
-  }
+  },
+  SHOW_PRELOADER(state, show) {
+    state.showPreloader = show
+  },
 }
 
 const actions = {
@@ -81,6 +85,9 @@ const actions = {
     commit('SET_HASHTAG', null)
     commit('RESET_TWEETS'),
     commit('SET_TWEETS_MAX_ID', '')
+  },
+  showPreloader({commit}, show) {
+    commit('SHOW_PRELOADER', show)
   }
 }
 
