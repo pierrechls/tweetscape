@@ -96,9 +96,6 @@
         this.paths = tempPaths
         this.pathParams.offset += SimulationParams.pathAmountPerCycle
       },
-      initLastPath: function () {
-        this.lastPath = this.paths[0]
-      },
       startSimulation: function () {
         TweenMax.to(this.camera.position, SimulationParams.speed, { bezier: this.paths, ease: Linear.easeNone, repeat: 0, onComplete: this.buildSplineAndRun })
       },
