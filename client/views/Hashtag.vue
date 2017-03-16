@@ -61,8 +61,12 @@
             this.isLoading = true
             this.gradientCanvas.gradient.changeState('timeline-state')
             this.startLoader()
-            this.$store.dispatch('sortTweetsByDate')
-            this.goToTimeline()
+              .then( () => {
+                this.$store.dispatch('sortTweetsByDate')
+                setTimeout( () => {
+                  this.goToTimeline()
+                }, 3 * 1000)
+              })
           }, (response) => {
             if(response.error == -1) {
               this.requestError.message = 'Your hashtag seems to be not very famous'
@@ -79,13 +83,19 @@
           })
       },
       startLoader: function () {
-        TweenMax.fromTo('.preloader', 1.5, { opacity: 0 }, { opacity: 1, onComplete: () => {}})
+          return new Promise( (resolve, reject) => {
+            this.$store.dispatch('showPreloader', true)
+            setTimeout( () => {
+              resolve()
+            }, 3 * 1000)
+          })
       },
       goToTimeline: function () {
-        TweenMax.fromTo('.preloader', 1.5, { opacity: 1 }, { opacity: 0, onComplete: () => {
+        this.$store.dispatch('showPreloader', false)
+        setTimeout( () => {
           this.isLoading = false
           this.$router.push({ path: '/timeline' })
-        }}).delay(1)
+        }, 1 * 1000)
       },
       focusToInput: function () {
         this.$el.querySelector('#hashtaginput').focus()
