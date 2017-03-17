@@ -1,6 +1,12 @@
-[![version](https://img.shields.io/badge/version-1.1.0-green.svg?style=flat-square)](https://github.com/pierrechls/tweetscape) [![Build status](https://img.shields.io/badge/build-passing-green.svg?style=flat-square)](https://img.shields.io/badge/build-passing-green.svg?style=flat-square) [![front-end-framework](https://img.shields.io/badge/front--end%20framework-vue.js-lightgrey.svg?style=flat-square)](http://vuejs.org/) [![vr-framework](https://img.shields.io/badge/vr%20framework-a--frame-lightgrey.svg?style=flat-square)](https://aframe.io/) [![js-standard-style](https://img.shields.io/badge/code_style-standard-lightgrey.svg?style=flat-square)](http://standardjs.com/)
+<p align="center" style="text:align:center;">
+  <a href="https://github.com/pierrechls/tweetscape"><img src="https://img.shields.io/badge/version-1.1.0-green.svg?style=flat-square"></a>
+  <a href="https://img.shields.io/badge/build-passing-green.svg?style=flat-square"><img src="https://img.shields.io/badge/build-passing-green.svg?style=flat-square"></a>
+  <a href="http://vuejs.org/"><img src="https://img.shields.io/badge/front--end%20framework-vue.js-lightgrey.svg?style=flat-square"></a>
+  <a href="https://aframe.io/"><img src="https://img.shields.io/badge/vr%20framework-a--frame-lightgrey.svg?style=flat-square"></a>
+  <a href="http://standardjs.com/"><img src="https://img.shields.io/badge/code_style-standard-lightgrey.svg?style=flat-square"></a>
+</p>
 
-<h1 align="center" style="text:align:center;">T W E E T S C A P E</h1>
+<h1 align="center" style="text:align:center; border: 0;">T W E E T S C A P E</h1>
 
 <h6 align="center" style="text:align:center;">A WebVR experience displaying tweets along a 3D timeline</h6>
 
