@@ -72,4 +72,34 @@
     -ms-user-select: none;
   }
 
+  @media screen and (min-width: 1200px) {
+    html {
+      font-size: 110%;
+    }
+  }
+
+  @media screen and (min-width: 1400px) {
+    html {
+      font-size: 120%;
+    }
+  }
+
+  @media screen and (min-width: 1600px) {
+    html {
+      font-size: 130%;
+    }
+  }
+
+  @media screen and (min-width: 1800px) {
+    html {
+      font-size: 140%;
+    }
+  }
+
+  @media screen and (min-width: 1900px) {
+    html {
+      font-size: 150%;
+    }
+  }
+
 </style>
