@@ -1,6 +1,6 @@
 {
   "name": "tweetscape",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A WebRV experience displaying tweets along a 3D timeline",
   "author": "Pierre Charles <pierre.chls@gmail.com>",
   "private": true,
