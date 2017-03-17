@@ -219,7 +219,8 @@
           outline: none;
           border: none;
           padding: 1rem 2rem;
-          border-radius: 8px;
+          font-size: 0.7rem;
+          border-radius: 0.4rem;
           color: #FFF;
           opacity: 1;
           text-transform: uppercase;
