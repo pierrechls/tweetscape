@@ -9,7 +9,7 @@
         </svg>
       </div>
       <div :class="showPreloaderInfos ? 'informations show' : 'informations'">
-        <div v-if="isMobile" class="mobile-infos">
+        <div v-if="mobile" class="mobile-infos">
           <div class="info landscape">
             <img src="~assets/icons/smarthphone-orientation.svg" />
             <p>Turn your mobile to landscape mode</p>
@@ -43,6 +43,11 @@
       return {
         showPreloaderIcon: false,
         showPreloaderInfos: false
+      }
+    },
+    computed: {
+      mobile: function () {
+        return isMobile()
       }
     },
     mounted () {
