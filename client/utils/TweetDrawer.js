@@ -69,7 +69,7 @@ class TweetDrawer {
 
         this.ctx.save()
         this.ctx.beginPath()
-          this.ctx.arc((this.canvas.width / 2),150 - (this.lines.length + 1) * 5,50,0,2*Math.PI)
+          this.ctx.arc((this.canvas.width / 2), 150 - (this.lines.length + 1) * 5, 50, 0, 2 * Math.PI)
         this.ctx.closePath()
         this.ctx.globalAlpha = 0.7
         this.ctx.fillStyle = '#112c5b'
