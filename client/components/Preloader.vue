@@ -18,9 +18,17 @@
             <img src="~assets/icons/cardboard.svg" />
             <p>Insert your mobile in your Cardboard</p>
           </div>
+          <div class="info touch">
+            <img src="~assets/icons/touch.svg" />
+            <p>Touch the screen to slow down</p>
+          </div>
         </div>
         <div v-else class="desktop-infos">
-          <div class="info landscape">
+          <div class="info move">
+            <img src="~assets/icons/move-mouse.svg" />
+            <p>Move mouse to rotate the camera</p>
+          </div>
+          <div class="info spacebar">
             <img src="~assets/icons/spacebar.svg" />
             <p>Press spacebar to slow down</p>
           </div>
@@ -134,6 +142,7 @@
       width: 10rem;
       margin: 0 2rem;
       display: inline-block;
+      vertical-align: top;
     }
 
     img {
