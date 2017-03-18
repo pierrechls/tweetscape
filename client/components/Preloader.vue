@@ -10,25 +10,21 @@
       </div>
       <div :class="showPreloaderInfos ? 'informations show' : 'informations'">
         <div v-if="mobile" class="mobile-infos">
-          <div class="info landscape">
+          <div class="info landscape col">
             <img src="~assets/icons/smarthphone-orientation.svg" />
             <p>Turn your mobile to landscape mode</p>
           </div>
-          <div class="info cardboard">
-            <img src="~assets/icons/cardboard.svg" />
-            <p>Insert your mobile in your Cardboard</p>
-          </div>
-          <div class="info touch">
+          <div class="info touch col">
             <img src="~assets/icons/touch.svg" />
             <p>Touch the screen to slow down</p>
           </div>
         </div>
         <div v-else class="desktop-infos">
-          <div class="info move">
+          <div class="info move col">
             <img src="~assets/icons/move-mouse.svg" />
-            <p>Move mouse to rotate the camera</p>
+            <p>Move mouse to rotate camera</p>
           </div>
-          <div class="info spacebar">
+          <div class="info spacebar col">
             <img src="~assets/icons/spacebar.svg" />
             <p>Press spacebar to slow down</p>
           </div>
@@ -88,8 +84,8 @@
     text-align : center;
     width: 100%;
     height: 100%;
-    min-height: 23rem;
-    min-width: 23rem;
+    /*min-height: 23rem;*/
+    /*min-width: 23rem;*/
     opacity: 0;
     -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
@@ -117,6 +113,7 @@
     display : inline-block;
     text-align : center;
     vertical-align : middle;
+    width: 40rem;
   }
 
   .preloader-path {
@@ -143,6 +140,13 @@
       margin: 0 2rem;
       display: inline-block;
       vertical-align: top;
+
+      &.col {
+        width: 45%;
+        margin: 0;
+        padding: 1%;
+      }
+
     }
 
     img {
@@ -155,8 +159,28 @@
       font-size: 1rem;
       color: #FFFFFF;
       text-transform: uppercase;
+      width: 8rem;
+      margin: 0.5rem auto 0 auto;
     }
 
+  }
+
+  @media screen and (max-width: 600px) {
+    .preloader-center {
+      width: 400px;
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    .preloader-center {
+      width: 300px;
+    }
+  }
+
+  @media screen and (max-width: 350px) {
+    .preloader-center {
+      width: auto;
+    }
   }
 
 </style>
