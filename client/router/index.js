@@ -23,6 +23,10 @@ export default new Router({
       name: 'timeline',
       path: '/timeline',
       component: Timeline
+    },
+    {
+      path: '*',
+      redirect: '/'
     }
   ]
 })

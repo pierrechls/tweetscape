@@ -34,6 +34,10 @@
 
   @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400i,600,600i,700,700i,900,900i');
 
+  html {
+    font-size: 100%;
+  }
+
   body {
     margin: 0;
     font-size: 2rem;
@@ -66,6 +70,36 @@
     -webkit-user-drag: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+  }
+
+  @media screen and (min-width: 1200px) {
+    html {
+      font-size: 110%;
+    }
+  }
+
+  @media screen and (min-width: 1400px) {
+    html {
+      font-size: 120%;
+    }
+  }
+
+  @media screen and (min-width: 1600px) {
+    html {
+      font-size: 130%;
+    }
+  }
+
+  @media screen and (min-width: 1800px) {
+    html {
+      font-size: 140%;
+    }
+  }
+
+  @media screen and (min-width: 1900px) {
+    html {
+      font-size: 150%;
+    }
   }
 
 </style>

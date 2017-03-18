@@ -61,8 +61,12 @@
             this.isLoading = true
             this.gradientCanvas.gradient.changeState('timeline-state')
             this.startLoader()
-            this.$store.dispatch('sortTweetsByDate')
-            this.goToTimeline()
+              .then( () => {
+                this.$store.dispatch('sortTweetsByDate')
+                setTimeout( () => {
+                  this.goToTimeline()
+                }, 3 * 1000)
+              })
           }, (response) => {
             if(response.error == -1) {
               this.requestError.message = 'Your hashtag seems to be not very famous'
@@ -79,13 +83,19 @@
           })
       },
       startLoader: function () {
-        TweenMax.fromTo('.preloader', 1.5, { opacity: 0 }, { opacity: 1, onComplete: () => {}})
+          return new Promise( (resolve, reject) => {
+            this.$store.dispatch('showPreloader', true)
+            setTimeout( () => {
+              resolve()
+            }, 3 * 1000)
+          })
       },
       goToTimeline: function () {
-        TweenMax.fromTo('.preloader', 1.5, { opacity: 1 }, { opacity: 0, onComplete: () => {
+        this.$store.dispatch('showPreloader', false)
+        setTimeout( () => {
           this.isLoading = false
           this.$router.push({ path: '/timeline' })
-        }}).delay(1)
+        }, 1 * 1000)
       },
       focusToInput: function () {
         this.$el.querySelector('#hashtaginput').focus()
@@ -192,6 +202,15 @@
               text-align: left;
             }
 
+            input, input:before, input:after {
+              user-drag: initial;
+              user-select: initial;
+              -moz-user-select: initial;
+              -webkit-user-drag: initial;
+              -webkit-user-select: initial;
+              -ms-user-select: initial;
+            }
+
           }
 
         }
@@ -200,7 +219,8 @@
           outline: none;
           border: none;
           padding: 1rem 2rem;
-          border-radius: 8px;
+          font-size: 0.7rem;
+          border-radius: 0.4rem;
           color: #FFF;
           opacity: 1;
           text-transform: uppercase;
@@ -281,6 +301,14 @@
       .request-error {
         width: 10rem;
         margin-left: -5rem;
+      }
+    }
+
+    @media screen and (max-width: 400px) {
+
+      .content {
+        width: 100%;
+        margin-left: -50%;
       }
     }
 

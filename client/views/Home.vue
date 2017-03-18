@@ -62,12 +62,12 @@
 
       .mask {
         position: absolute;
-        width: 10rem;
-        height: 10rem;
+        width: 10.1rem;
+        height: 10.1rem;
         top: 50%;
         left: 50%;
-        margin-top: -5rem;
-        margin-left: -5rem;
+        margin-top: -5.05rem;
+        margin-left: -5.05rem;
 
         img {
           width: 100%;
