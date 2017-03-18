@@ -30,12 +30,6 @@ class TweetDrawer {
     this.ctx.fillRect (0, 0, this.canvas.width, this.canvas.height)
   }
 
-  drawBorder () {
-    this.ctx.strokeStyle = "#021941"
-    this.ctx.lineWidth = 20
-    this.ctx.strokeRect(0, 0, this.canvas.width, this.canvas.height)
-  }
-
   drawContent () {
     CanvasTextWrapper(this.canvas, this.lines, textStyle)
   }
@@ -106,7 +100,6 @@ class TweetDrawer {
   draw () {
     return new Promise((resolve, reject) => {
       this.drawBackground()
-      this.drawBorder()
       this.drawContent()
       this.drawUserName()
       this.drawUserScreenName()
