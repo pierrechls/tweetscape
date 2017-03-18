@@ -18,6 +18,7 @@ class TweetDrawer {
     this.ctx = canvas.getContext('2d')
     this.color = '#FF0000'
     this.lines = getLines(this.ctx, this.tweet.content, this.canvas.width, textStyle.fontSize)
+    this.filterOpacity = 0.7
   }
 
   drawBackground () {
@@ -28,6 +29,33 @@ class TweetDrawer {
 
     this.ctx.fillStyle = grd
     this.ctx.fillRect (0, 0, this.canvas.width, this.canvas.height)
+  }
+
+  getImageLightness () {
+    let imageData = this.ctx.getImageData((this.canvas.width / 2)-imageStyle.imageSize, (150 - (this.lines.length + 1) * 5)-imageStyle.imageSize, 2 * imageStyle.imageSize, 2 * imageStyle.imageSize)
+    let data = imageData.data
+    let color = { r: 0, g: 0, b: 0 }
+    let avg
+    let colorSum = 0
+
+    for(var x = 0, len = data.length; x < len; x+=4) {
+        color.r = data[x]
+        color.g = data[x+1]
+        color.b = data[x+2]
+
+        avg = Math.floor((color.r + color.g + color.b)/3)
+        colorSum += avg
+    }
+
+    let brightness = Math.floor(colorSum / ((2 * imageStyle.imageSize)*(2 * imageStyle.imageSize)))
+
+    if(brightness <= 100) {
+      this.filterOpacity = 0.4
+    } else if (brightness <= 140) {
+      this.filterOpacity = 0.6
+    } else {
+      this.filterOpacity = 0.8
+    }
   }
 
   drawContent () {
@@ -55,6 +83,8 @@ class TweetDrawer {
         this.ctx.drawImage(img, (this.canvas.width / 2)-imageStyle.imageSize, (150 - (this.lines.length + 1) * 5)-imageStyle.imageSize, 2 * imageStyle.imageSize, 2 * imageStyle.imageSize)
         this.ctx.filter = 'grayscale(0%)'
 
+        this.getImageLightness()
+
         this.ctx.beginPath()
           this.ctx.arc((this.canvas.width / 2)-imageStyle.imageSize, (150 - (this.lines.length + 1) * 5)-imageStyle.imageSize, imageStyle.imageSize, 0, Math.PI*2, true)
         this.ctx.clip()
@@ -65,7 +95,7 @@ class TweetDrawer {
         this.ctx.beginPath()
           this.ctx.arc((this.canvas.width / 2), 150 - (this.lines.length + 1) * 5, 50, 0, 2 * Math.PI)
         this.ctx.closePath()
-        this.ctx.globalAlpha = 0.7
+        this.ctx.globalAlpha = this.filterOpacity
         this.ctx.fillStyle = '#112c5b'
         this.ctx.fill()
         this.ctx.globalAlpha = 1
