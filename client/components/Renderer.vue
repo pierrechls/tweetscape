@@ -166,11 +166,11 @@
       },
       createPauseHandler: function () {
         if (isMobile()) {
-          window.addEventListener("touchstart", this.pauseOrPlayTouchHandler, false)
-          window.addEventListener("touchend", this.pauseOrPlayTouchHandler, false)
+          window.addEventListener('touchstart', this.pauseOrPlayTouchHandler, false)
+          window.addEventListener('touchend', this.pauseOrPlayTouchHandler, false)
         } else {
-          window.addEventListener("keydown", this.pauseOrPlaySpacebarHandler, false)
-          window.addEventListener("keyup", this.pauseOrPlaySpacebarHandler, false)
+          window.addEventListener('keydown', this.pauseOrPlaySpacebarHandler, false)
+          window.addEventListener('keyup', this.pauseOrPlaySpacebarHandler, false)
         }
       },
       pause: function() {
@@ -180,14 +180,14 @@
         cameraTween.timeScale(1)
       },
       pauseOrPlaySpacebarHandler: function (e) {
-        const onSpaceDown = (e, f) => { if (e.code == "Space" && e.type == "keydown") f() }
-        const onSpaceUp = (e, f) => { if (e.code == "Space" && e.type == "keyup") f() }
+        const onSpaceDown = (e, f) => { if (e.code == 'Space' && e.type == 'keydown') f() }
+        const onSpaceUp = (e, f) => { if (e.code == 'Space' && e.type == 'keyup') f() }
         onSpaceDown(e, this.pause)
         onSpaceUp(e, this.play)
       },
       pauseOrPlayTouchHandler: function(e) {
-        const onTouchStart = (e, f) => { if (e.type == "touchstart") f() }
-        const onTouchEnd = (e, f) => { if (e.type == "touchend") f() }
+        const onTouchStart = (e, f) => { if (e.type == 'touchstart') f() }
+        const onTouchEnd = (e, f) => { if (e.type == 'touchend') f() }
         onTouchStart(e, this.pause)
         onTouchEnd(e, this.play)
       }
@@ -229,10 +229,11 @@
       clearInterval(cycleTweetsInterval)
       clearInterval(cycleFramesInterval)
       if (isMobile()) {
-        document.removeEventListener("click", this.pauseOrPlay)
+        document.removeEventListener('touchstart', this.pauseOrPlayTouchHandler)
+        document.removeEventListener('touchend', this.pauseOrPlayTouchHandler)
       } else {
-        document.removeEventListener("keyup", this.pauseOrPlaySpacebarHandler)
-        document.removeEventListener("keydown", this.pauseOrPlaySpacebarHandler)
+        document.removeEventListener('keyup', this.pauseOrPlaySpacebarHandler)
+        document.removeEventListener('keydown', this.pauseOrPlaySpacebarHandler)
       }
       this.$store.dispatch('resetAfterExperiment')
     }
