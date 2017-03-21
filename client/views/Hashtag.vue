@@ -71,7 +71,7 @@
             if(response.error == -1) {
               this.requestError.message = 'Your hashtag seems to be not very famous'
             } else {
-              this.requestError.message = 'Problem when connecting to the twitter API'
+              this.requestError.message = 'Problem when connecting to the twitter API. The Twitter API throttling being pretty heavy, you might have to try again later. Sorry!'
             }
 
             setTimeout( () => { this.requestError.show = true }, 1 * 1000)
