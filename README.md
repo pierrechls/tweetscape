@@ -1,7 +1,5 @@
 <p align="center" style="text-align:center;">
-  <a href="https://github.com/pierrechls/tweetscape"><img src="https://img.shields.io/badge/version-1.1.0-green.svg?style=flat-square"></a>
-  <a href="https://img.shields.io/badge/build-passing-green.svg?style=flat-square"><img src="https://img.shields.io/badge/build-passing-green.svg?style=flat-square"></a>
-  <a href="http://vuejs.org/"><img src="https://img.shields.io/badge/front--end%20framework-vue.js-lightgrey.svg?style=flat-square"></a>
+  <a href="https://github.com/pierrechls/tweetscape"><img src="https://img.shields.io/badge/version-1.1.1-green.svg?style=flat-square"></a> <a href="http://vuejs.org/"><img src="https://img.shields.io/badge/front--end%20framework-vue.js-lightgrey.svg?style=flat-square"></a>
   <a href="https://aframe.io/"><img src="https://img.shields.io/badge/vr%20framework-a--frame-lightgrey.svg?style=flat-square"></a>
   <a href="http://standardjs.com/"><img src="https://img.shields.io/badge/code_style-standard-lightgrey.svg?style=flat-square"></a>
 </p>
