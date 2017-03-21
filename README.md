@@ -8,7 +8,7 @@
 
 <h1 align="center" style="text-align:center; border: 0;">T W E E T S C A P E</h1>
 
-<h6 align="center" style="text-align:center;">A WebVR experience displaying tweets along a 3D timeline</h6>
+<h6 align="center" style="text-align:center;">A WebVR experience displaying tweets in real-time along a 3D timeline</h6>
 
 <p align="center" style="text-align:center;">
   <img src="https://raw.githubusercontent.com/pierrechls/tweetscape/master/static/preview.gif" style="width:100%;">
