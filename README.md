@@ -17,7 +17,7 @@
 ### Clone the repo
 
 ```bash
-$ git clone git@github.com:pierrechls/tweetscape.git
+$ git clone https://github.com/pierrechls/tweetscape
 ```
 
 ### Connect your Twitter API
